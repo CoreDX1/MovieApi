@@ -1,0 +1,11 @@
+/home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Application.deps.json
+/home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Application.dll
+/home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Application.pdb
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.AssemblyInfoInputs.cache
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.AssemblyInfo.cs
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.csproj.CoreCompileInputs.cache
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.dll
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/refint/Application.dll
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.pdb
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/ref/Application.dll
