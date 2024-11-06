@@ -52,12 +52,18 @@ CREATE TABLE Comments (
   FOREIGN KEY (movie_id) REFERENCES Movies (id)
 );
 
-
 -- Insert sample data
 INSERT INTO Movies (title, synopsis, year, duration, genre, image)
 VALUES
-  ('Schindler''s List', '...', 1993, 120, 'Drama', '...'),
-  ('The Lord of the Rings', '...', 2001, 180, 'Fantasy', '...');
+  ('Schindler''s List', 
+   'The story of Oskar Schindler, a businessman who saved over a thousand Polish-Jewish refugees during the Holocaust by employing them in his factories.',
+   1993, 120, 'Drama', 
+   'https://example.com/images/schindlers_list.jpg'),
+   
+  ('The Lord of the Rings', 
+   'An epic tale of Middle-earth where Frodo Baggins, a hobbit, embarks on a journey to destroy the One Ring and save the world from Sauron.',
+   2001, 180, 'Fantasy', 
+   'https://example.com/images/lord_of_the_rings.jpg');
 
 INSERT INTO Actors (first_name, last_name, birthdate)
 VALUES
@@ -84,3 +90,6 @@ INSERT INTO Comments (movie_id, text, date)
 VALUES
   (1, 'Excellent movie', '2022-01-01'),
   (2, 'I loved the trilogy', '2022-02-01');
+
+select * from movies;
+

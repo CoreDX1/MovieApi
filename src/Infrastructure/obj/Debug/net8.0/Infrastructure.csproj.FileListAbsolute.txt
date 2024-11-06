@@ -12,3 +12,8 @@
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Infrastructure.runtimeconfig.json
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/obj/Debug/net8.0/Infrastructure.csproj.AssemblyReference.cache
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/obj/Debug/net8.0/Infrastructure.genruntimeconfig.cache
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Application.dll
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Domain.dll
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Application.pdb
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Domain.pdb
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/obj/Debug/net8.0/Infrastructure.csproj.CopyComplete
