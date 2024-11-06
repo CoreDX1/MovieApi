@@ -1,10 +1,11 @@
+using Domain.Common;
 using Domain.Entities;
 
 namespace Application.Common.Interfaces;
 
 public interface IMoviesServices
 {
-    public Task<IEnumerable<Movie>> GetAllAsync();
+    Task<ApiResult<IReadOnlyList<Movie>>> GetAllAsync();
     public Task<Movie> GetByIdAsync(int id);
     public Task<bool> AddAsync(Movie movie);
     public Task<bool> DeleteAsync(int id);

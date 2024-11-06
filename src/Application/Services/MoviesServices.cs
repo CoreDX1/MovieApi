@@ -1,4 +1,5 @@
 using Application.Common.Interfaces;
+using Domain.Common;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -12,10 +13,14 @@ public class MoviesServices : IMoviesServices
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<Movie>> GetAllAsync()
+    public async Task<ApiResult<IReadOnlyList<Movie>>> GetAllAsync()
     {
         var movies = await _unitOfWork.Movie.GetAllAsync();
-        return movies;
+
+        if (!movies.Any())
+            return ApiResult<IReadOnlyList<Movie>>.NotFound();
+
+        return ApiResult<IReadOnlyList<Movie>>.Succes(movies);
     }
 
     public Task<bool> AddAsync(Movie movie)

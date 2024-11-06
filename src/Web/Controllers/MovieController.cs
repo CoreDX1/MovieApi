@@ -14,7 +14,7 @@ public class MovieController : ControllerBase
         _moviesServices = moviesServices;
     }
 
-    [HttpGet]
+    [HttpGet("list")]
     public async Task<IActionResult> GetAll()
     {
         var movies = await _moviesServices.GetAllAsync();

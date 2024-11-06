@@ -14,7 +14,7 @@ public class MovieRepositories : IMovieRepositories
         _context = context;
     }
 
-    public async Task<IEnumerable<Movie>> GetAllAsync()
+    public async Task<IReadOnlyList<Movie>> GetAllAsync()
     {
         var movies = await _context.Movies.ToListAsync();
         return movies;

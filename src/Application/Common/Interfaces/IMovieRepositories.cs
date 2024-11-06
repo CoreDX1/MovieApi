@@ -4,7 +4,7 @@ namespace Application.Common.Interfaces;
 
 public interface IMovieRepositories
 {
-    Task<IEnumerable<Movie>> GetAllAsync();
+    Task<IReadOnlyList<Movie>> GetAllAsync();
     Task<Movie> GetByIdAsync(int id);
     Task<bool> AddAsync(Movie movie);
     Task<Movie> UpdateAsync(Movie movie);
