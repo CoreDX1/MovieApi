@@ -1,5 +1,5 @@
 {
-  "name": "app-client",
+  "name": "client-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:AppClient": "node dist/app-client/server/server.mjs"
+    "serve:ssr:ClientApp": "node dist/client-app/server/server.mjs"
   },
   "private": true,
   "dependencies": {

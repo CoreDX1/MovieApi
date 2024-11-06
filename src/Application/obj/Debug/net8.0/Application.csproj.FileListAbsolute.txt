@@ -9,3 +9,7 @@
 /home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/refint/Application.dll
 /home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.pdb
 /home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/ref/Application.dll
+/home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Domain.dll
+/home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Domain.pdb
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.csproj.AssemblyReference.cache
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.csproj.CopyComplete
