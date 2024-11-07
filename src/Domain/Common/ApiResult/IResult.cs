@@ -1,9 +1,9 @@
-namespace Domain.Common.Result;
+namespace Domain.Common.ApiResult;
 
 public interface IResult
 {
     ResultStatus Status { get; }
-    IEnumerable<string> Erorrs { get; }
+    IEnumerable<string> Errors { get; }
     IEnumerable<ValidationError> ValidationErrors { get; }
     Type ValueType { get; }
     object GetValue();

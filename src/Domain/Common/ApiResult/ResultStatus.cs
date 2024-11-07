@@ -1,4 +1,4 @@
-namespace Domain.Common.Result;
+namespace Domain.Common.ApiResult;
 
 public enum ResultStatus
 {
