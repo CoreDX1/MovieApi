@@ -2,5 +2,7 @@
 
 GET {{Web_HostAddress}}/api/movie/
 Accept: application/json
-
 ###
+
+GET {{Web_HostAddress}}/api/movie/10
+Accept: application/json

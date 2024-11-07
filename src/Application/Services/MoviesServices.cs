@@ -25,7 +25,7 @@ public class MoviesServices : IMoviesServices
 
         // Si no hay movies, retorna una respuesta 404
         if (movies == null)
-            return Result<IReadOnlyList<MovieDtoResponse>>.Error("No movies found");
+            return Result<IReadOnlyList<MovieDtoResponse>>.NotFound();
 
         // Si hay movies, mapea los movies a MovieDtoResponse y retorna la respuesta
         var moviesDto = _mapper.Map<IReadOnlyList<MovieDtoResponse>>(movies);
@@ -35,10 +35,15 @@ public class MoviesServices : IMoviesServices
 
     public async Task<Result<MovieDtoResponse>> GetByIdAsync(int id)
     {
+        if (id <= 0)
+        {
+            return Result<MovieDtoResponse>.Error("Invalid movie id");
+        }
+
         var movie = await _unitOfWork.Movie.GetByIdAsync(id);
 
         if (movie == null)
-            return Result<MovieDtoResponse>.Error("Movie not found");
+            return Result<MovieDtoResponse>.NotFound();
 
         var movieDto = _mapper.Map<MovieDtoResponse>(movie);
         return Result<MovieDtoResponse>.Success(movieDto);

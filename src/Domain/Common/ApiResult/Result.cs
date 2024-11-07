@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Domain.Common.Constants;
 
 namespace Domain.Common.ApiResult;
 
@@ -7,6 +8,8 @@ public class Result<T> : IResult
     protected Result() { }
 
     public Result(T value) => Value = value;
+
+    protected internal Result(string successMessage) => SuccessMessage = successMessage;
 
     protected internal Result(T value, string successMessage)
         : this(value) => SuccessMessage = successMessage;
@@ -48,9 +51,7 @@ public class Result<T> : IResult
 
     public object GetValue() => Value;
 
-    public static Result<T> Success(T value) => new(value);
-
-    public static Result<T> Success(T value, string successMessage) => new(value, successMessage);
+    public static Result<T> Success(T value) => new(value, ReplyMessage.Success.Query);
 
     public static Result<T> Created(T value) => new(ResultStatus.Created) { Value = value };
 
@@ -59,4 +60,10 @@ public class Result<T> : IResult
 
     public static Result<T> Error(string errorMessage) =>
         new(ResultStatus.Error) { Errors = [errorMessage] };
+
+    public static Result<T> NotFound() =>
+        new(ResultStatus.NotFound) { Errors = [ReplyMessage.Error.NotFound] };
+
+    public static Result<T> NotFound(params string[] errorMessages) =>
+        new(ResultStatus.NotFound) { Errors = errorMessages };
 }
