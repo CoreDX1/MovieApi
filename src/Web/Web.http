@@ -1,6 +1,6 @@
 @Web_HostAddress = http://localhost:5191
 
-GET {{Web_HostAddress}}/api/movie/list
+GET {{Web_HostAddress}}/api/movie/
 Accept: application/json
 
 ###

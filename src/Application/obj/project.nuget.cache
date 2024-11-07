@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "LpDWXfxHfmSpysNVOjkLW0haVypRrfTRX3S1p3Nh0FARoey/GeUq1hf4/DtP3H0+BrM/4JH6BypI+tZ9rihlGg==",
+  "dgSpecHash": "dppm6VaryMzcp82BP209YvJDmX5pMLLfn/dywUSXGOG15x+g2Fm0foLzPA9Ke9CRg2UkdkbLdHaVC+e2Pmrx4A==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Application/Application.csproj",
   "expectedPackageFiles": [
+    "/home/core/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore/8.0.10/microsoft.entityframeworkcore.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.10/microsoft.entityframeworkcore.abstractions.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.10/microsoft.entityframeworkcore.analyzers.8.0.10.nupkg.sha512",

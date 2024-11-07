@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "M+/ae16/qewyu51NxeQRUlKLR9t99sc5lqWX77+vOZBqkhcdkZlg/vMlLV7wn3YwGbLtp+qvLpuQ5TbrlV4hgg==",
+  "dgSpecHash": "pBSEj4V8C3pEadTXTQTEzzuaECB0MwD84cUoxHLAnD8SvkFogadG9c8sJbestdJPEIKnstjxvfW9KRyrrF9a8w==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Web/Web.csproj",
   "expectedPackageFiles": [
+    "/home/core/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.aspnetcore.openapi/8.0.10/microsoft.aspnetcore.openapi.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore/8.0.10/microsoft.entityframeworkcore.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.10/microsoft.entityframeworkcore.abstractions.8.0.10.nupkg.sha512",

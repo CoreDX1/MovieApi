@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "VgpaDOFl8r4jO6Ss3uPNIMf/uMtm5/D61xaynFHxbapVSIikRbgrj+rj6nJCerLG5gTL+os31KR4sXchmdJ3mg==",
+  "dgSpecHash": "mLoE4o+VIZJuGfB2Lzfha7MtxC19u4BLbyplBTfKufpjjk1gBBCVlzAQwwQBTRrL0qYPqtkPOSawFcGteM5WQA==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Infrastructure/Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/home/core/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
     "/home/core/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.3/microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
