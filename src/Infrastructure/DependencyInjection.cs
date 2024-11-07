@@ -1,4 +1,5 @@
 using Application.Common.Interfaces;
+using Application.Common.Interfaces.Repositories;
 using Infrastructure.Data.Migrations;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.UnitOfWork;

@@ -3,6 +3,7 @@ using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using AutoMapper;
 using Domain.Common;
+using Domain.Common.ApiResult;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -24,12 +25,12 @@ public class MoviesServices : IMoviesServices
 
         // Si no hay movies, retorna una respuesta 404
         if (movies == null)
-            return Result<IReadOnlyList<MovieDtoResponse>>.NotFound();
+            return Result<IReadOnlyList<MovieDtoResponse>>.Error("No movies found");
 
         // Si hay movies, mapea los movies a MovieDtoResponse y retorna la respuesta
         var moviesDto = _mapper.Map<IReadOnlyList<MovieDtoResponse>>(movies);
 
-        return Result<IReadOnlyList<MovieDtoResponse>>.Succes(moviesDto);
+        return Result<IReadOnlyList<MovieDtoResponse>>.Success(moviesDto);
     }
 
     public async Task<Result<MovieDtoResponse>> GetByIdAsync(int id)
@@ -37,10 +38,10 @@ public class MoviesServices : IMoviesServices
         var movie = await _unitOfWork.Movie.GetByIdAsync(id);
 
         if (movie == null)
-            return Result<MovieDtoResponse>.NotFound();
+            return Result<MovieDtoResponse>.Error("Movie not found");
 
         var movieDto = _mapper.Map<MovieDtoResponse>(movie);
-        return Result<MovieDtoResponse>.Succes(movieDto);
+        return Result<MovieDtoResponse>.Success(movieDto);
     }
 
     public Task<bool> AddAsync(Movie movie)

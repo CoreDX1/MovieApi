@@ -1,5 +1,5 @@
 using Application.Common.Models;
-using Domain.Common;
+using Domain.Common.ApiResult;
 using Domain.Entities;
 
 namespace Application.Common.Interfaces.Services;
