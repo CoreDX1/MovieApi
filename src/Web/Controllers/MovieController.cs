@@ -1,4 +1,5 @@
-using Application.Common.Interfaces;
+using Application.Common.Interfaces.Services;
+using Application.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -15,7 +16,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<MovieDtoResponse>> GetAll()
     {
         var movies = await _moviesServices.GetAllAsync();
         return Ok(movies);

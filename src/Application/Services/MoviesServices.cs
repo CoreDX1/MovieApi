@@ -18,29 +18,29 @@ public class MoviesServices : IMoviesServices
         _mapper = mapper;
     }
 
-    public async Task<ApiResult<IReadOnlyList<MovieDtoResponse>>> GetAllAsync()
+    public async Task<Result<IReadOnlyList<MovieDtoResponse>>> GetAllAsync()
     {
         var movies = await _unitOfWork.Movie.GetAllAsync();
 
         // Si no hay movies, retorna una respuesta 404
         if (movies == null)
-            return ApiResult<IReadOnlyList<MovieDtoResponse>>.NotFound();
+            return Result<IReadOnlyList<MovieDtoResponse>>.NotFound();
 
         // Si hay movies, mapea los movies a MovieDtoResponse y retorna la respuesta
         var moviesDto = _mapper.Map<IReadOnlyList<MovieDtoResponse>>(movies);
 
-        return ApiResult<IReadOnlyList<MovieDtoResponse>>.Succes(moviesDto);
+        return Result<IReadOnlyList<MovieDtoResponse>>.Succes(moviesDto);
     }
 
-    public async Task<ApiResult<MovieDtoResponse>> GetByIdAsync(int id)
+    public async Task<Result<MovieDtoResponse>> GetByIdAsync(int id)
     {
         var movie = await _unitOfWork.Movie.GetByIdAsync(id);
 
         if (movie == null)
-            return ApiResult<MovieDtoResponse>.NotFound();
+            return Result<MovieDtoResponse>.NotFound();
 
         var movieDto = _mapper.Map<MovieDtoResponse>(movie);
-        return ApiResult<MovieDtoResponse>.Succes(movieDto);
+        return Result<MovieDtoResponse>.Succes(movieDto);
     }
 
     public Task<bool> AddAsync(Movie movie)

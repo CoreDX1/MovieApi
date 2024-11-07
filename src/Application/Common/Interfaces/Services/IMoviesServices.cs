@@ -6,8 +6,8 @@ namespace Application.Common.Interfaces.Services;
 
 public interface IMoviesServices
 {
-    Task<ApiResult<IReadOnlyList<MovieDtoResponse>>> GetAllAsync();
-    Task<ApiResult<MovieDtoResponse>> GetByIdAsync(int id);
+    Task<Result<IReadOnlyList<MovieDtoResponse>>> GetAllAsync();
+    Task<Result<MovieDtoResponse>> GetByIdAsync(int id);
 
     Task<bool> AddAsync(Movie movie);
     Task<bool> DeleteAsync(int id);
