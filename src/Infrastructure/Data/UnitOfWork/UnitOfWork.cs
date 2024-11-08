@@ -8,21 +8,21 @@ public class UnitOfWork : IUnitOfWork
 {
     public IMovieRepositories Movie { get; }
 
-    private readonly ApiMovieContext dbContext;
+    private readonly ApiMovieContext _context;
 
     public UnitOfWork(IMovieRepositories movie, ApiMovieContext context)
     {
         Movie = movie;
-        dbContext = context;
+        _context = context;
     }
 
     public void Dispose()
     {
-        dbContext.Dispose();
+        _context.Dispose();
     }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return dbContext.SaveChangesAsync(cancellationToken);
+        return _context.SaveChangesAsync(cancellationToken);
     }
 }

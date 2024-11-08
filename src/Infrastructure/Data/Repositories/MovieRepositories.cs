@@ -55,4 +55,13 @@ public class MovieRepositories : IMovieRepositories
         await _context.SaveChangesAsync();
         return movie;
     }
+
+    public async Task<Movie> GetByTitleAsync(string title)
+    {
+        var movie = await _context.Movies.FirstOrDefaultAsync(m =>
+            m.Title.ToLower() == title.ToLower()
+        );
+
+        return movie;
+    }
 }

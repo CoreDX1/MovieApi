@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "dppm6VaryMzcp82BP209YvJDmX5pMLLfn/dywUSXGOG15x+g2Fm0foLzPA9Ke9CRg2UkdkbLdHaVC+e2Pmrx4A==",
+  "dgSpecHash": "47iO/ZklMUQ1Q8ALlyf2MSrw4c2I7kvIUut698olX8mv6uizHNHwil2IdTP/L+3+qQ5UVnrW+QGt+oMpPEAMMA==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Application/Application.csproj",
   "expectedPackageFiles": [
     "/home/core/.nuget/packages/automapper/13.0.1/automapper.13.0.1.nupkg.sha512",
+    "/home/core/.nuget/packages/fluentvalidation/11.5.1/fluentvalidation.11.5.1.nupkg.sha512",
+    "/home/core/.nuget/packages/fluentvalidation.aspnetcore/11.3.0/fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "/home/core/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.5.1/fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore/8.0.10/microsoft.entityframeworkcore.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.10/microsoft.entityframeworkcore.abstractions.8.0.10.nupkg.sha512",
     "/home/core/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.10/microsoft.entityframeworkcore.analyzers.8.0.10.nupkg.sha512",

@@ -1,23 +1,21 @@
-using AutoMapper;
 using Domain.Entities;
 
 namespace Application.Common.Models;
 
-public class MovieDtoResponse
-{
-    public int Id { get; set; }
-    public string? Title { get; set; }
-    public string? Synopsis { get; set; }
-    public int Year { get; set; }
-    public int Duration { get; set; }
-    public string? Genre { get; set; }
-    public string? Image { get; set; }
+public record MovieDtoResponse(
+    int Id,
+    string Title,
+    string Synopsis,
+    int Year,
+    int Duration,
+    string Genre,
+    string Image
+);
 
-    private class Mapping : Profile
+class Mapping : Profile
+{
+    public Mapping()
     {
-        public Mapping()
-        {
-            CreateMap<Movie, MovieDtoResponse>();
-        }
+        CreateMap<Movie, MovieDtoResponse>();
     }
 }

@@ -10,6 +10,7 @@ public enum ResultStatus
     Invalid,
     NotFound,
     NoContent,
+    Exists,
     Conflict,
     CriticalError,
     Unavailable,

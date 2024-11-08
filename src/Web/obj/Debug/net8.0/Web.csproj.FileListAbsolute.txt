@@ -54,3 +54,6 @@
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Application.pdb
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Domain.pdb
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/AutoMapper.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll

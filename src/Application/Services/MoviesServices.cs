@@ -1,10 +1,9 @@
 using Application.Common.Interfaces;
 using Application.Common.Interfaces.Services;
 using Application.Common.Models;
-using AutoMapper;
-using Domain.Common;
 using Domain.Common.ApiResult;
 using Domain.Entities;
+using FluentValidation;
 
 namespace Application.Services;
 
@@ -12,11 +11,17 @@ public class MoviesServices : IMoviesServices
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IValidator<MovieDtoRequest> _movieValidator;
 
-    public MoviesServices(IUnitOfWork unitOfWork, IMapper mapper)
+    public MoviesServices(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IValidator<MovieDtoRequest> movieValidator
+    )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _movieValidator = movieValidator;
     }
 
     public async Task<Result<IReadOnlyList<MovieDtoResponse>>> GetAllAsync()
@@ -49,9 +54,26 @@ public class MoviesServices : IMoviesServices
         return Result<MovieDtoResponse>.Success(movieDto);
     }
 
-    public Task<bool> AddAsync(Movie movie)
+    public async Task<Result<MovieDtoResponse>> AddAsync(MovieDtoRequest movie)
     {
-        throw new NotImplementedException();
+        var validationResult = _movieValidator.Validate(movie);
+
+        if (!validationResult.IsValid)
+        {
+            var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+            return Result<MovieDtoResponse>.Error(errors);
+        }
+
+        var movieEntity = _mapper.Map<Movie>(movie);
+        // FluentValidation
+
+        var movieExists = await GetByTitleAsync(movie.Title);
+
+        if (movieExists.Status == ResultStatus.Exists)
+            return Result<MovieDtoResponse>.Exist();
+
+        await _unitOfWork.Movie.AddAsync(movieEntity);
+        return Result<MovieDtoResponse>.Success(_mapper.Map<MovieDtoResponse>(movieEntity));
     }
 
     public Task<bool> DeleteAsync(int id)
@@ -62,5 +84,17 @@ public class MoviesServices : IMoviesServices
     public Task<Movie> UpdateAsync(Movie movie)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<Result<MovieDtoResponse>> GetByTitleAsync(string title)
+    {
+        var movie = await _unitOfWork.Movie.GetByTitleAsync(title);
+
+        if (movie == null)
+        {
+            return Result<MovieDtoResponse>.Success();
+        }
+
+        return Result<MovieDtoResponse>.Exist();
     }
 }

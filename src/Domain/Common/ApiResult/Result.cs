@@ -35,7 +35,7 @@ public class Result<T> : IResult
     [JsonInclude]
     public string SuccessMessage { get; protected set; } = string.Empty;
 
-    [JsonIgnore]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<string> Errors { get; protected set; } = [];
 
     [JsonIgnore]
@@ -51,7 +51,13 @@ public class Result<T> : IResult
 
     public object GetValue() => Value;
 
-    public static Result<T> Success(T value) => new(value, ReplyMessage.Success.Query);
+    // public static Result<T> Success(T value) => new(value, ReplyMessage.Success.Query);
+
+    public static Result<T> Success() =>
+        new(ResultStatus.Ok) { SuccessMessage = ReplyMessage.Success.Query };
+
+    public static Result<T> Success(T value) =>
+        new(ResultStatus.Ok) { Value = value, SuccessMessage = ReplyMessage.Success.Query };
 
     public static Result<T> Created(T value) => new(ResultStatus.Created) { Value = value };
 
@@ -59,10 +65,20 @@ public class Result<T> : IResult
         new(ResultStatus.Created) { Value = value, Location = location };
 
     public static Result<T> Error(string errorMessage) =>
-        new(ResultStatus.Error) { Errors = [errorMessage] };
+        new(ResultStatus.Error) { SuccessMessage = errorMessage };
+
+    public static Result<T> Error(List<string> errors) =>
+        new(ResultStatus.Error)
+        {
+            Errors = errors,
+            SuccessMessage = ReplyMessage.Validate.ValidateError,
+        };
+
+    public static Result<T> Exist() =>
+        new(ResultStatus.Exists) { SuccessMessage = ReplyMessage.Error.Exists };
 
     public static Result<T> NotFound() =>
-        new(ResultStatus.NotFound) { Errors = [ReplyMessage.Error.NotFound] };
+        new(ResultStatus.NotFound) { SuccessMessage = ReplyMessage.Error.NotFound };
 
     public static Result<T> NotFound(params string[] errorMessages) =>
         new(ResultStatus.NotFound) { Errors = errorMessages };

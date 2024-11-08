@@ -28,4 +28,11 @@ public class MovieController : ControllerBase
         var movie = await _moviesServices.GetByIdAsync(id);
         return Ok(movie);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<MovieDtoResponse>> Add(MovieDtoRequest movie)
+    {
+        var movieDto = await _moviesServices.AddAsync(movie);
+        return Ok(movieDto);
+    }
 }
