@@ -3,7 +3,6 @@ using Application.Common.Interfaces.Services;
 using Application.Common.Models;
 using Domain.Common.ApiResult;
 using Domain.Entities;
-using FluentValidation;
 
 namespace Application.Services;
 

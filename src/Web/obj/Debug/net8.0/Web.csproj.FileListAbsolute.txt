@@ -31,11 +31,9 @@
 /home/core/Desktop/Project/MoviesDB/src/Web/obj/Debug/net8.0/Web.pdb
 /home/core/Desktop/Project/MoviesDB/src/Web/obj/Debug/net8.0/Web.genruntimeconfig.cache
 /home/core/Desktop/Project/MoviesDB/src/Web/obj/Debug/net8.0/ref/Web.dll
-/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/angular.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/package.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.app.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.json
-/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.spec.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
@@ -57,3 +55,4 @@
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.node.json

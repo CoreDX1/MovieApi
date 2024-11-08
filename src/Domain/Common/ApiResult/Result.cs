@@ -7,7 +7,7 @@ public class Result<T> : IResult
 {
     protected Result() { }
 
-    public Result(T value) => Value = value;
+    public Result(T value) => Data = value;
 
     protected internal Result(string successMessage) => SuccessMessage = successMessage;
 
@@ -16,7 +16,7 @@ public class Result<T> : IResult
 
     protected Result(ResultStatus status) => Status = status;
 
-    public static implicit operator T(Result<T> result) => result.Value;
+    public static implicit operator T(Result<T> result) => result.Data;
 
     public static implicit operator Result<T>(T value) => new(value);
 
@@ -41,7 +41,7 @@ public class Result<T> : IResult
     [JsonIgnore]
     public IEnumerable<ValidationError> ValidationErrors { get; protected set; } = [];
 
-    public T Value { get; init; }
+    public T Data { get; init; }
 
     [JsonIgnore]
     public Type ValueType => typeof(T);
@@ -49,7 +49,7 @@ public class Result<T> : IResult
     [JsonIgnore]
     public string Location { get; protected set; } = string.Empty;
 
-    public object GetValue() => Value;
+    public object GetValue() => Data;
 
     // public static Result<T> Success(T value) => new(value, ReplyMessage.Success.Query);
 
@@ -57,13 +57,13 @@ public class Result<T> : IResult
         new(ResultStatus.Ok) { SuccessMessage = ReplyMessage.Success.Query };
 
     public static Result<T> Success(T value) =>
-        new(ResultStatus.Ok) { Value = value, SuccessMessage = ReplyMessage.Success.Query };
+        new(ResultStatus.Ok) { Data = value, SuccessMessage = ReplyMessage.Success.Query };
 
     public static Result<T> Created(T value) =>
-        new(ResultStatus.Created) { Value = value, SuccessMessage = ReplyMessage.Success.Save };
+        new(ResultStatus.Created) { Data = value, SuccessMessage = ReplyMessage.Success.Save };
 
     public static Result<T> Created(T value, string location) =>
-        new(ResultStatus.Created) { Value = value, Location = location };
+        new(ResultStatus.Created) { Data = value, Location = location };
 
     public static Result<T> Error(string errorMessage) =>
         new(ResultStatus.Error) { SuccessMessage = errorMessage };

@@ -16,6 +16,9 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyList<MovieDtoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<MovieDtoResponse>> GetAll()
     {
         var movies = await _moviesServices.GetAllAsync();
@@ -23,6 +26,9 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(MovieDtoResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<MovieDtoResponse>> GetById(int id)
     {
         var movie = await _moviesServices.GetByIdAsync(id);
@@ -30,6 +36,9 @@ public class MovieController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(MovieDtoResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<MovieDtoResponse>> Add(MovieDtoRequest movie)
     {
         var movieDto = await _moviesServices.AddAsync(movie);
