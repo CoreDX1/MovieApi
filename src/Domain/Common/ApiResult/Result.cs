@@ -59,7 +59,8 @@ public class Result<T> : IResult
     public static Result<T> Success(T value) =>
         new(ResultStatus.Ok) { Value = value, SuccessMessage = ReplyMessage.Success.Query };
 
-    public static Result<T> Created(T value) => new(ResultStatus.Created) { Value = value };
+    public static Result<T> Created(T value) =>
+        new(ResultStatus.Created) { Value = value, SuccessMessage = ReplyMessage.Success.Save };
 
     public static Result<T> Created(T value, string location) =>
         new(ResultStatus.Created) { Value = value, Location = location };

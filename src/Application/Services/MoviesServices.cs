@@ -64,16 +64,15 @@ public class MoviesServices : IMoviesServices
             return Result<MovieDtoResponse>.Error(errors);
         }
 
-        var movieEntity = _mapper.Map<Movie>(movie);
         // FluentValidation
-
+        var movieEntity = _mapper.Map<Movie>(movie);
         var movieExists = await GetByTitleAsync(movie.Title);
 
         if (movieExists.Status == ResultStatus.Exists)
             return Result<MovieDtoResponse>.Exist();
 
         await _unitOfWork.Movie.AddAsync(movieEntity);
-        return Result<MovieDtoResponse>.Success(_mapper.Map<MovieDtoResponse>(movieEntity));
+        return Result<MovieDtoResponse>.Created(_mapper.Map<MovieDtoResponse>(movieEntity));
     }
 
     public Task<bool> DeleteAsync(int id)
