@@ -1,7 +1,6 @@
 using System.Reflection;
-using Application.Common.Interfaces.Services;
+using Application.Interfaces.Services;
 using Application.Services;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;

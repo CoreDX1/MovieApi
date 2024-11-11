@@ -1,10 +1,10 @@
 using Domain.Entities;
 
-namespace Application.Common.Interfaces.Repositories;
+namespace Application.Interfaces.Repositories;
 
 public interface IMovieRepositories
 {
-    Task<IReadOnlyList<Movie>> GetAllAsync();
+    Task<List<Movie>> GetAllAsync();
     Task<Movie> GetByTitleAsync(string title);
     Task<Movie> GetByIdAsync(int id);
     Task<bool> AddAsync(Movie movie);

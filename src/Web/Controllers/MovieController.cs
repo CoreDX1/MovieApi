@@ -1,5 +1,5 @@
-using Application.Common.Interfaces.Services;
-using Application.Common.Models;
+using Application.DTOs;
+using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -16,30 +16,30 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<MovieDtoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<GetMovieListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<MovieDtoResponse>> GetAll()
+    public async Task<ActionResult<GetMovieListDto>> GetAll()
     {
         var movies = await _moviesServices.GetAllAsync();
         return Ok(movies);
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(MovieDtoResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<MovieDtoResponse>> GetById(int id)
+    public async Task<ActionResult<GetMovieListDto>> GetById(int id)
     {
         var movie = await _moviesServices.GetByIdAsync(id);
         return Ok(movie);
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(MovieDtoResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<MovieDtoResponse>> Add(MovieDtoRequest movie)
+    public async Task<ActionResult<GetMovieListDto>> Add(CreateMovieDto movie)
     {
         var movieDto = await _moviesServices.AddAsync(movie);
         return Ok(movieDto);

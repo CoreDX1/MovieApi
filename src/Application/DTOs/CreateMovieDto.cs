@@ -1,8 +1,8 @@
 using Domain.Entities;
 
-namespace Application.Common.Models;
+namespace Application.DTOs;
 
-public record MovieDtoRequest
+public record CreateMovieDto
 {
     public string Title { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ public record MovieDtoRequest
     {
         public Mapping()
         {
-            CreateMap<MovieDtoRequest, Movie>();
+            CreateMap<CreateMovieDto, Movie>();
         }
     }
 }

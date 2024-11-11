@@ -1,9 +1,8 @@
-using Application.Common.Models;
-using FluentValidation;
+using Application.DTOs;
 
-namespace Application.Common.Validation;
+namespace Application.Validation;
 
-public class MovieValidation : AbstractValidator<MovieDtoRequest>
+public class MovieValidation : AbstractValidator<CreateMovieDto>
 {
     public MovieValidation()
     {

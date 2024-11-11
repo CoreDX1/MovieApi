@@ -1,9 +1,8 @@
-using Application.Common.Interfaces;
-using Application.Common.Interfaces.Repositories;
+using Application.Interfaces;
+using Application.Interfaces.Repositories;
 using Infrastructure.Data.Migrations;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,8 +19,12 @@ public static class DependencyInjection
 
         services.AddScoped<IMovieRepositories, MovieRepositories>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
 
-        services.AddDbContext<ApiMovieContext>(options => options.UseNpgsql(connectionString));
+        // services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+        services.AddDbContext<ApiMovieContext>(options => options.UseNpgsql(connectionString), ServiceLifetime.Scoped);
+
         return services;
     }
 }

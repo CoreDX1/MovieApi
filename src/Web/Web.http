@@ -4,7 +4,7 @@ GET {{Web_HostAddress}}/api/movie/
 Accept: application/json
 ###
 
-GET {{Web_HostAddress}}/api/movie/10
+GET {{Web_HostAddress}}/api/movie/1
 Accept: application/json
 ###
 

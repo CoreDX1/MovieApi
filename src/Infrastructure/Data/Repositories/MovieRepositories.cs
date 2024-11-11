@@ -1,7 +1,6 @@
-using Application.Common.Interfaces.Repositories;
+using Application.Interfaces.Repositories;
 using Domain.Entities;
 using Infrastructure.Data.Migrations;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories;
 
@@ -14,7 +13,7 @@ public class MovieRepositories : IMovieRepositories
         _context = context;
     }
 
-    public async Task<IReadOnlyList<Movie>> GetAllAsync()
+    public async Task<List<Movie>> GetAllAsync()
     {
         var movies = await _context.Movies.ToListAsync();
         return movies;

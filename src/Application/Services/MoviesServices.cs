@@ -1,6 +1,7 @@
-using Application.Common.Interfaces;
-using Application.Common.Interfaces.Services;
-using Application.Common.Models;
+using Application.DTOs;
+using Application.Interfaces;
+using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 using Domain.Common.ApiResult;
 using Domain.Entities;
 
@@ -9,57 +10,62 @@ namespace Application.Services;
 public class MoviesServices : IMoviesServices
 {
     private readonly IUnitOfWork _unitOfWork;
+
+    private readonly IReadRepository<Movie> _movieRepository;
+
     private readonly IMapper _mapper;
-    private readonly IValidator<MovieDtoRequest> _movieValidator;
+    private readonly IValidator<CreateMovieDto> _movieValidator;
 
     public MoviesServices(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        IValidator<MovieDtoRequest> movieValidator
-    )
+        IValidator<CreateMovieDto> movieValidator
+,
+        IReadRepository<Movie> movieRepository)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _movieValidator = movieValidator;
+        _movieRepository = movieRepository;
     }
 
-    public async Task<Result<IReadOnlyList<MovieDtoResponse>>> GetAllAsync()
+    public async Task<Result<List<GetMovieListDto>>> GetAllAsync()
     {
-        var movies = await _unitOfWork.Movie.GetAllAsync();
+        var movies = await _movieRepository.ListAsync();
 
         // Si no hay movies, retorna una respuesta 404
         if (movies == null)
-            return Result<IReadOnlyList<MovieDtoResponse>>.NotFound();
+            return Result<List<GetMovieListDto>>.NotFound();
 
-        // Si hay movies, mapea los movies a MovieDtoResponse y retorna la respuesta
-        var moviesDto = _mapper.Map<IReadOnlyList<MovieDtoResponse>>(movies);
+        // Si hay movies, mapea los movies a GetMovieListDto y retorna la respuesta
+        var moviesDto = _mapper.Map<List<GetMovieListDto>>(movies);
 
-        return Result<IReadOnlyList<MovieDtoResponse>>.Success(moviesDto);
+        return Result<List<GetMovieListDto>>.Success(moviesDto);
     }
 
-    public async Task<Result<MovieDtoResponse>> GetByIdAsync(int id)
+    public async Task<Result<GetMovieListDto>> GetByIdAsync(int id)
     {
         if (id <= 0)
         {
-            return Result<MovieDtoResponse>.Error("Invalid movie id");
+            return Result<GetMovieListDto>.Error("Invalid movie id");
         }
 
-        var movie = await _unitOfWork.Movie.GetByIdAsync(id);
+        var movie = await _movieRepository.FindAsync(id);
 
         if (movie == null)
-            return Result<MovieDtoResponse>.NotFound();
+            return Result<GetMovieListDto>.NotFound();
 
-        var movieDto = _mapper.Map<MovieDtoResponse>(movie);
-        return Result<MovieDtoResponse>.Success(movieDto);
+        var movieDto = _mapper.Map<GetMovieListDto>(movie);
+        return Result<GetMovieListDto>.Success(movieDto);
     }
 
-    public async Task<Result<MovieDtoResponse>> AddAsync(MovieDtoRequest movie)
+    public async Task<Result<GetMovieListDto>> AddAsync(CreateMovieDto movie)
     {
         var validationResult = await _movieValidator.ValidateAsync(movie);
 
         if (!validationResult.IsValid)
         {
-            return Result<MovieDtoResponse>.Invalid(validationResult.AsErrors());
+            return Result<GetMovieListDto>.Invalid(validationResult.AsErrors());
         }
 
         // FluentValidation
@@ -67,10 +73,10 @@ public class MoviesServices : IMoviesServices
         var movieExists = await GetByTitleAsync(movie.Title);
 
         if (movieExists.Status == ResultStatus.Conflict)
-            return Result<MovieDtoResponse>.Conflict();
+            return Result<GetMovieListDto>.Conflict();
 
         await _unitOfWork.Movie.AddAsync(movieEntity);
-        return Result<MovieDtoResponse>.Created(_mapper.Map<MovieDtoResponse>(movieEntity));
+        return Result<GetMovieListDto>.Created(_mapper.Map<GetMovieListDto>(movieEntity));
     }
 
     public Task<bool> DeleteAsync(int id)
@@ -83,15 +89,15 @@ public class MoviesServices : IMoviesServices
         throw new NotImplementedException();
     }
 
-    public async Task<Result<MovieDtoResponse>> GetByTitleAsync(string title)
+    public async Task<Result<GetMovieListDto>> GetByTitleAsync(string title)
     {
         var movie = await _unitOfWork.Movie.GetByTitleAsync(title);
 
         if (movie == null)
         {
-            return Result<MovieDtoResponse>.Success();
+            return Result<GetMovieListDto>.Success();
         }
 
-        return Result<MovieDtoResponse>.Conflict();
+        return Result<GetMovieListDto>.Conflict();
     }
 }

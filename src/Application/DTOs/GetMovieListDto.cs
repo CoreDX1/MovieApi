@@ -1,8 +1,8 @@
 using Domain.Entities;
 
-namespace Application.Common.Models;
+namespace Application.DTOs;
 
-public record MovieDtoResponse(
+public record GetMovieListDto(
     int Id,
     string Title,
     string Synopsis,
@@ -16,6 +16,6 @@ class Mapping : Profile
 {
     public Mapping()
     {
-        CreateMap<Movie, MovieDtoResponse>();
+        CreateMap<Movie, GetMovieListDto>();
     }
 }
