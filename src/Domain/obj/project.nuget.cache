@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "o17JWmXGLd+7uSWiswLOeNLORQzgixlCK4oDVhgsS3uFAAhjhblWmFouQhPzjedFmoHBht9nvtteSCGgvNTFXg==",
+  "dgSpecHash": "PKxwff+xd+GEQ047WWhm2frIC1w3cvNpsotVWJ/nUyjt+wdcbwCnnEedPLVyjvQvPweUkh3bWU0WLj2cLdlfoA==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Domain/Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/core/.nuget/packages/fluentvalidation/11.5.1/fluentvalidation.11.5.1.nupkg.sha512",
+    "/home/core/.nuget/packages/fluentvalidation.aspnetcore/11.3.0/fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "/home/core/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.5.1/fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
+    "/home/core/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/2.1.0/microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

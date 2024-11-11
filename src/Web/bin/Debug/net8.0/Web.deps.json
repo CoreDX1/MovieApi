@@ -271,6 +271,9 @@
         }
       },
       "Domain/1.0.0": {
+        "dependencies": {
+          "FluentValidation.AspNetCore": "11.3.0"
+        },
         "runtime": {
           "Domain.dll": {}
         }

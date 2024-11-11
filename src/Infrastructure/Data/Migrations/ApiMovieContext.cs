@@ -17,11 +17,6 @@ namespace Infrastructure.Data.Migrations
 
         public DbSet<Movie> Movies { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-            optionsBuilder.UseNpgsql(
-                "Host=localhost;Database=ApiMovie;Username=core;Password=index;Pooling=true"
-            );
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             OnModelCreatingPartial(builder);

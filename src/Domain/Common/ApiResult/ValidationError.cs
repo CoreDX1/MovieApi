@@ -2,6 +2,8 @@ namespace Domain.Common.ApiResult;
 
 public class ValidationError
 {
+    public ValidationError() { }
+
     public ValidationError(string errorMessage) => ErrorMessage = errorMessage;
 
     public ValidationError(string identifier, string errorMessage)

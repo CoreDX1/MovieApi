@@ -55,20 +55,19 @@ public class MoviesServices : IMoviesServices
 
     public async Task<Result<MovieDtoResponse>> AddAsync(MovieDtoRequest movie)
     {
-        var validationResult = _movieValidator.Validate(movie);
+        var validationResult = await _movieValidator.ValidateAsync(movie);
 
         if (!validationResult.IsValid)
         {
-            var errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-            return Result<MovieDtoResponse>.Error(errors);
+            return Result<MovieDtoResponse>.Invalid(validationResult.AsErrors());
         }
 
         // FluentValidation
         var movieEntity = _mapper.Map<Movie>(movie);
         var movieExists = await GetByTitleAsync(movie.Title);
 
-        if (movieExists.Status == ResultStatus.Exists)
-            return Result<MovieDtoResponse>.Exist();
+        if (movieExists.Status == ResultStatus.Conflict)
+            return Result<MovieDtoResponse>.Conflict();
 
         await _unitOfWork.Movie.AddAsync(movieEntity);
         return Result<MovieDtoResponse>.Created(_mapper.Map<MovieDtoResponse>(movieEntity));
@@ -93,6 +92,6 @@ public class MoviesServices : IMoviesServices
             return Result<MovieDtoResponse>.Success();
         }
 
-        return Result<MovieDtoResponse>.Exist();
+        return Result<MovieDtoResponse>.Conflict();
     }
 }

@@ -9,10 +9,10 @@ public class Result<T> : IResult
 
     public Result(T value) => Data = value;
 
-    protected internal Result(string successMessage) => SuccessMessage = successMessage;
+    protected internal Result(string successMessage) => Message = successMessage;
 
     protected internal Result(T value, string successMessage)
-        : this(value) => SuccessMessage = successMessage;
+        : this(value) => Message = successMessage;
 
     protected Result(ResultStatus status) => Status = status;
 
@@ -25,7 +25,7 @@ public class Result<T> : IResult
         {
             Status = result.Status,
             Errors = result.Errors,
-            SuccessMessage = result.SuccessMessage,
+            Message = result.Message,
             ValidationErrors = result.ValidationErrors,
         };
 
@@ -33,54 +33,81 @@ public class Result<T> : IResult
     public ResultStatus Status { get; protected set; } = ResultStatus.Ok;
 
     [JsonInclude]
-    public string SuccessMessage { get; protected set; } = string.Empty;
+    public string Message { get; protected set; } = string.Empty;
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IEnumerable<string> Errors { get; protected set; } = [];
 
-    [JsonIgnore]
+    [JsonInclude]
     public IEnumerable<ValidationError> ValidationErrors { get; protected set; } = [];
 
+    [JsonInclude]
     public T Data { get; init; }
 
     [JsonIgnore]
     public Type ValueType => typeof(T);
 
-    [JsonIgnore]
+    [JsonInclude]
     public string Location { get; protected set; } = string.Empty;
 
     public object GetValue() => Data;
 
     // public static Result<T> Success(T value) => new(value, ReplyMessage.Success.Query);
 
+    // <summary>
+    // Representa una operacion exitosa sin valor de retorno
+    /// </summary>
+    /// <returns>Result<T></returns>
     public static Result<T> Success() =>
-        new(ResultStatus.Ok) { SuccessMessage = ReplyMessage.Success.Query };
+        new(ResultStatus.Ok) { Message = ReplyMessage.Success.Query };
 
+    // <summary>
+    // Representa una operación exitosa con un valor de retorno
+    /// </summary>
+    /// <param name="value">Valor de retorno</param>
+    /// <returns>Result<T></returns>
     public static Result<T> Success(T value) =>
-        new(ResultStatus.Ok) { Data = value, SuccessMessage = ReplyMessage.Success.Query };
+        new(ResultStatus.Ok) { Data = value, Message = ReplyMessage.Success.Query };
 
     public static Result<T> Created(T value) =>
-        new(ResultStatus.Created) { Data = value, SuccessMessage = ReplyMessage.Success.Save };
+        new(ResultStatus.Created) { Data = value, Message = ReplyMessage.Success.Save };
 
     public static Result<T> Created(T value, string location) =>
         new(ResultStatus.Created) { Data = value, Location = location };
 
+    // <summary>
+    // Representa un error que ocurre durante la ejecución de una servicio
+    /// </summary>
+    /// <param name="errorMessage">Mensaje de error</param>
+    /// <returns>Result<T></returns>
     public static Result<T> Error(string errorMessage) =>
-        new(ResultStatus.Error) { SuccessMessage = errorMessage };
+        new(ResultStatus.Error) { Message = errorMessage };
 
     public static Result<T> Error(List<string> errors) =>
-        new(ResultStatus.Error)
-        {
-            Errors = errors,
-            SuccessMessage = ReplyMessage.Validate.ValidateError,
-        };
+        new(ResultStatus.Error) { Errors = errors, Message = ReplyMessage.Validate.ValidateError };
 
     public static Result<T> Exist() =>
-        new(ResultStatus.Exists) { SuccessMessage = ReplyMessage.Error.Exists };
+        new(ResultStatus.Exists) { Message = ReplyMessage.Error.Exists };
 
     public static Result<T> NotFound() =>
-        new(ResultStatus.NotFound) { SuccessMessage = ReplyMessage.Error.NotFound };
+        new(ResultStatus.NotFound) { Message = ReplyMessage.Error.NotFound };
 
     public static Result<T> NotFound(params string[] errorMessages) =>
         new(ResultStatus.NotFound) { Errors = errorMessages };
+
+    public static Result<T> Invalid(params ValidationError[] validationErrors) =>
+        new(ResultStatus.Invalid)
+        {
+            ValidationErrors = new List<ValidationError>(validationErrors),
+        };
+
+    public static Result<T> Invalid(IEnumerable<ValidationError> validationErrors) =>
+        new(ResultStatus.Invalid)
+        {
+            ValidationErrors = new List<ValidationError>(validationErrors),
+            Message = ReplyMessage.Validate.ValidateError,
+        };
+
+    public static Result<T> Conflict() =>
+        new(ResultStatus.Conflict) { Message = ReplyMessage.Error.Exists };
 }

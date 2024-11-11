@@ -20,7 +20,7 @@ public class Result : Result<Result>
     /// <param name="successMessage">Sets the SuccessMessage property</param>
     /// <returns>A Result</returns>
     public static Result SuccessWithMessage(string successMessage) =>
-        new() { SuccessMessage = successMessage };
+        new() { Message = successMessage };
 
     /// <summary>
     /// Represents a successful operation and accepts a values as the result of the operation
