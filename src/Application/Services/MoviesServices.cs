@@ -33,8 +33,7 @@ public class MoviesServices : IMoviesServices
     {
         var movies = await _movieRepository.ListAsync();
 
-        // Si no hay movies, retorna una respuesta 404
-        if (movies == null)
+        if (movies is null)
             return Result<List<GetMovieListDto>>.NotFound();
 
         // Si hay movies, mapea los movies a GetMovieListDto y retorna la respuesta
@@ -52,7 +51,7 @@ public class MoviesServices : IMoviesServices
 
         var movie = await _movieRepository.FindAsync(id);
 
-        if (movie == null)
+        if (movie is null)
             return Result<GetMovieListDto>.NotFound();
 
         var movieDto = _mapper.Map<GetMovieListDto>(movie);
@@ -70,9 +69,10 @@ public class MoviesServices : IMoviesServices
 
         // FluentValidation
         var movieEntity = _mapper.Map<Movie>(movie);
-        var movieExists = await GetByTitleAsync(movie.Title);
 
-        if (movieExists.Status == ResultStatus.Conflict)
+        IResult movieExists = await GetByTitleAsync(movie.Title);
+
+        if (movieExists.IsConflict())
             return Result<GetMovieListDto>.Conflict();
 
         await _unitOfWork.Movie.AddAsync(movieEntity);

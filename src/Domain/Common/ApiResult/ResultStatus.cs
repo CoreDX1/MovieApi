@@ -6,7 +6,7 @@ public enum ResultStatus
     Created,
     Error,
     Forbidden,
-    UnauThorized,
+    Unauthorized,
     Invalid,
     NotFound,
     NoContent,
