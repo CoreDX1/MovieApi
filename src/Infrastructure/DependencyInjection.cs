@@ -17,13 +17,16 @@ public static class DependencyInjection
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddScoped<IMovieRepositories, MovieRepositories>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
-
+        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepostory<>));
+        services.AddScoped<IMovieRepositories, MovieRepositories>();
         // services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
-        services.AddDbContext<ApiMovieContext>(options => options.UseNpgsql(connectionString), ServiceLifetime.Scoped);
+        services.AddDbContext<ApiMovieContext>(
+            options => options.UseNpgsql(connectionString),
+            ServiceLifetime.Scoped
+        );
 
         return services;
     }
