@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Migrations
 {

@@ -1,5 +1,4 @@
 using Application.Interfaces.Repositories;
-using Infrastructure.Data.Migrations;
 
 namespace  Infrastructure.Data.Repositories;
 
@@ -12,19 +11,29 @@ public class ReadRepository<T> : IReadRepository<T> where T : class
         DbContex = dbContex;
     }
 
-    public Task<T> FindAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
+    public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return DbContex.Set<T>().AnyAsync(cancellationToken);
     }
 
-    public Task<T> FindByIdAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
+    public async Task<int> CountAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await DbContex.Set<T>().CountAsync(cancellationToken);
     }
 
-    public Task<T> FindOrDefaultAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
+    public async Task<T> FindAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
     {
-        throw new NotImplementedException();
+         return await DbContex.Set<T>().FindAsync(id);
+    }
+
+    public async Task<T> FindByIdAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
+    {
+         return await DbContex.Set<T>().FindAsync(id);
+    }
+
+    public async Task<T> FindOrDefaultAsync<Tid>(Tid id, CancellationToken cancellationToken = default) where Tid : notnull
+    {
+         return await DbContex.Set<T>().FindAsync(id);
     }
 
     public async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)

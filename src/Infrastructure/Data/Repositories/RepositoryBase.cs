@@ -1,5 +1,4 @@
 using Application.Interfaces.Repositories;
-using Infrastructure.Data.Migrations;
 
 namespace Infrastructure.Data.Repositories;
 
