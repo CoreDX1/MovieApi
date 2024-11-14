@@ -9,7 +9,8 @@ public record GetMovieListDto(
     int Year,
     int Duration,
     string Genre,
-    string Image
+    string Image,
+    string MovieCode
 );
 
 class Mapping : Profile

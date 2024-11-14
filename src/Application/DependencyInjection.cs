@@ -9,7 +9,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IMoviesServices, MoviesServices>();
+        services.AddScoped<IMovieService, MovieService>();
+        services.AddScoped<ICommentService, CommentService>();
 
         // Libreria de AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

@@ -12,8 +12,20 @@ public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
     )
         : base(context, readRepository, writeRepository) { }
 
-    public Task<Movie> GetByTitleAsync(string title)
+    public async Task<IEnumerable<Comment>> GetAllCommentsByTitleAsync(string movieCode)
     {
-        throw new NotImplementedException();
+        var movie = await DbContext.Movies.AsNoTracking().FirstOrDefaultAsync(m => m.MovieCode == movieCode);
+
+        if (movie is null)
+        {
+            return [];
+        }
+
+        return await DbContext.Comments.Where(c => c.MovieId == movie.Id).ToListAsync();
+    }
+
+    public async Task<Movie> GetByTitleAsync(string movieCode)
+    {
+        return await DbContext.Movies.AsNoTracking().FirstOrDefaultAsync(m => m.MovieCode == movieCode);
     }
 }

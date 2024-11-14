@@ -1,19 +1,20 @@
 using Application.Interfaces;
 using Application.Interfaces.Repositories;
-using Infrastructure.Data.Migrations;
 
 namespace Infrastructure.Data.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
 {
     public IMovieRepositories Movie { get; }
+    public ICommentRepository Comment { get; }
 
     private readonly ApiMovieContext _context;
 
-    public UnitOfWork(IMovieRepositories movie, ApiMovieContext context)
+    public UnitOfWork(IMovieRepositories movie, ApiMovieContext context, ICommentRepository comment)
     {
-        Movie = movie;
         _context = context;
+        Comment = comment;
+        Movie = movie;
     }
 
     public void Dispose()

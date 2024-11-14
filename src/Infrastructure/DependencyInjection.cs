@@ -1,5 +1,7 @@
 using Application.Interfaces;
 using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
+using Application.Services;
 using Infrastructure.Data.Migrations;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.UnitOfWork;
@@ -21,6 +23,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
         services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepostory<>));
         services.AddScoped<IMovieRepositories, MovieRepositories>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+
         // services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
         services.AddDbContext<ApiMovieContext>(

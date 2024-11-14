@@ -1,6 +1,4 @@
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations;
 
@@ -19,6 +17,7 @@ public class MovieConfigurations : IEntityTypeConfiguration<Movie>
         builder.Property(e => e.Synopsis).HasColumnName("synopsis");
         builder.Property(e => e.Title).HasMaxLength(255).HasColumnName("title");
         builder.Property(e => e.Year).HasColumnName("year");
+        builder.Property(e => e.MovieCode).HasMaxLength(10).HasColumnName("movie_code");
 
         builder
             .HasMany(d => d.Actors)

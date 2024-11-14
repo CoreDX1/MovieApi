@@ -13,7 +13,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : class
 
     public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
     {
-        return DbContex.Set<T>().AnyAsync(cancellationToken);
+        return DbContex.Set<T>().AsNoTracking().AnyAsync(cancellationToken);
     }
 
     public async Task<int> CountAsync(CancellationToken cancellationToken = default)
@@ -38,7 +38,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : class
 
     public async Task<List<T>> ListAsync(CancellationToken cancellationToken = default)
     {
-        return await DbContex.Set<T>().ToListAsync(cancellationToken: cancellationToken);
+        return await DbContex.Set<T>().AsNoTracking().ToListAsync(cancellationToken: cancellationToken);
     }
 }
     

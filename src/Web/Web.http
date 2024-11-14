@@ -12,10 +12,10 @@ POST {{Web_HostAddress}}/api/movie/
 Content-Type: application/json
 
 {
-  "title": "",
-  "synopsis": "El Terminator es un personaje ficticio creado por James Cameron en 1984. Fue diseñado para ser un agente secreto de una organización secreta llamada S.H.I.E.L.D. que busca eliminar a los supervivientes de los asesinatos de personas muertas en el futuro.",
-  "year": 1984,
-  "duration": 121,
-  "genre": "Ficción, ciencia ficción",
-  "image": "https://m.media-amazon.com/images/M/MV5BMjA5NjM2ODU0NF5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_UX182_CR0,0,182,268_AL_.jpg"
+  "title": "El Señor de los Anillos: La Comunidad del Anillo",
+  "synopsis": "En un mundo de hobbits, elfos y magos, un joven hobbit llamado Frodo Bolsón hereda el Anillo Único de su tío Bilbo y se embarca en un peligroso viaje para destruirlo en el fuego del Monte del Destino.",
+  "year": 2001,
+  "duration": 178,
+  "genre": "Aventura, fantasía",
+  "image": "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNTIzMi00MjM2LWEwMjktYzI1MjgzNmI4ZjM0XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg"
 }
