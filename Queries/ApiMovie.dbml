@@ -1,0 +1,82 @@
+Table Movies {
+  id SERIAL [pk]
+  title VARCHAR(255) [not null]
+  synopsis TEXT
+  year INTEGER [not null]
+  duration INTEGER [not null]
+  genre VARCHAR(255) [not null]
+  image VARCHAR(255)
+}
+
+Table Actors {
+  id SERIAL [pk]
+  first_name VARCHAR(255) [not null]
+  last_name VARCHAR(255) [not null]
+  birthdate DATE
+}
+
+Table Directors {
+  id SERIAL [pk]
+  first_name VARCHAR(255) [not null]
+  last_name VARCHAR(255) [not null]
+  birthdate DATE
+}
+
+Table Movies_Actors {
+  movie_id INTEGER [ref: > Movies.id]
+  actor_id INTEGER [ref: > Actors.id]
+  indexes {
+    (movie_id, actor_id) [unique]
+  }
+}
+
+Table Movies_Directors {
+  movie_id INTEGER [ref: > Movies.id]
+  director_id INTEGER [ref: > Directors.id]
+  indexes {
+    (movie_id, director_id) [unique]
+  }
+}
+
+Table Comments {
+  id SERIAL [pk]
+  movie_id INTEGER [ref: > Movies.id]
+  usuario_id INTEGER [ref: > Usuario.id]
+  text TEXT [not null]
+  date DATE [not null]
+}
+
+// Nuevas tablas
+
+Table Ratings {
+  id SERIAL [pk]
+  movie_id INTEGER [ref: > Movies.id]
+  usuario_id INTEGER [ref: > Usuario.id]
+  rating INTEGER [not null]
+  date DATE [not null]
+}
+
+Table Usuario {
+  id SERIAL [pk]
+  name VARCHAR(225) [not null]
+  email VARCHAR(225) [not null, unique]
+}
+
+Table Usuario_Credenciales {
+  usuario_id INTEGER [ref: > Usuario.id]
+  password_hash VARCHAR(255) [not null]
+  created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+  updated_at TIMESTAMP
+  last_login TIMESTAMP
+}
+
+Table Rol {
+  id INTEGER
+  names VARCHAR(225) [not null]
+  created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+}
+
+table Usuario_Rol {
+  usuario_id INTEGER [ref: > Usuario.id]
+  rol_id INTEGER [ref: > Rol.id]
+}

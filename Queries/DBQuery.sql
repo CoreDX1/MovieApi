@@ -94,4 +94,35 @@ VALUES
 select * from movies;
 
 
+UPDATE movies SET movie_code = 'tt0108052' WHERE id = 1;
+UPDATE movies SET movie_code = 'tt0167260' WHERE id = 2;
+UPDATE movies SET movie_code = 'tt0803096' WHERE id = 3;
+UPDATE movies SET movie_code = 'tt0078748' WHERE id = 4;
+UPDATE movies SET movie_code = 'tt0090605' WHERE id = 5;
+UPDATE movies SET movie_code = 'tt0370263' WHERE id = 6;
+UPDATE movies SET movie_code = 'tt0088247' WHERE id = 7;
+
+create table user(
+  id serial primary key,
+  name varchar(225),
+  password_hash varchar(252),
+  email varchar(225),
+  created_at timestamp,
+  updated_at timestamp
+  last_login timestamp
+)
+
+create table rol(
+  id serial primary key,
+  name varchar(225) NOT NULL UNIQUE,
+  created_at timestamp,
+)
+
+create table user_rol(
+  user_id integer references user(id),
+  rol_id integer references rol(id),
+  primary key (user_id, rol_id)
+)
+
+
 
