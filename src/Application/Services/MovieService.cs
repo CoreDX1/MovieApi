@@ -2,6 +2,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using Application.Interfaces.Services;
 using Domain.Common.ApiResult;
+using Domain.DTOs;
 using Domain.Entities;
 
 namespace Application.Services;
@@ -106,15 +107,15 @@ public class MovieService : IMovieService
         return Result<GetMovieDto>.Success(movieDto);
     }
 
-    public async Task<Result<List<GetCommentListDto>>> GetCommentByTitleAsync(string movieCode)
+    public async Task<Result<List<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode)
     {
          var comments = await _unitOfWork.Movie.GetAllCommentsByTitleAsync(movieCode);
 
         if (comments is null)
-            return Result<List<GetCommentListDto>>.NotFound();
+            return Result<List<UsuarioWithCommentsDto>>.NotFound();
 
-        var commentsDto = _mapper.Map<List<GetCommentListDto>>(comments);
+        var commentsDto = _mapper.Map<List<UsuarioWithCommentsDto>>(comments);
 
-        return Result<List<GetCommentListDto>>.Success(commentsDto);
+        return Result<List<UsuarioWithCommentsDto>>.Success(commentsDto);
     }
 }
