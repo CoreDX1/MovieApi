@@ -26,17 +26,21 @@ public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
             return [];
         }
 
-        var user = await DbContext.Usuarios.Where(u => u.Id == movie.Id).FirstOrDefaultAsync();
-        var comments = await DbContext.Comments.Where(c => c.MovieId == movie.Id).ToListAsync();
+        var comments = await DbContext
+            .Movies.Where(m => m.MovieCode == movieCode)
+            .SelectMany(m =>
+                m.Comments.Select(c => new UsuarioWithCommentsDto
+                {
+                    Id = c.Id,
+                    UserName = c.Usuario.Name,
+                    Date = c.Date,
+                    Comment = c.Text,
+                })
+            )
+            .ToListAsync();
 
-        return comments.Select(c => new UsuarioWithCommentsDto
-        {
-            Id = c.Id,
-            UserName = user.Name,
-            Date = c.Date,
-            Comment = c.Text
-        });
 
+        return comments;
     }
 
     public async Task<Movie> GetByTitleAsync(string movieCode)

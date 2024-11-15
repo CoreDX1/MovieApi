@@ -17,5 +17,8 @@ public class CommentConfigurations : IEntityTypeConfiguration<Comment>
                 .IsRequired()
                 .HasColumnName("text");
             builder.Property(e => e.UsuarioId).HasColumnName("usuario_id");
+
+            builder.HasOne(c => c.Usuario).WithMany(u => u.Comments).HasForeignKey(c => c.UsuarioId);
+            builder.HasOne(c => c.Movie).WithMany(u => u.Comments).HasForeignKey(c => c.MovieId);
     }
 }
