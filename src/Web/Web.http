@@ -4,8 +4,13 @@ GET {{Web_HostAddress}}/api/movie/
 Accept: application/json
 ###
 
-GET {{Web_HostAddress}}/api/movie/1
+GET {{Web_HostAddress}}/api/movie/title/tt0108052
 Accept: application/json
+###
+
+GET {{Web_HostAddress}}/api/movie/comment/tt0108052
+Accept: application/json
+
 ###
 
 POST {{Web_HostAddress}}/api/movie/

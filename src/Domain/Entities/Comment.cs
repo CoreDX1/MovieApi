@@ -6,9 +6,9 @@ public partial class Comment
 
     public int MovieId { get; set; }
 
-    public string Text { get; set; } = null!;
+    public string Text { get; set; }
 
     public DateOnly Date { get; set; }
 
-    public virtual Movie Movie { get; set; } = null!;
+    public int? UsuarioId { get; set; }
 }

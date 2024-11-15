@@ -16,6 +16,15 @@ namespace Infrastructure.Data.Migrations
 
         public DbSet<Movie> Movies { get; set; }
 
+
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Usuario> Usuarios { get; set; }
+
+        public DbSet<UsuarioCredenciale> UsuarioCredenciales { get; set; }
+
+        public DbSet<UsuarioRole> UsuarioRoles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             OnModelCreatingPartial(builder);

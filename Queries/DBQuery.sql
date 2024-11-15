@@ -102,27 +102,93 @@ UPDATE movies SET movie_code = 'tt0090605' WHERE id = 5;
 UPDATE movies SET movie_code = 'tt0370263' WHERE id = 6;
 UPDATE movies SET movie_code = 'tt0088247' WHERE id = 7;
 
-create table user(
-  id serial primary key,
-  name varchar(225),
-  password_hash varchar(252),
-  email varchar(225),
-  created_at timestamp,
-  updated_at timestamp
-  last_login timestamp
-)
 
-create table rol(
-  id serial primary key,
-  name varchar(225) NOT NULL UNIQUE,
-  created_at timestamp,
-)
 
-create table user_rol(
-  user_id integer references user(id),
-  rol_id integer references rol(id),
-  primary key (user_id, rol_id)
-)
 
+-- Table Ratings {
+--   id SERIAL [pk]
+--   movie_id INTEGER [ref: > Movies.id]
+--   usuario_id INTEGER [ref: > Usuario.id]
+--   rating INTEGER [not null]
+--   date DATE [not null]
+-- }
+
+-- Table Usuario {
+--   id SERIAL [pk]
+--   name VARCHAR(225) [not null]
+--   email VARCHAR(225) [not null, unique]
+-- }
+
+-- Table Usuario_Credenciales {
+--   usuario_id INTEGER [ref: > Usuario.id]
+--   password_hash VARCHAR(255) [not null]
+--   created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+--   updated_at TIMESTAMP
+--   last_login TIMESTAMP
+-- }
+
+-- Table Rol {
+--   id INTEGER
+--   names VARCHAR(225) [not null]
+--   created_at TIMESTAMP [default: `CURRENT_TIMESTAMP`]
+-- }
+
+-- table Usuario_Rol {
+--   usuario_id INTEGER [ref: > Usuario.id]
+--   rol_id INTEGER [ref: > Rol.id]
+-- }
+
+
+create table Ratings (
+  id SERIAL PRIMARY KEY,
+  movie_id INTEGER NOT NULL,
+  usuario_id INTEGER NOT NULL,
+  rating INTEGER NOT NULL,
+  date DATE NOT NULL,
+  FOREIGN KEY (movie_id) REFERENCES Movies (id),
+  FOREIGN KEY (usuario_id) REFERENCES Usuario (id)
+);
+
+create table Usuario (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  FOREIGN KEY (id) REFERENCES Usuario (id)
+);
+
+
+create table Usuario_Credenciales (
+  usuario_id INTEGER NOT NULL,
+  password_hash VARCHAR(50) NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  last_login TIMESTAMP NOT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES Usuario (id)
+);
+
+create table Roles (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  FOREIGN KEY (id) REFERENCES Roles (id)
+);
+
+create table Usuario_Roles (
+  usuario_id INTEGER NOT NULL,
+  role_id INTEGER NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES Usuario (id),
+  FOREIGN KEY (role_id) REFERENCES Roles (id)
+);
+
+
+select * from comments;
+
+
+alter table comments add column usuario_id integer;
+alter table Usuario_Credenciales add column last_login TIMESTAMP;
+
+insert into Usuario (name, email) values ('admin', 'admin@admin.com');
+inseto into Usuario_Credenciales (usuario_id, password_hash, created_at, updated_at, last_login) values (1, 'index', now(), now(), now());
 
 
