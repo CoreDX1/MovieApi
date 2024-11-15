@@ -34,7 +34,7 @@ public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
             Id = c.Id,
             UserName = user.Name,
             Date = c.Date,
-            Comments = c
+            Comment = c.Text
         });
 
     }
