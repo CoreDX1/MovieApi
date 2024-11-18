@@ -8,5 +8,5 @@ public class UsuarioRole
     public DateTime UpdatedAt { get; set; }
 
     public Role Role { get; set; }
-    public Usuario Usuario { get; set; }
+    public User Usuario { get; set; }
 }

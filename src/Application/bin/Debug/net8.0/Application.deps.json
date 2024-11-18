@@ -161,6 +161,7 @@
       "Microsoft.Extensions.Primitives/8.0.0": {},
       "Domain/1.0.0": {
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "FluentValidation.AspNetCore": "11.3.0"
         },
         "runtime": {

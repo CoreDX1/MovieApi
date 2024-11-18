@@ -10,7 +10,6 @@ namespace Application.Services;
 public class MovieService : IMovieService
 {
     private readonly IUnitOfWork _unitOfWork;
-
     private readonly IMapper _mapper;
     private readonly IValidator<CreateMovieDto> _movieValidator;
 
@@ -29,7 +28,7 @@ public class MovieService : IMovieService
     {
         var movies = await _unitOfWork.Movie.Read.ListAsync();
 
-        if (movies is null)
+        if (movies == null)
             return Result<List<GetMovieListDto>>.NotFound();
 
         var moviesDto = _mapper.Map<List<GetMovieListDto>>(movies);
@@ -39,14 +38,13 @@ public class MovieService : IMovieService
 
     public async Task<Result<GetMovieDto>> GetByIdAsync(int id)
     {
-        if (id <= 0)
-        {
+        if (id <= 0){
             return Result<GetMovieDto>.Error("Invalid movie id");
         }
 
         var movie = await _unitOfWork.Movie.Read.FindAsync(id);
 
-        if (movie is null)
+        if (movie == null)
             return Result<GetMovieDto>.NotFound();
 
         var movieDto = _mapper.Map<GetMovieDto>(movie);
@@ -58,9 +56,7 @@ public class MovieService : IMovieService
         var validationResult = await _movieValidator.ValidateAsync(movie);
 
         if (!validationResult.IsValid)
-        {
             return Result<GetMovieDto>.Invalid(validationResult.AsErrors());
-        }
 
         // FluentValidation
         var movieEntity = _mapper.Map<Movie>(movie);
@@ -71,9 +67,11 @@ public class MovieService : IMovieService
             return Result<GetMovieDto>.Conflict();
 
         await _unitOfWork.Movie.Write.AddAsync(movieEntity);
-        return Result<GetMovieDto>.Created(_mapper.Map<GetMovieDto>(movieEntity));
-    }
 
+        var movieDto = _mapper.Map<GetMovieDto>(movieEntity);
+
+        return Result<GetMovieDto>.Created(movieDto);
+    }
 
     public Task<Movie> UpdateAsync(Movie movie)
     {
@@ -83,10 +81,10 @@ public class MovieService : IMovieService
     public async Task<Result<GetMovieDto>> GetByTitleAsync(string movieCode)
     {
         var movie = await _unitOfWork.Movie.GetByTitleAsync(movieCode);
-         
-        if(movie == null)
+
+        if (movie == null)
             return Result<GetMovieDto>.NotFound();
-        
+
         var movieDto = _mapper.Map<GetMovieDto>(movie);
         return Result<GetMovieDto>.Success(movieDto);
     }
@@ -96,9 +94,7 @@ public class MovieService : IMovieService
         var movie = await GetByIdAsync(id);
 
         if (movie.IsNotFound())
-        {
             return Result<GetMovieDto>.NotFound();
-        }
 
         var movieDetails = await _unitOfWork.Movie.Write.DeleteByIdAsync(id);
 
@@ -109,9 +105,9 @@ public class MovieService : IMovieService
 
     public async Task<Result<List<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode)
     {
-         var comments = await _unitOfWork.Movie.GetAllCommentsByTitleAsync(movieCode);
+        var comments = await _unitOfWork.Movie.GetAllCommentsByTitleAsync(movieCode);
 
-        if (comments is null)
+        if (comments == null)
             return Result<List<UsuarioWithCommentsDto>>.NotFound();
 
         var commentsDto = _mapper.Map<List<UsuarioWithCommentsDto>>(comments);

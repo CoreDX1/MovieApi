@@ -3,7 +3,7 @@ using Domain.Entities;
 
 namespace Application.Interfaces.Repositories;
 
-public interface IMovieRepositories : IRepositoryBase<Movie>
+public interface IMovieRepository : IRepositoryBase<Movie>
 {
     public Task<Movie> GetByTitleAsync(string movieCode);
 

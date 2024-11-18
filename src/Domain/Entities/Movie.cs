@@ -14,7 +14,7 @@ public class Movie
     public string Image { get; set; }
     public string MovieCode { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; set; } = [];
-    public virtual ICollection<Actor> Actors { get; set; } = [];
-    public virtual ICollection<Director> Directors { get; set; } = [];
+    public ICollection<Comment> Comments { get; set; } = [];
+    public ICollection<Actor> Actors { get; set; } = [];
+    public ICollection<Director> Directors { get; set; } = [];
 }

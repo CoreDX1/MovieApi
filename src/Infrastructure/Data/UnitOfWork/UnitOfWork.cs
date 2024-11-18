@@ -5,16 +5,23 @@ namespace Infrastructure.Data.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public IMovieRepositories Movie { get; }
+    public IMovieRepository Movie { get; }
     public ICommentRepository Comment { get; }
+    public IUserRepository User { get; }
 
     private readonly ApiMovieContext _context;
 
-    public UnitOfWork(IMovieRepositories movie, ApiMovieContext context, ICommentRepository comment)
+    public UnitOfWork(
+        IMovieRepository movie,
+        ApiMovieContext context,
+        ICommentRepository comment,
+        IUserRepository user
+    )
     {
         _context = context;
         Comment = comment;
         Movie = movie;
+        User = user;
     }
 
     public void Dispose()

@@ -4,9 +4,9 @@ using Domain.Entities;
 
 namespace Infrastructure.Data.Repositories;
 
-public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
+public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
 {
-    public MovieRepositories(
+    public MovieRepository(
         ApiMovieContext context,
         IReadRepository<Movie> readRepository,
         IWriteRepository<Movie> writeRepository
@@ -17,17 +17,14 @@ public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
         string movieCode
     )
     {
-        var movie = await DbContext
-            .Movies.AsNoTracking()
-            .FirstOrDefaultAsync(m => m.MovieCode == movieCode);
+        Movie movie = await DbContext.Movies.FirstOrDefaultAsync(m => m.MovieCode == movieCode);
 
-        if (movie is null)
-        {
+        if (movie == null)
             return [];
-        }
 
-        var comments = await DbContext
-            .Movies.Where(m => m.MovieCode == movieCode)
+        List<UsuarioWithCommentsDto> comments = await DbContext
+            .Movies.AsNoTracking()
+            .Where(m => m.MovieCode == movieCode)
             .SelectMany(m =>
                 m.Comments.Select(c => new UsuarioWithCommentsDto
                 {
@@ -38,7 +35,6 @@ public class MovieRepositories : RepositoryBase<Movie>, IMovieRepositories
                 })
             )
             .ToListAsync();
-
 
         return comments;
     }

@@ -19,7 +19,7 @@ namespace Infrastructure.Data.Migrations
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<User> Usuarios { get; set; }
 
         public DbSet<UsuarioCredenciale> UsuarioCredenciales { get; set; }
 

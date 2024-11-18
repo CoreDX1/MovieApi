@@ -8,6 +8,6 @@ public class Comment
     public DateOnly Date { get; set; }
     public int UsuarioId { get; set; }
 
-    public virtual Usuario Usuario { get; set; }
-    public virtual Movie Movie { get; set; }
+    public User Usuario { get; set; }
+    public Movie Movie { get; set; }
 }

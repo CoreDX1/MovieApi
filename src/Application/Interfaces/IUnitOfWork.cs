@@ -4,7 +4,8 @@ namespace Application.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    public IMovieRepositories Movie { get; }
+    public IMovieRepository Movie { get; }
     public ICommentRepository Comment { get; }
+    public IUserRepository User { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

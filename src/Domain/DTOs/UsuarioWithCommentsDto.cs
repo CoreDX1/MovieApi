@@ -1,3 +1,5 @@
+using AutoMapper;
+
 namespace Domain.DTOs;
 
 public class UsuarioWithCommentsDto
@@ -6,4 +8,11 @@ public class UsuarioWithCommentsDto
     public string UserName { get; set; }
     public DateOnly Date { get; set; }
     public string Comment { get; set; }
+
+    public class Mapper : Profile
+    {
+        public Mapper()
+        {
+        }
+    }
 }

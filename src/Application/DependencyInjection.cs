@@ -11,6 +11,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IMovieService, MovieService>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IUserService, UserService>();
 
         // Libreria de AutoMapper
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

@@ -2,9 +2,9 @@ using Domain.Entities;
 
 namespace Infrastructure.Data.Configurations;
 
-public class UsuarioConfigurations : IEntityTypeConfiguration<Usuario>
+public class UsuarioConfigurations : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<Usuario> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(e => e.Id).HasName("usuario_pkey");
 
@@ -17,7 +17,7 @@ public class UsuarioConfigurations : IEntityTypeConfiguration<Usuario>
         builder
             .HasOne(d => d.IdNavigation)
             .WithOne(p => p.InverseIdNavigation)
-            .HasForeignKey<Usuario>(d => d.Id)
+            .HasForeignKey<User>(d => d.Id)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("usuario_id_fkey");
     }
