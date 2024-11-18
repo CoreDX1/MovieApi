@@ -8,6 +8,7 @@ public class UnitOfWork : IUnitOfWork
     public IMovieRepository Movie { get; }
     public ICommentRepository Comment { get; }
     public IUserRepository User { get; }
+    public ICredentialRepository Credential { get; }
 
     private readonly ApiMovieContext _context;
 
@@ -15,13 +16,15 @@ public class UnitOfWork : IUnitOfWork
         IMovieRepository movie,
         ApiMovieContext context,
         ICommentRepository comment,
-        IUserRepository user
+        IUserRepository user,
+        ICredentialRepository credential
     )
     {
         _context = context;
         Comment = comment;
         Movie = movie;
         User = user;
+        Credential = credential;
     }
 
     public void Dispose()

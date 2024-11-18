@@ -1,8 +1,5 @@
 using Application.Interfaces;
 using Application.Interfaces.Repositories;
-using Application.Interfaces.Services;
-using Application.Services;
-using Infrastructure.Data.Migrations;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.UnitOfWork;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +9,7 @@ namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
@@ -25,6 +19,7 @@ public static class DependencyInjection
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICredentialRepository, CredentialRepository>();
 
         // services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 

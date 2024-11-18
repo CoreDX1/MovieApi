@@ -24,4 +24,14 @@ public class UserController : ControllerBase
         var users = await _userService.GetAllAsync();
         return Ok(users);
     }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(GetUserListDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<GetUserListDto>> Add(CreateUserDto userDto)
+    {
+        var user = await _userService.AddAsync(userDto);
+        return Ok(user);
+    }
 }

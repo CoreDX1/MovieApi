@@ -6,7 +6,10 @@ public class UsuarioCredencialeConfigurations : IEntityTypeConfiguration<Usuario
 {
     public void Configure(EntityTypeBuilder<UsuarioCredenciale> builder)
     {
+
         builder.HasNoKey().ToTable("usuario_credenciales");
+
+        builder.HasKey(e => e.UsuarioId);
 
         builder
             .Property(e => e.CreatedAt)
