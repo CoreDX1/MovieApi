@@ -9,21 +9,13 @@ namespace Infrastructure.Data.Migrations
             : base(options) { }
 
         public DbSet<Actor> Actors { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
-
         public DbSet<Director> Directors { get; set; }
-
         public DbSet<Movie> Movies { get; set; }
-
-
         public DbSet<Role> Roles { get; set; }
-
-        public DbSet<User> Usuarios { get; set; }
-
-        public DbSet<UsuarioCredenciale> UsuarioCredenciales { get; set; }
-
-        public DbSet<UsuarioRole> UsuarioRoles { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UsuarioCredenciale> UserCredential { get; set; }
+        public DbSet<UsuarioRole> UserRol { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
