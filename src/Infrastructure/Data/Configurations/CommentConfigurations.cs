@@ -1,4 +1,5 @@
 using Domain.Entities;
+
 namespace Infrastructure.Data.Configurations;
 
 public class CommentConfigurations : IEntityTypeConfiguration<Comment>
