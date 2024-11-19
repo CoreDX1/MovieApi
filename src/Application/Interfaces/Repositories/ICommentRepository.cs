@@ -2,4 +2,4 @@ using Domain.Entities;
 
 namespace Application.Interfaces.Repositories;
 
-public interface ICommentRepository : IRepositoryBase<Comment>{}
+public interface ICommentRepository : IRepository<Comment>{}

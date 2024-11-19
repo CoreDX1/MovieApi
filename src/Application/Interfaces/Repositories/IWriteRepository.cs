@@ -1,12 +1,12 @@
 namespace  Application.Interfaces.Repositories;
 
-public interface IWriteRepository<T> where T : class
+public interface IWriteRepository<TEntity> where TEntity : class
 {
-    Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
-    Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
-    Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
-    Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
-    Task<T> DeleteByIdAsync(int id, CancellationToken cancellationToken = default);
-    Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task<TEntity> DeleteByIdAsync(int id, CancellationToken cancellationToken = default);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

@@ -15,7 +15,7 @@ public class MovieController : ControllerBase
         _moviesServices = moviesServices;
     }
 
-    [HttpGet]
+    [HttpGet] // GET /api/movies
     [ProducesResponseType(typeof(IReadOnlyList<GetMovieListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
@@ -25,7 +25,7 @@ public class MovieController : ControllerBase
         return Ok(movies);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}")] // GET /api/movies/1
     [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
@@ -35,7 +35,7 @@ public class MovieController : ControllerBase
         return Ok(movie);
     }
 
-    [HttpPost]
+    [HttpPost] // POST /api/movies
     [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
@@ -45,7 +45,7 @@ public class MovieController : ControllerBase
         return Ok(movie);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}")] // DELETE /api/movies/1
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetMovieListDto>> Delete(int id)
@@ -55,7 +55,7 @@ public class MovieController : ControllerBase
     }
 
 
-    [HttpGet("comment/{movieCode}")]
+    [HttpGet("comment/{movieCode}")] // GET /api/movies/comment/1
     [ProducesResponseType(typeof(List<GetCommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle([FromRoute] string movieCode)
@@ -64,7 +64,7 @@ public class MovieController : ControllerBase
         return Ok(comments);
     }
 
-    [HttpGet("title/{movieCode}")]
+    [HttpGet("title/{movieCode}")] // GET /api/movies/title/1
     [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetMovieListDto>> GetByTitle([FromRoute] string movieCode)

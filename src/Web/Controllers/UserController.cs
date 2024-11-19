@@ -15,8 +15,8 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet]
-    [ProducesResponseType(typeof(List<GetUserListDto>), StatusCodes.Status200OK)]
+    [HttpGet] // GET /api/users
+    [ProducesResponseType(typeof(List<GetUserDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     public async Task<ActionResult> GetAll()
@@ -25,11 +25,11 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpPost]
-    [ProducesResponseType(typeof(GetUserListDto), StatusCodes.Status201Created)]
+    [HttpPost] // POST /api/users
+    [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetUserListDto>> Add(CreateUserDto userDto)
+    public async Task<ActionResult<GetUserDto>> Add(CreateUserDto userDto)
     {
         var user = await _userService.AddAsync(userDto);
         return Ok(user);

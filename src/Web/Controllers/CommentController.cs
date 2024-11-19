@@ -15,7 +15,7 @@ public class CommentController : Controller
         _commentService = commentService;
     }
 
-    [HttpGet]
+    [HttpGet] // GET /api/comment
     [ProducesResponseType(typeof(IReadOnlyList<GetCommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
@@ -26,7 +26,7 @@ public class CommentController : Controller
     }
 
 
-    [HttpPost]
+    [HttpPost] // POST /api/comment
     [ProducesResponseType(typeof(GetCommentListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]

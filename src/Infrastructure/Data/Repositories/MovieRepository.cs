@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Infrastructure.Data.Repositories;
 
-public class MovieRepository : RepositoryBase<Movie>, IMovieRepository
+public class MovieRepository : Repository<Movie>, IMovieRepository
 {
     public MovieRepository(
         ApiMovieContext context,

@@ -17,16 +17,22 @@ public class UserService : IUserService
         _mapper = mapper;
     }
 
-    public async Task<Result<GetUserListDto>> AddAsync(CreateUserDto userCreate)
+    public async Task<Result<GetUserDto>> AddAsync(CreateUserDto userCreate)
     {
         var user = new User() { Name = userCreate.Name, Email = userCreate.Email };
+
+        var emailExist = await _unitOfWork.User.EmailExistAsync(user.Email);
+
+        if(emailExist){
+            return Result<GetUserDto>.Conflict();
+        }
 
         var userEntity = await _unitOfWork.User.Write.AddAsync(user);
 
         var credential = new UsuarioCredenciale()
         {
             UsuarioId = userEntity.Id,
-            PasswordHash = userCreate.Password_Hash,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(userCreate.Password_Hash, 7),
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now,
             LastLogin = DateTime.Now,
@@ -34,25 +40,31 @@ public class UserService : IUserService
 
         await _unitOfWork.Credential.Write.AddAsync(credential);
 
-        var userDto = _mapper.Map<GetUserListDto>(userEntity);
+        var userDto = _mapper.Map<GetUserDto>(userEntity);
 
-        return Result<GetUserListDto>.Success(userDto);
+        return Result<GetUserDto>.Created(userDto);
     }
 
-    public async Task<Result<List<GetUserListDto>>> GetAllAsync()
+    public async Task<Result<List<GetUserDto>>> GetAllAsync()
     {
         var users = await _unitOfWork.User.Read.ListAsync();
 
         if (users == null)
-            return Result<List<GetUserListDto>>.NotFound();
+            return Result<List<GetUserDto>>.NotFound();
 
-        var usersDto = _mapper.Map<List<GetUserListDto>>(users);
+        var usersDto = _mapper.Map<List<GetUserDto>>(users);
 
-        return Result<List<GetUserListDto>>.Success(usersDto);
+        return Result<List<GetUserDto>>.Success(usersDto);
     }
 
     public Task<User> GetByNameAsync(string name)
     {
         throw new NotImplementedException();
     }
+
+    // public Task<bool> LoginAsync(LoginUserDto loginUser){
+    // }
+
 }
+
+
