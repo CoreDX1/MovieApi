@@ -21,8 +21,8 @@ public class MovieController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<GetMovieListDto>> GetAll()
     {
-        var movies = await _moviesServices.GetAllAsync();
-        return Ok(movies);
+        var response = await _moviesServices.GetAllAsync();
+        return Ok(response);
     }
 
     [HttpGet("{id}")] // GET /api/movies/1
@@ -31,8 +31,8 @@ public class MovieController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<GetMovieListDto>> GetById(int id)
     {
-        var movie = await _moviesServices.GetByIdAsync(id);
-        return Ok(movie);
+        var response = await _moviesServices.GetByIdAsync(id);
+        return Ok(response);
     }
 
     [HttpPost] // POST /api/movies
@@ -41,8 +41,8 @@ public class MovieController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult<GetMovieListDto>> Add(CreateMovieDto movieDto)
     {
-        var movie = await _moviesServices.AddAsync(movieDto);
-        return Ok(movie);
+        var response = await _moviesServices.AddAsync(movieDto);
+        return Ok(response);
     }
 
     [HttpDelete("{id}")] // DELETE /api/movies/1
@@ -50,18 +50,19 @@ public class MovieController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetMovieListDto>> Delete(int id)
     {
-        var movie = await _moviesServices.DeleteAsync(id);
-        return Ok(movie);
+        var response = await _moviesServices.DeleteAsync(id);
+        return Ok(response);
     }
-
 
     [HttpGet("comment/{movieCode}")] // GET /api/movies/comment/1
     [ProducesResponseType(typeof(List<GetCommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle([FromRoute] string movieCode)
+    public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle(
+        [FromRoute] string movieCode
+    )
     {
-        var comments = await _moviesServices.GetCommentByTitleAsync(movieCode);
-        return Ok(comments);
+        var response = await _moviesServices.GetCommentByTitleAsync(movieCode);
+        return Ok(response);
     }
 
     [HttpGet("title/{movieCode}")] // GET /api/movies/title/1
@@ -69,7 +70,7 @@ public class MovieController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetMovieListDto>> GetByTitle([FromRoute] string movieCode)
     {
-        var movie = await _moviesServices.GetByTitleAsync(movieCode);
-        return Ok(movie);
+        var response = await _moviesServices.GetByTitleAsync(movieCode);
+        return Ok(response);
     }
 }

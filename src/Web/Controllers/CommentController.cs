@@ -25,7 +25,6 @@ public class CommentController : Controller
         return Ok(comments);
     }
 
-
     [HttpPost] // POST /api/comment
     [ProducesResponseType(typeof(GetCommentListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,6 +34,4 @@ public class CommentController : Controller
         var commentDto = await _commentService.AddAsync(comment);
         return Ok(commentDto);
     }
-
-
 }

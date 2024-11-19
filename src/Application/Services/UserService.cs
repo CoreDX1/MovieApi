@@ -10,32 +10,35 @@ public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IValidator<CreateUserDto> _validator;
 
-    public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+    public UserService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<CreateUserDto> validator)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public async Task<Result<GetUserDto>> AddAsync(CreateUserDto userCreate)
     {
-        var user = new User() { Name = userCreate.Name, Email = userCreate.Email };
+        var validationResult = await _validator.ValidateAsync(userCreate);
 
-        var emailExist = await _unitOfWork.User.EmailExistAsync(user.Email);
+        if (!validationResult.IsValid)
+            return Result<GetUserDto>.Invalid(validationResult.AsErrors());
 
-        if(emailExist){
+        User emailExist = await _unitOfWork.User.EmailExistAsync(userCreate.Email);
+
+        if (emailExist != null)
             return Result<GetUserDto>.Conflict();
-        }
 
-        var userEntity = await _unitOfWork.User.Write.AddAsync(user);
+        var newUser = new User() { Name = userCreate.Name, Email = userCreate.Email };
+
+        User userEntity = await _unitOfWork.User.Write.AddAsync(newUser);
 
         var credential = new UsuarioCredenciale()
         {
             UsuarioId = userEntity.Id,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(userCreate.Password_Hash, 7),
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.Now,
-            LastLogin = DateTime.Now,
+            PasswordHash = GeneratePasswordHash(userCreate.Password_Hash),
         };
 
         await _unitOfWork.Credential.Write.AddAsync(credential);
@@ -62,9 +65,54 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    // public Task<bool> LoginAsync(LoginUserDto loginUser){
+    public async Task<Result<bool>> LoginAsync(LoginUserDto loginUser)
+    {
+        var existingUser = await _unitOfWork.User.EmailExistAsync(loginUser.Email);
+
+        if (existingUser == null)
+            return Result<bool>.NotFound("Email not found");
+
+        var userCredentials = await _unitOfWork.Credential.Read.FindAsync(existingUser.Id);
+
+        var isPasswordCorrect = ValidatePassword(loginUser.Password, userCredentials.PasswordHash);
+
+        if (!isPasswordCorrect)
+            return Result<bool>.NotFound("Invalid password");
+
+        await _unitOfWork.Credential.UpdateLogin(existingUser.Id);
+        return Result<bool>.Success(isPasswordCorrect);
+    }
+
+    public string GeneratePasswordHash(string password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password, 7);
+    }
+
+    public bool ValidatePassword(string password, string passwordHash)
+    {
+        return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+    }
+
+    // public async Task<Result<bool>> ChangePasswordAsync(ChangePasswordDto changePassword)
+    // {
+    //     var existingUser = await _unitOfWork.User.EmailExistAsync(changePassword.Email);
+
+    //     if (existingUser == null)
+    //         return Result<bool>.NotFound("Email not found");
+
+    //     var userCredentials = await _unitOfWork.Credential.Read.FindAsync(existingUser.Id);
+
+    //     var isPasswordCorrect = ValidatePassword(changePassword.OldPassword, userCredentials.PasswordHash);
+
+    //     if (!isPasswordCorrect)
+    //         return Result<bool>.NotFound("Invalid password");
+
+    //     var newPasswordHash = GeneratePasswordHash(changePassword.NewPassword);
+
+    //     userCredentials.PasswordHash = newPasswordHash;
+
+    //     await _unitOfWork.Credential.Write.UpdateAsync(userCredentials);
+
+    //     return Result<bool>.Success(true);
     // }
-
 }
-
-

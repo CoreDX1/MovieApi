@@ -10,4 +10,6 @@ public interface IUserService
     public Task<Result<List<GetUserDto>>> GetAllAsync();
 
     public Task<Result<GetUserDto>> AddAsync(CreateUserDto user);
+
+    public Task<Result<bool>> LoginAsync(LoginUserDto loginUser);
 }

@@ -5,9 +5,8 @@ public class UsuarioCredenciale
     public int UsuarioId { get; set; }
     public string PasswordHash { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-    public DateTime LastLogin { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
     public User Usuario { get; set; }
 }
