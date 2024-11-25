@@ -10,14 +10,16 @@ public class MovieConfigurations : IEntityTypeConfiguration<Movie>
 
         builder.ToTable("movies");
 
+        builder.HasIndex(e => e.MovieCode, "movies_movie_code_key").IsUnique();
+
         builder.Property(e => e.Id).HasColumnName("id");
         builder.Property(e => e.Duration).HasColumnName("duration");
-        builder.Property(e => e.Genre).HasMaxLength(255).HasColumnName("genre");
+        builder.Property(e => e.Genre).IsRequired().HasMaxLength(255).HasColumnName("genre");
         builder.Property(e => e.Image).HasMaxLength(255).HasColumnName("image");
-        builder.Property(e => e.Synopsis).HasColumnName("synopsis");
-        builder.Property(e => e.Title).HasMaxLength(255).HasColumnName("title");
-        builder.Property(e => e.Year).HasColumnName("year");
         builder.Property(e => e.MovieCode).HasMaxLength(10).HasColumnName("movie_code");
+        builder.Property(e => e.Synopsis).HasColumnName("synopsis");
+        builder.Property(e => e.Title).IsRequired().HasMaxLength(255).HasColumnName("title");
+        builder.Property(e => e.Year).HasColumnName("year");
 
         builder
             .HasMany(d => d.Actors)

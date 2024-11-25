@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace Infrastructure.Data.Configurations;
 
-public class UserConfigurations : IEntityTypeConfiguration<Usuario>
+public class UsuarioConfigurations : IEntityTypeConfiguration<Usuario>
 {
     public void Configure(EntityTypeBuilder<Usuario> builder)
     {

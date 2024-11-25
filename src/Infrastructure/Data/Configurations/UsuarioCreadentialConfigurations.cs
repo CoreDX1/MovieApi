@@ -2,15 +2,15 @@ using Domain.Entities;
 
 namespace Infrastructure.Data.Configurations;
 
-public class UserCredentialConfigurations : IEntityTypeConfiguration<UsuarioCredenciale>
+public class UsuarioCredentialConfigurations : IEntityTypeConfiguration<UsuarioCredenciale>
 {
     public void Configure(EntityTypeBuilder<UsuarioCredenciale> builder)
     {
+        builder.HasKey(e => e.UsuarioId).HasName("pk_usuario_credenciales");
 
-        builder.HasNoKey().ToTable("usuario_credenciales");
+        builder.ToTable("usuario_credenciales");
 
-        builder.HasKey(e => e.UsuarioId);
-
+        builder.Property(e => e.UsuarioId).ValueGeneratedNever().HasColumnName("usuario_id");
         builder
             .Property(e => e.CreatedAt)
             .HasColumnType("timestamp without time zone")
@@ -22,18 +22,17 @@ public class UserCredentialConfigurations : IEntityTypeConfiguration<UsuarioCred
         builder
             .Property(e => e.PasswordHash)
             .IsRequired()
-            .HasMaxLength(50)
+            .HasMaxLength(100)
             .HasColumnName("password_hash");
         builder
             .Property(e => e.UpdatedAt)
             .HasColumnType("timestamp without time zone")
             .HasColumnName("updated_at");
-        builder.Property(e => e.UsuarioId).HasColumnName("usuario_id");
 
         builder
             .HasOne(d => d.Usuario)
-            .WithMany()
-            .HasForeignKey(d => d.UsuarioId)
+            .WithOne(p => p.UsuarioCredenciale)
+            .HasForeignKey<UsuarioCredenciale>(d => d.UsuarioId)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("usuario_credenciales_usuario_id_fkey");
     }
