@@ -2,7 +2,8 @@ using Application.Interfaces.Repositories;
 
 namespace Infrastructure.Data.Repositories;
 
-public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : class
+public class ReadRepository<TEntity> : IReadRepository<TEntity>
+    where TEntity : class
 {
     private readonly ApiMovieContext DbContex;
 
@@ -45,11 +46,8 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity> where TEntity : 
         return await DbContex.Set<TEntity>().FindAsync(id);
     }
 
-    public async Task<List<TEntity>> ListAsync(CancellationToken cancellationToken = default)
+    public async Task<List<TEntity>> ListAsync()
     {
-        return await DbContex
-            .Set<TEntity>()
-            .AsNoTracking()
-            .ToListAsync(cancellationToken: cancellationToken);
+        return await DbContex.Set<TEntity>().ToListAsync();
     }
 }

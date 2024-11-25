@@ -22,19 +22,14 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         if (movie == null)
             return [];
 
-        List<UsuarioWithCommentsDto> comments = await DbContext
-            .Movies.AsNoTracking()
-            .Where(m => m.MovieCode == movieCode)
-            .SelectMany(m =>
-                m.Comments.Select(c => new UsuarioWithCommentsDto
-                {
-                    Id = c.Id,
-                    UserName = c.Usuario.Name,
-                    Date = c.Date,
-                    Comment = c.Text,
-                })
-            )
-            .ToListAsync();
+        var comment = await DbContext.Comments.Where(c => c.MovieId == movie.Id).ToListAsync();
+        var user = await DbContext.User.Where(u => u.Id == comment.First().UsuarioId).ToListAsync();
+
+        var comments = comment.Select(c => new UsuarioWithCommentsDto {
+            Comment = c.Text,
+            UserName = user.First().Name,
+            Id = c.Id,
+        });
 
         return comments;
     }
