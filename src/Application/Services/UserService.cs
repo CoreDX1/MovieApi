@@ -83,6 +83,7 @@ public class UserService : IUserService
         return Result<bool>.Success(isPasswordCorrect);
     }
 
+    // TODO: Implement this method
     public string GeneratePasswordHash(string password)
     {
         return BCrypt.Net.BCrypt.HashPassword(password, 7);

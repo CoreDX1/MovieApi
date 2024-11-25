@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using Domain.Entities;
 
 namespace Application.DTOs;
 
@@ -10,12 +9,4 @@ public class CreateCommentDto
 
     [JsonIgnore]
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-
-    class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<CreateCommentDto, Comment>();
-        }
-    }
 }

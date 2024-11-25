@@ -1,5 +1,3 @@
-using Domain.Entities;
-
 namespace Application.DTOs;
 
 public record GetMovieListDto(
@@ -12,11 +10,3 @@ public record GetMovieListDto(
     string Image,
     string MovieCode
 );
-
-class Mapping : Profile
-{
-    public Mapping()
-    {
-        CreateMap<Movie, GetMovieListDto>();
-    }
-}
