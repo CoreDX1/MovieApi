@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Migrations
         public DbSet<Director> Directors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<Usuario> User { get; set; }
         public DbSet<UsuarioCredenciale> UserCredential { get; set; }
         public DbSet<UsuarioRole> UserRol { get; set; }
 

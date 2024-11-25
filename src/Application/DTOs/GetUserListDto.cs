@@ -13,6 +13,6 @@ public class Mapper : Profile
 {
     public Mapper()
     {
-        CreateMap<User, GetUserListDto>();
+        CreateMap<Usuario, GetUserListDto>();
     }
 }

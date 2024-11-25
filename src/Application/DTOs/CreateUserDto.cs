@@ -12,7 +12,7 @@ public class CreateUserDto
     {
         public Mapper()
         {
-            CreateMap<CreateUserDto, User>();
+            CreateMap<CreateUserDto, Usuario>();
         }
     }
 }

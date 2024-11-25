@@ -9,5 +9,5 @@ public class UsuarioCredenciale
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
     public DateTime LastLogin { get; set; }
 
-    public User Usuario { get; set; }
+    public Usuario Usuario { get; set; }
 }

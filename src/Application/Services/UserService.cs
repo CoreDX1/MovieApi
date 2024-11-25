@@ -26,14 +26,14 @@ public class UserService : IUserService
         if (!validationResult.IsValid)
             return Result<GetUserDto>.Invalid(validationResult.AsErrors());
 
-        User emailExist = await _unitOfWork.User.EmailExistAsync(userCreate.Email);
+        Usuario emailExist = await _unitOfWork.User.EmailExistAsync(userCreate.Email);
 
         if (emailExist != null)
             return Result<GetUserDto>.Conflict();
 
-        var newUser = new User() { Name = userCreate.Name, Email = userCreate.Email };
+        var newUser = new Usuario() { Name = userCreate.Name, Email = userCreate.Email };
 
-        User userEntity = await _unitOfWork.User.Write.AddAsync(newUser);
+        Usuario userEntity = await _unitOfWork.User.Write.AddAsync(newUser);
 
         var credential = new UsuarioCredenciale()
         {
@@ -60,7 +60,7 @@ public class UserService : IUserService
         return Result<List<GetUserDto>>.Success(usersDto);
     }
 
-    public Task<User> GetByNameAsync(string name)
+    public Task<Usuario> GetByNameAsync(string name)
     {
         throw new NotImplementedException();
     }

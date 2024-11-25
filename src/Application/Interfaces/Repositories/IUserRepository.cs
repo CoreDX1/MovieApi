@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace Application.Interfaces.Repositories;
 
-public interface IUserRepository : IRepository<User>
+public interface IUserRepository : IRepository<Usuario>
 {
-    public Task<User> EmailExistAsync(string email);
+    public Task<Usuario> EmailExistAsync(string email);
 }

@@ -11,7 +11,7 @@ public class LoginUserDto
     {
         public Mapper()
         {
-            CreateMap<LoginUserDto, User>();
+            CreateMap<LoginUserDto, Usuario>();
         }
     }
 }
