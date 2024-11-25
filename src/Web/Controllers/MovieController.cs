@@ -57,9 +57,7 @@ public class MovieController : ControllerBase
     [HttpGet("comment/{movieCode}")] // GET /api/movies/comment/1
     [ProducesResponseType(typeof(List<GetCommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle(
-        [FromRoute] string movieCode
-    )
+    public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle([FromRoute] string movieCode)
     {
         var response = await _moviesServices.GetCommentByTitleAsync(movieCode);
         return Ok(response);

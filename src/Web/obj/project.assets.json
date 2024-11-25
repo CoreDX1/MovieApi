@@ -392,6 +392,22 @@
           }
         }
       },
+      "Scalar.AspNetCore/1.2.44": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "type": "package",
         "dependencies": {
@@ -1304,6 +1320,23 @@
         "postgresql.png"
       ]
     },
+    "Scalar.AspNetCore/1.2.44": {
+      "sha512": "swXQKJZVY4U5OiV9N6s5NgssTe+OdPS2o6Qi1EYn7NOlmjiZh+e5Uj237JoGPpybie35bTEKKYidEn2+GE6Vzg==",
+      "type": "package",
+      "path": "scalar.aspnetcore/1.2.44",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net8.0/Scalar.AspNetCore.dll",
+        "lib/net8.0/Scalar.AspNetCore.xml",
+        "lib/net9.0/Scalar.AspNetCore.dll",
+        "lib/net9.0/Scalar.AspNetCore.xml",
+        "scalar.aspnetcore.1.2.44.nupkg.sha512",
+        "scalar.aspnetcore.nuspec"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.6.2": {
       "sha512": "+NB4UYVYN6AhDSjW0IJAd1AGD8V33gemFNLPaxKTtPkHB+HaKAKf9MGAEUPivEWvqeQfcKIw8lJaHq6LHljRuw==",
       "type": "package",
@@ -1427,6 +1460,7 @@
       "Application >= 1.0.0",
       "Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.10",
+      "Scalar.AspNetCore >= 1.2.44",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -1477,6 +1511,10 @@
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[8.0.10, )"
+          },
+          "Scalar.AspNetCore": {
+            "target": "Package",
+            "version": "[1.2.44, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

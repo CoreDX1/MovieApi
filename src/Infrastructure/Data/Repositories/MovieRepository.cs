@@ -29,6 +29,7 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
             Comment = c.Text,
             UserName = user.First().Name,
             Id = c.Id,
+            Date = c.Date,
         });
 
         return comments;

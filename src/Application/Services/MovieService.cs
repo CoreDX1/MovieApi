@@ -13,11 +13,7 @@ public class MovieService : IMovieService
     private readonly IMapper _mapper;
     private readonly IValidator<CreateMovieDto> _movieValidator;
 
-    public MovieService(
-        IUnitOfWork unitOfWork,
-        IMapper mapper,
-        IValidator<CreateMovieDto> movieValidator
-    )
+    public MovieService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<CreateMovieDto> movieValidator)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -28,8 +24,7 @@ public class MovieService : IMovieService
     {
         var movies = await _unitOfWork.Movie.Read.ListAsync();
 
-        if (movies == null)
-            return Result<List<GetMovieListDto>>.NotFound();
+        if (movies == null) return Result<List<GetMovieListDto>>.NotFound();
 
         var moviesDto = _mapper.Map<List<GetMovieListDto>>(movies);
 
@@ -38,14 +33,11 @@ public class MovieService : IMovieService
 
     public async Task<Result<GetMovieDto>> GetByIdAsync(int id)
     {
-        if (id <= 0){
-            return Result<GetMovieDto>.Error("Invalid movie id");
-        }
+        if (id <= 0) return Result<GetMovieDto>.Error("Invalid movie id");
 
         var movie = await _unitOfWork.Movie.Read.FindAsync(id);
 
-        if (movie == null)
-            return Result<GetMovieDto>.NotFound();
+        if (movie == null) return Result<GetMovieDto>.NotFound();
 
         var movieDto = _mapper.Map<GetMovieDto>(movie);
         return Result<GetMovieDto>.Success(movieDto);

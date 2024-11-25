@@ -11,6 +11,7 @@
           "Application": "1.0.0",
           "Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "8.0.10",
+          "Scalar.AspNetCore": "1.2.44",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -226,6 +227,14 @@
           "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
             "assemblyVersion": "8.0.10.0",
             "fileVersion": "8.0.10.0"
+          }
+        }
+      },
+      "Scalar.AspNetCore/1.2.44": {
+        "runtime": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "assemblyVersion": "1.2.44.0",
+            "fileVersion": "1.2.44.0"
           }
         }
       },
@@ -465,6 +474,13 @@
       "sha512": "sha512-gFPl9Dmxih7Yi4tZ3bITzZFzbxFMBx04gqTqcjoL2r5VEW+O2TA5UVw/wm/XW26NAJ7sg59Je0+9QrwiZt6MPQ==",
       "path": "npgsql.entityframeworkcore.postgresql/8.0.10",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512"
+    },
+    "Scalar.AspNetCore/1.2.44": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-swXQKJZVY4U5OiV9N6s5NgssTe+OdPS2o6Qi1EYn7NOlmjiZh+e5Uj237JoGPpybie35bTEKKYidEn2+GE6Vzg==",
+      "path": "scalar.aspnetcore/1.2.44",
+      "hashPath": "scalar.aspnetcore.1.2.44.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",

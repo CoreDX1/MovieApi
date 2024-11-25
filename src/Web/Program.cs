@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +23,21 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(options =>
+    {
+        options.RouteTemplate = "/openapi/{documentName}.json";
+    });
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "MoviesDB API V1");
         options.RoutePrefix = string.Empty;
+    });
+
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("MoviesDB API");
+        options.WithTheme(ScalarTheme.Mars);
+        options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
 }
 

@@ -57,3 +57,4 @@
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.node.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Scalar.AspNetCore.dll

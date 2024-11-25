@@ -93,26 +93,24 @@ public class UserService : IUserService
         return BCrypt.Net.BCrypt.Verify(password, passwordHash);
     }
 
-    // public async Task<Result<bool>> ChangePasswordAsync(ChangePasswordDto changePassword)
-    // {
-    //     var existingUser = await _unitOfWork.User.EmailExistAsync(changePassword.Email);
+    public async Task<Result<bool>> ChangePasswordAsync(UpdateCredentialDto changePassword)
+    {
+        var existingUser = await _unitOfWork.User.EmailExistAsync(changePassword.Email);
 
-    //     if (existingUser == null)
-    //         return Result<bool>.NotFound("Email not found");
+        if (existingUser == null)
+            return Result<bool>.NotFound("Email not found");
 
-    //     var userCredentials = await _unitOfWork.Credential.Read.FindAsync(existingUser.Id);
+        var userCredentials = await _unitOfWork.Credential.Read.FindAsync(existingUser.Id);
 
-    //     var isPasswordCorrect = ValidatePassword(changePassword.OldPassword, userCredentials.PasswordHash);
+        var isPasswordCorrect = ValidatePassword(changePassword.OldPassword, userCredentials.PasswordHash);
 
-    //     if (!isPasswordCorrect)
-    //         return Result<bool>.NotFound("Invalid password");
+        if (!isPasswordCorrect)
+            return Result<bool>.NotFound("Invalid password");
 
-    //     var newPasswordHash = GeneratePasswordHash(changePassword.NewPassword);
+        var newPasswordHash = GeneratePasswordHash(changePassword.NewPassword);
 
-    //     userCredentials.PasswordHash = newPasswordHash;
+         var changePasswordResult = await _unitOfWork.Credential.ChangePasswordAsync(newPasswordHash, existingUser.Id);
 
-    //     await _unitOfWork.Credential.Write.UpdateAsync(userCredentials);
-
-    //     return Result<bool>.Success(true);
-    // }
+        return Result<bool>.Success(changePasswordResult);
+    }
 }

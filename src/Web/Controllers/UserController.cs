@@ -44,4 +44,14 @@ public class UserController : ControllerBase
         var response = await _userService.LoginAsync(loginUserDto);
         return Ok(response);
     }
+
+    [HttpPut] // PUT /api/users
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<bool>> ChangePassword(UpdateCredentialDto updateCredentialDto)
+    {
+        var response = await _userService.ChangePasswordAsync(updateCredentialDto);
+        return Ok(response);
+    }
 }

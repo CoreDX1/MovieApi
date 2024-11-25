@@ -12,4 +12,6 @@ public interface IUserService
     public Task<Result<GetUserDto>> AddAsync(CreateUserDto user);
 
     public Task<Result<bool>> LoginAsync(LoginUserDto loginUser);
+
+    public Task<Result<bool>> ChangePasswordAsync(UpdateCredentialDto changePassword);
 }

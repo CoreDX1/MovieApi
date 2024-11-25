@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Z+XxKD3spfRhX5uCvZPBOZ1YBgf7UKzbkLmAkILtB+cgnw1/EvBGB4CHmofRkbCY811Wn0WyqQqtsz2nE1YXvA==",
+  "dgSpecHash": "tsztnI1S2tFAPALmrVZIdalmiHOwqu3orUOm5zgOWmtC/l7dAM8so3jZ+8tq787BwtHsr9dH61B9A/TX9gqkDg==",
   "success": true,
   "projectFilePath": "/home/core/Desktop/Project/MoviesDB/src/Web/Web.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "/home/core/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
     "/home/core/.nuget/packages/npgsql/8.0.5/npgsql.8.0.5.nupkg.sha512",
     "/home/core/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.10/npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512",
+    "/home/core/.nuget/packages/scalar.aspnetcore/1.2.44/scalar.aspnetcore.1.2.44.nupkg.sha512",
     "/home/core/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "/home/core/.nuget/packages/swashbuckle.aspnetcore.swagger/6.6.2/swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "/home/core/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.6.2/swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
