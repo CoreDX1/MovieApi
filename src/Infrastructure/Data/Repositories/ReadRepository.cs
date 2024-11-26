@@ -15,23 +15,23 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity>
         DbContex = dbContex;
     }
 
-    public Task<bool> AnyAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<bool> AnyAsync(CancellationToken cancellationToken = default)
     {
-        return DbContex.Set<TEntity>().AsNoTracking().AnyAsync(cancellationToken);
+        return await DbContex.Set<TEntity>().AsNoTracking().AnyAsync(cancellationToken);
     }
 
-    public async Task<int> CountAsync(CancellationToken cancellationToken = default)
+    public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default)
     {
         return await DbContex.Set<TEntity>().CountAsync(cancellationToken);
     }
 
-    public async Task<TEntity> FindAsync<Tid>(Tid id, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity> FindAsync<Tid>(Tid id, CancellationToken cancellationToken = default)
         where Tid : notnull
     {
         return await DbContex.Set<TEntity>().FindAsync(id);
     }
 
-    public async Task<TEntity> FindByIdAsync<Tid>(
+    public virtual async Task<TEntity> FindByIdAsync<Tid>(
         Tid id,
         CancellationToken cancellationToken = default
     )

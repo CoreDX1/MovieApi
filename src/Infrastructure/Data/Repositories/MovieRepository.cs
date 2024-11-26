@@ -12,7 +12,7 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         IWriteRepository<Movie> writeRepository
     )
         : base(context, readRepository, writeRepository) { }
-
+    
     public async Task<IEnumerable<UsuarioWithCommentsDto>> GetAllCommentsByTitleAsync(
         string movieCode
     )
