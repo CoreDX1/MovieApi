@@ -5,6 +5,9 @@ namespace Infrastructure.Data.Repositories;
 public class ReadRepository<TEntity> : IReadRepository<TEntity>
     where TEntity : class
 {
+
+    private bool IsNull() => DbContex == null;
+
     private readonly ApiMovieContext DbContex;
 
     public ReadRepository(ApiMovieContext dbContex)

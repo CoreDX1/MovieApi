@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Application.DTOs;
 
-public class CreateCommentDto
+public record CreateCommentDto
 {
     public int MovieId { get; set; }
     public string Text { get; set; } = string.Empty;
