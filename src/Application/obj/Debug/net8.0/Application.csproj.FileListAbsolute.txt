@@ -13,3 +13,4 @@
 /home/core/Desktop/Project/MoviesDB/src/Application/bin/Debug/net8.0/Domain.pdb
 /home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.csproj.AssemblyReference.cache
 /home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.csproj.CopyComplete
+/home/core/Desktop/Project/MoviesDB/src/Application/obj/Debug/net8.0/Application.sourcelink.json

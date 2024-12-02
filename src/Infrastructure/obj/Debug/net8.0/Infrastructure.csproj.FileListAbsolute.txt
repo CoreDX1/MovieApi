@@ -17,3 +17,4 @@
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Application.pdb
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/bin/Debug/net8.0/Domain.pdb
 /home/core/Desktop/Project/MoviesDB/src/Infrastructure/obj/Debug/net8.0/Infrastructure.csproj.CopyComplete
+/home/core/Desktop/Project/MoviesDB/src/Infrastructure/obj/Debug/net8.0/Infrastructure.sourcelink.json

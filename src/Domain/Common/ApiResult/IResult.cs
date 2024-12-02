@@ -1,6 +1,6 @@
 namespace Domain.Common.ApiResult;
 
-public interface IResult
+public interface IResult<T>
 {
     ResultStatus Status { get; }
     IEnumerable<string> Errors { get; }
@@ -8,4 +8,6 @@ public interface IResult
     Type ValueType { get; }
     object GetValue();
     string Location { get; }
+
+    
 }

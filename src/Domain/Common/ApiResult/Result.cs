@@ -3,7 +3,8 @@ using Domain.Common.Constants;
 
 namespace Domain.Common.ApiResult;
 
-public class Result<T> : IResult
+
+public class Result<T> : IResult<T>
 {
     protected Result() { }
 
@@ -109,5 +110,9 @@ public class Result<T> : IResult
         };
 
     public static Result<T> Conflict() =>
-        new(ResultStatus.Conflict) { Message = ReplyMessage.Error.Exists };
+        new(ResultStatus.Conflict) { Message = ReplyMessage.Error.Exists };  public Task ExecuteAsync(HttpContext httpContext)
+    {
+        throw new NotImplementedException();
+    }
+
 }

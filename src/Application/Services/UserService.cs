@@ -83,12 +83,13 @@ public class UserService : IUserService
         return Result<bool>.Success(isPasswordCorrect);
     }
 
-    // TODO: Implement this method
+    // TODO: Genera contraseña
     public string GeneratePasswordHash(string password)
     {
         return BCrypt.Net.BCrypt.HashPassword(password, 7);
     }
 
+    // TODO: Valida la contraseña
     public bool ValidatePassword(string password, string passwordHash)
     {
         return BCrypt.Net.BCrypt.Verify(password, passwordHash);
@@ -98,19 +99,25 @@ public class UserService : IUserService
     {
         var existingUser = await _unitOfWork.User.EmailExistAsync(changePassword.Email);
 
-        if (existingUser == null)
+        if (existingUser is null)
             return Result<bool>.NotFound("Email not found");
 
         var userCredentials = await _unitOfWork.Credential.Read.FindAsync(existingUser.Id);
 
-        var isPasswordCorrect = ValidatePassword(changePassword.OldPassword, userCredentials.PasswordHash);
+        var isPasswordCorrect = ValidatePassword(
+            changePassword.OldPassword,
+            userCredentials.PasswordHash
+        );
 
         if (!isPasswordCorrect)
             return Result<bool>.NotFound("Invalid password");
 
         var newPasswordHash = GeneratePasswordHash(changePassword.NewPassword);
 
-         var changePasswordResult = await _unitOfWork.Credential.ChangePasswordAsync(newPasswordHash, existingUser.Id);
+        bool changePasswordResult = await _unitOfWork.Credential.ChangePasswordAsync(
+            newPasswordHash,
+            existingUser.Id
+        );
 
         return Result<bool>.Success(changePasswordResult);
     }

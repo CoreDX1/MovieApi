@@ -12,7 +12,6 @@ public class Result : Result<Result>
     /// Represents a successful operation without return type
     /// </summary>
     /// <returns>A Result</returns>
-    public static Result Success() => new();
 
     /// <summary>
     /// Represents a successful operation without return type

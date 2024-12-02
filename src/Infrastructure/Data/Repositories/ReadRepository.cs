@@ -5,7 +5,6 @@ namespace Infrastructure.Data.Repositories;
 public class ReadRepository<TEntity> : IReadRepository<TEntity>
     where TEntity : class
 {
-
     private bool IsNull() => DbContex == null;
 
     private readonly ApiMovieContext DbContex;
@@ -25,7 +24,10 @@ public class ReadRepository<TEntity> : IReadRepository<TEntity>
         return await DbContex.Set<TEntity>().CountAsync(cancellationToken);
     }
 
-    public virtual async Task<TEntity> FindAsync<Tid>(Tid id, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity> FindAsync<Tid>(
+        Tid id,
+        CancellationToken cancellationToken = default
+    )
         where Tid : notnull
     {
         return await DbContex.Set<TEntity>().FindAsync(id);

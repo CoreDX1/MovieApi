@@ -58,3 +58,4 @@
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/ClientApp/tsconfig.node.json
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /home/core/Desktop/Project/MoviesDB/src/Web/bin/Debug/net8.0/Scalar.AspNetCore.dll
+/home/core/Desktop/Project/MoviesDB/src/Web/obj/Debug/net8.0/Web.sourcelink.json

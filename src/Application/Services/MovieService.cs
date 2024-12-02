@@ -20,16 +20,16 @@ public class MovieService : IMovieService
         MovieValidator = movieValidator;
     }
 
-    public async Task<Result<List<GetMovieListDto>>> GetAllAsync()
+    public async Task<Result<IList<GetMovieListDto>>> GetAllAsync()
     {
         var movies = await UnitOfWork.Movie.Read.ListAsync();
 
         if (movies.Count == 0)
-            return Result<List<GetMovieListDto>>.NotFound();
+            return Result<IList<GetMovieListDto>>.NotFound();
 
         var moviesDto = Mapper.Map<List<GetMovieListDto>>(movies);
 
-        return Result<List<GetMovieListDto>>.Success(moviesDto);
+        return Result<IList<GetMovieListDto>>.Success(moviesDto);
     }
 
     public async Task<Result<GetMovieDto>> GetByIdAsync(int id)
@@ -98,15 +98,15 @@ public class MovieService : IMovieService
         return Result<GetMovieDto>.Success(movieDto);
     }
 
-    public async Task<Result<List<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode)
+    public async Task<Result<IList<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode)
     {
         var comments = await UnitOfWork.Movie.GetAllCommentsByTitleAsync(movieCode);
 
         if (comments == null)
-            return Result<List<UsuarioWithCommentsDto>>.NotFound();
+            return Result<IList<UsuarioWithCommentsDto>>.NotFound();
 
         var commentsDto = Mapper.Map<List<UsuarioWithCommentsDto>>(comments);
 
-        return Result<List<UsuarioWithCommentsDto>>.Success(commentsDto);
+        return Result<IList<UsuarioWithCommentsDto>>.Success(commentsDto);
     }
 }
