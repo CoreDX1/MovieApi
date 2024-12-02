@@ -2,7 +2,8 @@ using Application.Interfaces.Repositories;
 
 namespace Infrastructure.Data.Repositories;
 
-public class WriteRepostory<T> : IWriteRepository<T> where T : class
+public class WriteRepostory<T> : IWriteRepository<T>
+    where T : class
 {
     private readonly ApiMovieContext DbContext;
 
@@ -18,11 +19,13 @@ public class WriteRepostory<T> : IWriteRepository<T> where T : class
         return entity;
     }
 
-    public async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities,CancellationToken cancellationToken = default)
+    public async Task AddRangeAsync(
+        IEnumerable<T> entities,
+        CancellationToken cancellationToken = default
+    )
     {
         await DbContext.Set<T>().AddRangeAsync(entities, cancellationToken);
         await DbContext.SaveChangesAsync(cancellationToken);
-        return entities;
     }
 
     public async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
@@ -31,15 +34,12 @@ public class WriteRepostory<T> : IWriteRepository<T> where T : class
         await SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<T> DeleteByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task DeleteByIdAsync(int id, CancellationToken cancellationToken = default)
     {
+        var entity = await DbContext.Set<T>().FindAsync(id);
 
-         var entity = await DbContext.Set<T>().FindAsync(id);
-
-         DbContext.Set<T>().Remove(entity);
-         await DbContext.SaveChangesAsync(cancellationToken);
-
-         return entity;
+        DbContext.Set<T>().Remove(entity);
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteRangeAsync(

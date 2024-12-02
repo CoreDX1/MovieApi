@@ -8,10 +8,8 @@ namespace Application.Services;
 
 public class CommentService : ICommentService
 {
-
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-
 
     public CommentService(IUnitOfWork unitOfWork, IMapper mapper)
     {
@@ -21,18 +19,17 @@ public class CommentService : ICommentService
 
     public async Task<Result<GetCommentDto>> AddAsync(CreateCommentDto comment)
     {
-
         var movie = await _unitOfWork.Comment.Read.FindAsync(comment.MovieId);
 
-        if (movie is null){
+        if (movie is null)
             return Result<GetCommentDto>.NotFound();
-        }
 
         var movieDto = _mapper.Map<Comment>(comment);
-        var movieEnitty = await _unitOfWork.Comment.Write.AddAsync(movieDto);
+        await _unitOfWork.Comment.Write.AddAsync(movieDto);
 
-        return Result<GetCommentDto>.Created(_mapper.Map<GetCommentDto>(movieEnitty));
+        var commentDto = _mapper.Map<GetCommentDto>(movieDto);
 
+        return Result<GetCommentDto>.Created(commentDto);
     }
 
     public Task<Result<GetCommentDto>> DeleteAsync(int id)

@@ -13,7 +13,11 @@ public class MovieService : IMovieService
     private readonly IMapper Mapper;
     private readonly IValidator<CreateMovieDto> MovieValidator;
 
-    public MovieService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<CreateMovieDto> movieValidator)
+    public MovieService(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IValidator<CreateMovieDto> movieValidator
+    )
     {
         UnitOfWork = unitOfWork;
         Mapper = mapper;
@@ -56,7 +60,7 @@ public class MovieService : IMovieService
         // FluentValidation
         var movieEntity = Mapper.Map<Movie>(movie);
 
-        IResult movieExists = await GetByTitleAsync(movie.Title);
+        var movieExists = await GetByTitleAsync(movie.Title);
 
         if (movieExists.IsConflict())
             return Result<GetMovieDto>.Conflict();
@@ -91,14 +95,13 @@ public class MovieService : IMovieService
         if (movie.IsNotFound())
             return Result<GetMovieDto>.NotFound();
 
-        var movieDetails = await UnitOfWork.Movie.Write.DeleteByIdAsync(id);
-
-        GetMovieDto movieDto = Mapper.Map<GetMovieDto>(movieDetails);
-
-        return Result<GetMovieDto>.Success(movieDto);
+        await UnitOfWork.Movie.Write.DeleteByIdAsync(id);
+        return Result<GetMovieDto>.Success();
     }
 
-    public async Task<Result<IList<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode)
+    public async Task<Result<IList<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(
+        string movieCode
+    )
     {
         var comments = await UnitOfWork.Movie.GetAllCommentsByTitleAsync(movieCode);
 
