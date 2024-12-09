@@ -12,6 +12,19 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 builder.Services.AddControllers();
 
+var AllowOrigins = "AllowOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: AllowOrigins,
+        builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }
+    );
+});
+
 var configuration = builder.Configuration;
 
 builder.Services.AddInfrastructure(configuration);
@@ -40,6 +53,8 @@ if (app.Environment.IsDevelopment())
         options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
 }
+
+app.UseCors(AllowOrigins);
 
 app.UseHttpsRedirection();
 

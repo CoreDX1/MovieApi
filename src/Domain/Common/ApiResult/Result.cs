@@ -30,7 +30,6 @@ public class Result<T> : IResult
             ValidationErrors = result.ValidationErrors,
         };
 
-    [JsonIgnore]
     public ResultStatus Status { get; protected set; } = ResultStatus.Ok;
 
     [JsonInclude]
