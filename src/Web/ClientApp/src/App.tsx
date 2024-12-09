@@ -1,8 +1,14 @@
 import './App.css'
-import { SingIn } from './pages/SingIn'
+import { Dashboard } from './components/Dashboard/Dashboard'
+import { Sidebar } from './components/Sidebar/Sidebar'
 
 function App() {
-    return <SingIn />
+    return (
+        <main className="grid gap-4 p-4 grid-cols-[220px,_1fr] ">
+            <Sidebar />
+            <Dashboard />
+        </main>
+    )
 }
 
 export default App
