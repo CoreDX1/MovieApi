@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Container, Paper, TextField, Typography } from '@m
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { UserRequest } from '../interfaces/User'
-import Service from '../services/Service'
+import { service } from '../services/Service'
 
 export const SingIn = () => {
     const [credentials, setCredentials] = useState<UserRequest>({
@@ -12,7 +12,6 @@ export const SingIn = () => {
 
     const [error, setError] = useState<boolean>(false)
 
-    const service = new Service()
     // Hora voy a hacer login
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {

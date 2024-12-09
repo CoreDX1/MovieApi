@@ -7,6 +7,7 @@ export class User {
     constructor(url: string) {
         this.url = url
     }
+
     public async UserLogin(user: UserRequest): Promise<UserResponse> {
         const response = await ky.post(`${this.url}/login`, {
             json: user,
