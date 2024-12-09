@@ -20,7 +20,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
-    "recharts": "^2.14.1"
+    "recharts": "^2.14.1",
+    "wouter": "^3.3.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
