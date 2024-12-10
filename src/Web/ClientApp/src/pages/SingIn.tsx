@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Container, Paper, TextField, Typography } from '@mui/material'
+import { Alert, Avatar, Box, Button, Container, Paper, TextField, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { UserRequest } from '../interfaces/User'
 import { service } from '../services/Service'
+import { useLocation } from 'wouter'
 
 export const SingIn = () => {
     const [credentials, setCredentials] = useState<UserRequest>({
@@ -12,20 +13,22 @@ export const SingIn = () => {
 
     const [error, setError] = useState<boolean>(false)
 
+    const [, setLocation] = useLocation()
+
     // Hora voy a hacer login
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const response = await service.User.UserLogin(credentials)
 
+        console.log(response.errors.length > 0)
+
         if (response.errors.length > 0) {
             setError(true)
+        } else {
+            setLocation('/dashboard')
         }
     }
-
-    setTimeout(() => {
-        setError(false)
-    }, 3000)
 
     return (
         <Container maxWidth="xs">
@@ -45,9 +48,9 @@ export const SingIn = () => {
                 </Typography>
 
                 {error && (
-                    <Typography color="error" variant="body2" sx={{ textAlign: 'center' }}>
-                        Error al iniciar sesión
-                    </Typography>
+                    <Alert severity="warning" onClose={() => setError(false)}>
+                        This Alert displays the default close icon.
+                    </Alert>
                 )}
 
                 <Box

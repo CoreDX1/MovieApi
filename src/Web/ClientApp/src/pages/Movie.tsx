@@ -2,9 +2,19 @@ import { useEffect, useState } from 'react'
 
 import { service } from '../services/Service'
 import { MovieResponse } from '../services/MovieServices'
-import { TableHead } from '@mui/material'
-import { FiArrowUpRight, FiMoreHorizontal } from 'react-icons/fi'
-import { MdMovie } from 'react-icons/md'
+import {
+    Box,
+    Button,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
+} from '@mui/material'
+import { Add, Delete } from '@mui/icons-material'
 
 export const Movie = () => {
     const [movies, setMovies] = useState<MovieResponse>({
@@ -25,55 +35,81 @@ export const Movie = () => {
     }, [])
 
     return (
-        <div className="col-span-12 p-4 rounded border border-stone-300">
-            <div className="mb-4 flex items-center justify-between">
-                <h3 className="flex items-center gap-1.5 font-medium">{<MdMovie />} Movies</h3>
-                <button className="text-sm text-violet-500 hover:underline">See all</button>
-            </div>
-            <table className="w-full table-auto">
-                <TableHead />
+        <Box sx={{ display: 'flex' }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <Typography variant="h5" gutterBottom>
+                    Product List
+                </Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 1,
+                        height: '30px',
+                    }}
+                >
+                    <Button
+                        startIcon={<Add />}
+                        variant="text"
+                        sx={{
+                            backgroundColor: 'rgba(0, 255, 31, 0.15)', // Cambia el fondo al blanco
+                            borderStyle: 'solid',
+                            borderWidth: '1px',
+                            borderColor: 'rgb(0, 255, 20)',
+                            color: 'rgb(0, 255, 35)',
+                            '&:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)', // Añade un fondo semitransparente al pasar el mouse
+                            },
+                        }}
+                    >
+                        Add
+                    </Button>
+                    <Button
+                        startIcon={<Delete />}
+                        variant="text"
+                        sx={{
+                            backgroundColor: 'rgba(255, 0, 0, 0.15)', // Cambia el fondo al blanco
+                            borderStyle: 'solid',
+                            borderWidth: '1px',
+                            borderColor: 'rgb(255, 0, 20)',
+                            color: 'rgb(255, 0, 0)',
+                            '&:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)', // Añade un fondo semitransparente al pasar el mouse
+                            },
+                        }}
+                    >
+                        Delete
+                    </Button>
+                </Box>
 
-                <tbody>
-                    {movies.data.map((movie) => (
-                        <TableRow
-                            id={movie.id}
-                            title={movie.title}
-                            year={movie.year}
-                            duration={movie.duration}
-                            genre={movie.genre}
-                        />
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    )
-}
+                <TableContainer component={Paper}>
+                    <Table arial-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Title</TableCell>
+                                <TableCell>Year</TableCell>
+                                <TableCell>Duration</TableCell>
+                                <TableCell>Genre</TableCell>
+                                <TableCell>Action</TableCell>
+                            </TableRow>
+                        </TableHead>
 
-type TableHeadProps = {
-    id: number
-    title: string
-    year: number
-    duration: number
-    genre: string
-}
-
-const TableRow = ({ id, title, year, duration, genre }: TableHeadProps) => {
-    return (
-        <tr>
-            <td className="p-1.5">
-                <a href="#" className="text-violet-600 underline flex items-center gap-1">
-                    {id} <FiArrowUpRight />
-                </a>
-            </td>
-            <td className="p-1.5">{title}</td>
-            <td className="p-1.5">{year}</td>
-            <td className="p-1.5">{duration}</td>
-            <td className="p-1.5">{genre}</td>
-            <td className="w-8">
-                <button className="hover:bg-stone-200 transition-colors grid place-content-center rounded text-sm size-8">
-                    <FiMoreHorizontal />
-                </button>
-            </td>
-        </tr>
+                        {movies.data.map((movie) => (
+                            <TableBody key={movie.id}>
+                                <TableRow>
+                                    <TableCell>{movie.id}</TableCell>
+                                    <TableCell>{movie.title}</TableCell>
+                                    <TableCell>{movie.year}</TableCell>
+                                    <TableCell>{movie.duration}</TableCell>
+                                    <TableCell>{movie.genre}</TableCell>
+                                    <TableCell>Delete</TableCell>
+                                    <TableCell>Update</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        ))}
+                    </Table>
+                </TableContainer>
+            </Box>
+        </Box>
     )
 }
