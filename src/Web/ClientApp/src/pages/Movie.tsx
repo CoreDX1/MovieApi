@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 
 import { service } from '../services/Service'
@@ -5,6 +6,8 @@ import { MovieResponse } from '../services/MovieServices'
 import {
     Box,
     Button,
+    IconButton,
+    Modal,
     Paper,
     Table,
     TableBody,
@@ -14,21 +17,30 @@ import {
     TableRow,
     Typography,
 } from '@mui/material'
-import { Add, Delete } from '@mui/icons-material'
+import { Add, DeleteOutline } from '@mui/icons-material'
+import { FiEdit2 } from 'react-icons/fi'
+import { RiDeleteBinLine } from 'react-icons/ri'
+import { AddMovie } from '../components/Dashboard/AddMovie'
 
 export const Movie = () => {
+
+
     const [movies, setMovies] = useState<MovieResponse>({
         status: 0,
         message: '',
         errors: [],
         validationErrors: [],
         data: [],
-        location: '',
+        location: ''
     })
     const getMovies = async () => {
         const response = await service.Movie.getMovies()
         setMovies(response)
     }
+
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         getMovies()
@@ -43,13 +55,14 @@ export const Movie = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        gap: 1,
-                        height: '30px',
+                        gap: 2,
+                        height: '35px',
                     }}
                 >
                     <Button
                         startIcon={<Add />}
                         variant="text"
+                        onClick={() => handleOpen()}
                         sx={{
                             backgroundColor: 'rgba(0, 255, 31, 0.15)', // Cambia el fondo al blanco
                             borderStyle: 'solid',
@@ -63,8 +76,13 @@ export const Movie = () => {
                     >
                         Add
                     </Button>
+                    {open && (
+                        <Modal open={open} onClose={handleClose}>
+                            <AddMovie />
+                        </Modal>
+                    )}
                     <Button
-                        startIcon={<Delete />}
+                        startIcon={<DeleteOutline />}
                         variant="text"
                         sx={{
                             backgroundColor: 'rgba(255, 0, 0, 0.15)', // Cambia el fondo al blanco
@@ -102,8 +120,26 @@ export const Movie = () => {
                                     <TableCell>{movie.year}</TableCell>
                                     <TableCell>{movie.duration}</TableCell>
                                     <TableCell>{movie.genre}</TableCell>
-                                    <TableCell>Delete</TableCell>
-                                    <TableCell>Update</TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-2">
+                                            <IconButton
+                                                color="primary"
+                                                className="hover:text-blue-500"
+
+                                                sx={{ fontSize: 20 }}
+                                            >
+                                                <FiEdit2 />
+                                            </IconButton>
+                                            <IconButton
+                                                color="secondary"
+                                                className="hover:text-red-500"
+                                                onClick={() => console.log(movie.movieCode)}
+                                                sx={{ fontSize: 20 }}
+                                            >
+                                                <RiDeleteBinLine />
+                                            </IconButton>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             </TableBody>
                         ))}
