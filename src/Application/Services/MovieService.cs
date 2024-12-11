@@ -72,6 +72,17 @@ public class MovieService : IMovieService
         return Result<GetMovieDto>.Created(movieDto);
     }
 
+    public async Task<Result<IEnumerable<GetMovieDto>>> AddRangeAsync(
+        IEnumerable<CreateMovieDto> movies
+    )
+    {
+        var movieEntity = Mapper.Map<List<Movie>>(movies);
+        await UnitOfWork.Movie.Write.AddRangeAsync(movieEntity);
+
+        var movieDto = Mapper.Map<List<GetMovieDto>>(movieEntity);
+        return Result<IEnumerable<GetMovieDto>>.Created(movieDto);
+    }
+
     public Task<Movie> UpdateAsync(Movie movie)
     {
         throw new NotImplementedException();

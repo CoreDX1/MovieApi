@@ -1,4 +1,3 @@
-
 using Application.DTOs;
 using Domain.Common.ApiResult;
 using Domain.DTOs;
@@ -15,6 +14,7 @@ public interface IMovieService
     Task<Result<IList<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode);
 
     Task<Result<GetMovieDto>> AddAsync(CreateMovieDto movie);
+    Task<Result<IEnumerable<GetMovieDto>>> AddRangeAsync(IEnumerable<CreateMovieDto> movies);
     Task<Result<GetMovieDto>> DeleteAsync(int id);
 
     Task<Movie> UpdateAsync(Movie movie);

@@ -1,8 +1,20 @@
 import { FC } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material'
-import { FiEdit2 } from 'react-icons/fi'
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    IconButton,
+    Button,
+} from '@mui/material'
+import { FiArrowUpRight, FiEdit2 } from 'react-icons/fi'
 import { MovieResponse } from '../../interfaces/Movie'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import { Link } from 'wouter'
+import { HiChevronUpDown } from 'react-icons/hi2'
 
 interface MoviesTableProps {
     movies: MovieResponse[]
@@ -18,21 +30,46 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                     <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', border: '1px solid rgba(0, 0, 0, 0.12)' }}>
                         <TableCell>Id</TableCell>
                         {/* <TableCell>Imagen</TableCell> */}
-                        <TableCell>Title</TableCell>
-                        <TableCell>Year</TableCell>
-                        <TableCell>Duration</TableCell>
-                        <TableCell>Genre</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell>
+                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
+                                Title <HiChevronUpDown />
+                            </Button>
+                        </TableCell>
+                        <TableCell>
+                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
+                                Year <HiChevronUpDown />
+                            </Button>
+                        </TableCell>
+                        <TableCell>
+                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
+                                Duration <HiChevronUpDown />
+                            </Button>
+                        </TableCell>
+                        <TableCell>
+                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
+                                Genre <HiChevronUpDown />
+                            </Button>
+                        </TableCell>
+                        <TableCell>
+                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
+                                Action <HiChevronUpDown />
+                            </Button>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {movies.map((movie) => (
-                        <TableRow key={movie.id}>
+                        <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
                             <TableCell>{movie.id}</TableCell>
                             {/* <TableCell>
                             <img src={movie.image} alt="Movie Image" className="w-auto h-20" />
                         </TableCell> */}
-                            <TableCell>{movie.title}</TableCell>
+                            <TableCell>
+                                <Link href="#" className="text-violet-600 underline flex items-center gap-1">
+                                    {movie.title}
+                                    <FiArrowUpRight />
+                                </Link>
+                            </TableCell>
                             <TableCell>{movie.year}</TableCell>
                             <TableCell>{movie.duration}</TableCell>
                             <TableCell>{movie.genre}</TableCell>

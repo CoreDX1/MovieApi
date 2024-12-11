@@ -35,9 +35,9 @@ export const Movie = () => {
     }, [])
 
     return (
-        <Box sx={{ display: 'flex' }} className="col-span-12 p-4 rounded border border-stone-300">
+        <Box sx={{ display: 'flex'}} className="col-span-12 p-4 rounded border border-stone-300">
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom className='col-span-12 p-4 rounded border border-stone-300'>
                     Product List
                 </Typography>
                 <Box
