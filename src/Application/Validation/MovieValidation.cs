@@ -18,7 +18,7 @@ public class MovieValidation : AbstractValidator<CreateMovieDto>
             .WithMessage("Description is required")
             .MinimumLength(3)
             .WithMessage("Description must be at least 3 characters")
-            .MaximumLength(300)
+            .MaximumLength(1000)
             .WithMessage("Description must be at most 100 characters");
         ;
         RuleFor(m => m.Year).NotEmpty().WithMessage("Year is required");

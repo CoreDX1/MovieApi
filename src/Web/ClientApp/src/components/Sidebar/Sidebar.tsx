@@ -15,7 +15,6 @@ export const Sidebar = ({ changeView }: SidebarProps) => {
                 <Search />
                 <RouteSelect changeView={changeView} />
             </div>
-
             <Plan />
         </div>
     )

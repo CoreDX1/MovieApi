@@ -4,10 +4,9 @@ export type UserRequest = {
 };
 
 export type UserResponse = {
-  status: number;
-  message: string;
-  errors: string[];
-  validationErrors: string[];
-  data: boolean;
-  location: string;
+  id: number;
+  name: string;
+  email: string;
 };
+
+

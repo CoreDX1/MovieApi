@@ -3,6 +3,7 @@ import { Dashboard } from '../components/Dashboard/Dashboard'
 import { Sidebar } from '../components/Sidebar/Sidebar'
 import { Movie } from './Movie'
 import { Settings } from './Settings'
+import { User } from '../components/User/User'
 
 export const DashboardUI = () => {
     const [currentView, setCurrentView] = useState<string>('dashboard')
@@ -15,6 +16,7 @@ export const DashboardUI = () => {
     const views: Record<string, JSX.Element> = {
         dashboard: <Dashboard />,
         movie: <Movie />,
+        user: <User />,
         settings: <Settings />,
     }
 

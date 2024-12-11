@@ -7,12 +7,47 @@ interface SidebarProps {
     changeView: (view: string) => void
 }
 
+const routes = [
+    {
+        Title: 'Dashboard',
+        View: 'dashboard',
+        Selected: false,
+        Icon: FiHome,
+    },
+    {
+        Title: 'Users',
+        View: 'user',
+        Selected: false,
+        Icon: MdSettings,
+    },
+    {
+        Title: 'Movies',
+        View: 'movie',
+        Selected: true,
+        Icon: MdMovie,
+    },
+    {
+        Title: 'Settings',
+        View: 'settings',
+        Selected: false,
+        Icon: MdSettings,
+    },
+]
+
 export const RouteSelect = ({ changeView }: SidebarProps) => {
     return (
         <div className="space-y-1">
-            <Route Icon={FiHome} selected={false} action={() => changeView('dashboard')} title="Dashboard" />
-            <Route Icon={MdMovie} selected={true} action={() => changeView('movie')} title="Movies" />
-            <Route Icon={MdSettings} selected={false} action={() => changeView('settings')} title="Settings" />
+            {routes.map((route, index) => {
+                return (
+                    <Route
+                        key={index}
+                        Icon={route.Icon}
+                        selected={route.Selected}
+                        action={() => changeView(route.View)}
+                        title={route.Title}
+                    ></Route>
+                )
+            })}
         </div>
     )
 }

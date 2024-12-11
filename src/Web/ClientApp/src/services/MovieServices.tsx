@@ -1,24 +1,6 @@
 import ky from 'ky'
-
-export interface MovieResponse {
-    status: number
-    message: string
-    errors: string[]
-    validationErrors: string[]
-    data: Data[]
-    location: string
-}
-
-export interface Data {
-    id: number
-    title: string
-    synopsis: string
-    year: number
-    duration: number
-    genre: string
-    image: string
-    movieCode: string
-}
+import { Result } from '../interfaces/Result'
+import { MovieRequest, MovieResponse } from '../interfaces/Movie'
 
 export class MovieService {
     private url: string
@@ -27,8 +9,20 @@ export class MovieService {
         this.url = url
     }
 
-    public async getMovies(): Promise<MovieResponse> {
+    public async ListAsnync(): Promise<Result<MovieResponse[]>> {
         const response = await ky.get(`${this.url}`)
+        return await response.json()
+    }
+
+    public async AddMovie(movie: MovieRequest): Promise<Result<MovieResponse>> {
+        const response = await ky.post(`${this.url}`, {
+            json: movie,
+        })
+        return await response.json()
+    }
+
+    public async Delete(id: number): Promise<Result<MovieResponse>> {
+        const response = await ky.delete(`${this.url}/${id}`)
         return await response.json()
     }
 }

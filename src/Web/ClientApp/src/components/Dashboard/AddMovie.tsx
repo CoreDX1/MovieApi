@@ -1,12 +1,14 @@
 import { Box, Button, Container, MenuItem, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
+import { MovieRequest } from '../../interfaces/Movie'
+import { service } from '../../services/Service'
 
 export const AddMovie = () => {
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<MovieRequest>({
         title: '',
         synopsis: '',
-        year: '',
-        duration: '',
+        year: 1,
+        duration: 1,
         genre: '',
         image: '',
     })
@@ -18,11 +20,11 @@ export const AddMovie = () => {
         setForm({ ...form, [name]: value })
     }
 
-    const handleSubmit = () => {
-        console.log('Movie Details:', form)
-        // Aquí puedes agregar la lógica para enviar los datos al backend
+    const handleSubmit = async () => {
+        console.log(form)
+        const response = await service.Movie.AddMovie(form)
+        console.log(response)
     }
-
 
     return (
         <div>
@@ -88,7 +90,7 @@ export const AddMovie = () => {
                     />
                     <TextField
                         select
-                        label="Genre"
+                        label="Género"
                         name="genre"
                         variant="outlined"
                         fullWidth

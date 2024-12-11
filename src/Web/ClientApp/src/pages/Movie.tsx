@@ -1,54 +1,42 @@
-
 import { useEffect, useState } from 'react'
-
 import { service } from '../services/Service'
-import { MovieResponse } from '../services/MovieServices'
-import {
-    Box,
-    Button,
-    IconButton,
-    Modal,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography,
-} from '@mui/material'
+import { Box, Button, Modal, Typography } from '@mui/material'
 import { Add, DeleteOutline } from '@mui/icons-material'
-import { FiEdit2 } from 'react-icons/fi'
-import { RiDeleteBinLine } from 'react-icons/ri'
 import { AddMovie } from '../components/Dashboard/AddMovie'
+import { Result } from '../interfaces/Result'
+import { MovieResponse } from '../interfaces/Movie'
+import { MoviesTable } from '../components/MoviesTable/MoviesTable'
 
 export const Movie = () => {
-
-
-    const [movies, setMovies] = useState<MovieResponse>({
+    const [movies, setMovies] = useState<Result<MovieResponse[]>>({
         status: 0,
         message: '',
         errors: [],
         validationErrors: [],
         data: [],
-        location: ''
+        location: '',
     })
+
     const getMovies = async () => {
-        const response = await service.Movie.getMovies()
+        const response = await service.Movie.ListAsnync()
         setMovies(response)
     }
 
     const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true)
+    const handleClose = () => setOpen(false)
+
+    const handleDeleteProduct = async (id: number) => {
+        await service.Movie.Delete(id)
+    }
 
     useEffect(() => {
         getMovies()
     }, [])
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box sx={{ display: 'flex' }} className="col-span-12 p-4 rounded border border-stone-300">
+            <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                 <Typography variant="h5" gutterBottom>
                     Product List
                 </Typography>
@@ -78,7 +66,9 @@ export const Movie = () => {
                     </Button>
                     {open && (
                         <Modal open={open} onClose={handleClose}>
-                            <AddMovie />
+                            <Box id="modal-container">
+                                <AddMovie />
+                            </Box>
                         </Modal>
                     )}
                     <Button
@@ -99,52 +89,11 @@ export const Movie = () => {
                     </Button>
                 </Box>
 
-                <TableContainer component={Paper}>
-                    <Table arial-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>ID</TableCell>
-                                <TableCell>Title</TableCell>
-                                <TableCell>Year</TableCell>
-                                <TableCell>Duration</TableCell>
-                                <TableCell>Genre</TableCell>
-                                <TableCell>Action</TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        {movies.data.map((movie) => (
-                            <TableBody key={movie.id}>
-                                <TableRow>
-                                    <TableCell>{movie.id}</TableCell>
-                                    <TableCell>{movie.title}</TableCell>
-                                    <TableCell>{movie.year}</TableCell>
-                                    <TableCell>{movie.duration}</TableCell>
-                                    <TableCell>{movie.genre}</TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-2">
-                                            <IconButton
-                                                color="primary"
-                                                className="hover:text-blue-500"
-
-                                                sx={{ fontSize: 20 }}
-                                            >
-                                                <FiEdit2 />
-                                            </IconButton>
-                                            <IconButton
-                                                color="secondary"
-                                                className="hover:text-red-500"
-                                                onClick={() => console.log(movie.movieCode)}
-                                                sx={{ fontSize: 20 }}
-                                            >
-                                                <RiDeleteBinLine />
-                                            </IconButton>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        ))}
-                    </Table>
-                </TableContainer>
+                <MoviesTable
+                    movies={movies.data}
+                    onEdit={(id) => console.log('Edit movie', id)}
+                    onDelete={handleDeleteProduct}
+                />
             </Box>
         </Box>
     )
