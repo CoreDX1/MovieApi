@@ -6,6 +6,7 @@ import { AddMovie } from '../components/Dashboard/AddMovie'
 import { Result } from '../interfaces/Result'
 import { MovieResponse } from '../interfaces/Movie'
 import { MoviesTable } from '../components/MoviesTable/MoviesTable'
+import { TfiTrash } from 'react-icons/tfi'
 
 export const Movie = () => {
     const [movies, setMovies] = useState<Result<MovieResponse[]>>({
@@ -72,7 +73,7 @@ export const Movie = () => {
                         </Modal>
                     )}
                     <Button
-                        startIcon={<DeleteOutline />}
+                        startIcon={<TfiTrash />}
                         variant="text"
                         sx={{
                             backgroundColor: 'rgba(255, 0, 0, 0.15)', // Cambia el fondo al blanco

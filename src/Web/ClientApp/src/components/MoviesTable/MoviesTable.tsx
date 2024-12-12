@@ -12,9 +12,9 @@ import {
 } from '@mui/material'
 import { FiArrowUpRight, FiEdit2 } from 'react-icons/fi'
 import { MovieResponse } from '../../interfaces/Movie'
-import { RiDeleteBinLine } from 'react-icons/ri'
 import { Link } from 'wouter'
 import { HiChevronUpDown } from 'react-icons/hi2'
+import { CiTrash } from 'react-icons/ci'
 
 interface MoviesTableProps {
     movies: MovieResponse[]
@@ -23,38 +23,32 @@ interface MoviesTableProps {
 }
 
 export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) => {
+
+    const headers = [
+        { label: 'Id', sortable: true },
+        { label: 'Title', sortable: true },
+        { label: 'Year', sortable: true },
+        { label: 'Duration', sortable: true },
+        { label: 'Genre', sortable: true },
+        { label: 'Action', sortable: false },
+    ]
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', border: '1px solid rgba(0, 0, 0, 0.12)' }}>
-                        <TableCell>Id</TableCell>
-                        {/* <TableCell>Imagen</TableCell> */}
-                        <TableCell>
-                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
-                                Title <HiChevronUpDown />
-                            </Button>
-                        </TableCell>
-                        <TableCell>
-                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
-                                Year <HiChevronUpDown />
-                            </Button>
-                        </TableCell>
-                        <TableCell>
-                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
-                                Duration <HiChevronUpDown />
-                            </Button>
-                        </TableCell>
-                        <TableCell>
-                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
-                                Genre <HiChevronUpDown />
-                            </Button>
-                        </TableCell>
-                        <TableCell>
-                            <Button sx={{ color: 'black', display: 'flex', gap: 10, alignItems: 'center' }}>
-                                Action <HiChevronUpDown />
-                            </Button>
-                        </TableCell>
+                        {headers.map(({ label, sortable }) => (
+                            <TableCell key={label}>
+                                {sortable ? (
+                                    <Button sx={{ color: 'black', display: 'flex', gap: 1, alignItems: 'center' }}>
+                                        {label} <HiChevronUpDown />
+                                    </Button>
+                                ) : (
+                                    label
+                                )}
+                            </TableCell>
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -89,7 +83,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                                         onClick={() => onDelete(movie.id)}
                                         sx={{ fontSize: 20 }}
                                     >
-                                        <RiDeleteBinLine />
+                                        <CiTrash />
                                     </IconButton>
                                 </div>
                             </TableCell>
