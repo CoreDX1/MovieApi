@@ -29,19 +29,25 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
         { label: 'Year', sortable: true },
         { label: 'Duration', sortable: true },
         { label: 'Genre', sortable: true },
-        { label: 'Action', sortable: false },
+        { label: 'Action', sortable: true },
     ]
 
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
-                    <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', border: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                    <TableRow>
                         {headers.map(({ label, sortable }) => (
-                            <TableCell key={label} className="col-span-12 rounded border">
+                            <TableCell key={label} sx={{ padding: '4px' }}>
                                 {sortable ? (
                                     <Button
-                                        sx={{ color: 'black', display: 'flex', width: '100%', justifyContent: 'space-between' }}
+                                        sx={{
+                                            color: 'black',
+                                            display: 'flex',
+                                            width: '100%',
+                                            justifyContent: 'space-between',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                                        }}
                                         onClick={() => console.log('sort')}
                                     >
                                         {label} <HiChevronUpDown />
@@ -70,7 +76,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                             <TableCell>{movie.duration}</TableCell>
                             <TableCell>{movie.genre}</TableCell>
                             <TableCell>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 justify-center">
                                     <IconButton
                                         color="primary"
                                         className="hover:text-blue-500"

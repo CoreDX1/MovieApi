@@ -1,6 +1,7 @@
 import { Command } from 'cmdk'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { FiEye, FiLink, FiLogOut, FiPhone, FiPlus } from 'react-icons/fi'
+import { FiLogOut } from 'react-icons/fi'
+import { MdMovie } from 'react-icons/md'
 
 export const CommandMenu = ({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
     const [value, setValue] = useState('')
@@ -41,32 +42,19 @@ export const CommandMenu = ({ open, setOpen }: { open: boolean; setOpen: Dispatc
                         No results found for <span className="text-violet-500">"{value}"</span>
                     </Command.Empty>
 
-                    <Command.Group heading="Team" className="text-sm mb-3 text-stone-400">
+                    <Command.Group heading="Pages" className="text-sm mb-3 text-stone-400">
                         <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiPlus />
-                            Invite Member
-                        </Command.Item>
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiEye />
-                            See Org Chart
+                            <MdMovie />
+                            Movies
                         </Command.Item>
                     </Command.Group>
 
-                    <Command.Group heading="Integrations" className="text-sm text-stone-400 mb-3">
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiLink />
-                            Link Services
-                        </Command.Item>
-                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-950 hover:bg-stone-200 rounded items-center gap-2">
-                            <FiPhone />
-                            Contact Support
+                    <Command.Group heading="Account" className="text-sm mb-3 text-stone-400">
+                        <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
+                            <FiLogOut />
+                            Sign Out
                         </Command.Item>
                     </Command.Group>
-
-                    <Command.Item className="flex cursor-pointer transition-colors p-2 text-sm text-stone-50 hover:bg-stone-700 bg-stone-950 rounded items-center gap-2">
-                        <FiLogOut />
-                        Sign Out
-                    </Command.Item>
                 </Command.List>
             </div>
         </Command.Dialog>

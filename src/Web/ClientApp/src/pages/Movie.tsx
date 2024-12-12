@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { service } from '../services/Service'
 import { Box, Button, Modal, Typography } from '@mui/material'
-import { Add, DeleteOutline } from '@mui/icons-material'
+import { Add } from '@mui/icons-material'
 import { AddMovie } from '../components/Dashboard/AddMovie'
 import { Result } from '../interfaces/Result'
 import { MovieResponse } from '../interfaces/Movie'
@@ -36,15 +36,16 @@ export const Movie = () => {
     }, [])
 
     return (
-        <Box sx={{ display: 'flex'}} className="col-span-12 p-4 rounded border border-stone-300">
+        <Box sx={{ display: 'flex' }} className="col-span-12 p-4 rounded border border-stone-300">
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
-                <Typography variant="h5" gutterBottom className='col-span-12 p-4 rounded border border-stone-300'>
+                <Typography variant="h5" gutterBottom className="col-span-12 p-4 rounded border border-stone-300">
                     Product List
                 </Typography>
                 <Box
                     sx={{
                         display: 'flex',
-                        gap: 2,
+                        gap: 1,
+                        marginBottom: '10px',
                         height: '35px',
                     }}
                 >
