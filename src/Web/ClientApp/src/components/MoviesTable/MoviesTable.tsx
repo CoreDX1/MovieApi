@@ -23,7 +23,6 @@ interface MoviesTableProps {
 }
 
 export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) => {
-
     const headers = [
         { label: 'Id', sortable: true },
         { label: 'Title', sortable: true },
@@ -39,9 +38,12 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                 <TableHead>
                     <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', border: '1px solid rgba(0, 0, 0, 0.12)' }}>
                         {headers.map(({ label, sortable }) => (
-                            <TableCell key={label}>
+                            <TableCell key={label} className="col-span-12 rounded border">
                                 {sortable ? (
-                                    <Button sx={{ color: 'black', display: 'flex', gap: 1, alignItems: 'center' }}>
+                                    <Button
+                                        sx={{ color: 'black', display: 'flex', width: '100%', justifyContent: 'space-between' }}
+                                        onClick={() => console.log('sort')}
+                                    >
                                         {label} <HiChevronUpDown />
                                     </Button>
                                 ) : (
