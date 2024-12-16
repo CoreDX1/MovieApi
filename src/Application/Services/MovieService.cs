@@ -83,9 +83,15 @@ public class MovieService : IMovieService
         return Result<IEnumerable<GetMovieDto>>.Created(movieDto);
     }
 
-    public Task<Movie> UpdateAsync(Movie movie)
+    public async Task<Result<GetMovieDto>> UpdateAsync(EditMovieRequestDto movie)
     {
-        throw new NotImplementedException();
+        var movieEntity = Mapper.Map<Movie>(movie);
+        var moviesId = await UnitOfWork.Movie.EditAsync(movieEntity);
+        if (moviesId == null)
+            return Result<GetMovieDto>.NotFound();
+
+        var movieDto = Mapper.Map<GetMovieDto>(movieEntity);
+        return Result<GetMovieDto>.Success(movieDto);
     }
 
     public async Task<Result<GetMovieDto>> GetByTitleAsync(string movieCode)

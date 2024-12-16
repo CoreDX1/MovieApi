@@ -70,4 +70,17 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
 
         return movies;
     }
+
+    public async Task<Movie> EditAsync(Movie movie)
+    {
+        var movieEntity = await DbContext.Movies.FindAsync(movie.Id);
+
+        movieEntity.Title = movie.Title;
+        movieEntity.Year = movie.Year;
+        movieEntity.Duration = movie.Duration;
+        movieEntity.Synopsis = movie.Synopsis;
+
+        await DbContext.SaveChangesAsync();
+        return movieEntity;
+    }
 }

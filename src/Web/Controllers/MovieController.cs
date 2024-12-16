@@ -98,4 +98,14 @@ public class MovieController : ControllerBase
         var response = await _moviesServices.GetFilteredAsync(filter);
         return Ok(response);
     }
+
+    [HttpPut]
+    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<GetMovieListDto>> Update([FromBody] EditMovieRequestDto movie)
+    {
+        var response = await _moviesServices.UpdateAsync(movie);
+        return Ok(response);
+    }
 }

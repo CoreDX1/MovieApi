@@ -58,6 +58,7 @@ public class WriteRepostory<T> : IWriteRepository<T>
 
     public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
     {
+        DbContext.Entry(entity).State = EntityState.Modified;
         DbContext.Set<T>().Update(entity);
         await SaveChangesAsync(cancellationToken);
     }

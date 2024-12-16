@@ -22,6 +22,6 @@ public class Mapping : Profile
         CreateMap<CreateMovieDto, Movie>();
         CreateMap<CreateUserDto, Usuario>();
         CreateMap<LoginUserDto, Usuario>();
-
+        CreateMap<EditMovieRequestDto, Movie>();
     }
 }
