@@ -8,6 +8,7 @@ import { MovieResponse } from '../interfaces/Movie'
 import { MoviesTable } from '../components/MoviesTable/MoviesTable'
 import { TfiTrash } from 'react-icons/tfi'
 import { FilterMovie } from '../services/MovieServices'
+import { BiSolidMovie } from 'react-icons/bi'
 
 export const Movie = () => {
     const [movies, setMovies] = useState<Result<MovieResponse[]>>({
@@ -34,6 +35,7 @@ export const Movie = () => {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
+
     const handleFilter = async (filter: FilterMovie) => {
         const response = await service.Movie.Filter(filter)
         setMovies(response)
@@ -46,8 +48,8 @@ export const Movie = () => {
     return (
         <Box sx={{ display: 'flex' }} className="col-span-12 p-4 rounded border border-stone-300">
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
-                <Typography variant="h5" gutterBottom className="col-span-12 p-4 rounded border border-stone-300">
-                    Product List
+                <Typography variant="h5" gutterBottom className="col-span-12 p-4 rounded border border-stone-300 flex items-center gap-3">
+                    <BiSolidMovie/> Movie List
                 </Typography>
                 <Box
                     sx={{

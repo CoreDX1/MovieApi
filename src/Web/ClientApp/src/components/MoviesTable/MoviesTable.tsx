@@ -10,6 +10,8 @@ import {
     IconButton,
     Button,
     CircularProgress,
+    Modal,
+    Box,
 } from '@mui/material'
 import { FiArrowUpRight, FiEdit2 } from 'react-icons/fi'
 import { MovieResponse } from '../../interfaces/Movie'
@@ -17,6 +19,7 @@ import { Link } from 'wouter'
 import { HiChevronUpDown } from 'react-icons/hi2'
 import { CiTrash } from 'react-icons/ci'
 import { FilterMovie } from '../../services/MovieServices'
+import { EditMovie } from '../Dashboard/EditMovie'
 
 interface MoviesTableProps {
     movies: MovieResponse[]
@@ -40,7 +43,17 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
         title: '',
     })
 
+    const [id, setId] = useState(0)
+
     const [progress, setProgress] = useState(false)
+
+    const [openEdit, setOpenEdit] = useState(false)
+    const handleOpenEdit = (id: number) => {
+        setOpenEdit(true)
+        setId(id)
+    }
+
+    const handleCloseEdit = () => setOpenEdit(false)
 
     useEffect(() => {
         if (progress) {
@@ -59,7 +72,6 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
         setCurrentFilter(newFilter) // Actualiza el estado interno del filtro
         onFilter(newFilter) // Llama a la función del padre con el filtro actualizado
     }
-
 
     return (
         <TableContainer component={Paper}>
@@ -111,13 +123,14 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                                 <TableCell>
                                     <div className="flex gap-2 justify-center">
                                         <IconButton
+                                            onClick={() => handleOpenEdit(movie.id)}
                                             color="primary"
                                             className="hover:text-blue-500"
                                             sx={{ fontSize: 20 }}
-                                            onClick={() => onEdit(movie.movieCode)}
                                         >
                                             <FiEdit2 />
                                         </IconButton>
+
                                         <IconButton
                                             color="secondary"
                                             className="hover:text-red-500"
@@ -133,6 +146,13 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                     )}
                 </TableBody>
             </Table>
+            {openEdit && (
+                <Modal open={openEdit} onClose={handleCloseEdit}>
+                    <Box id="modal-container">
+                        <EditMovie id={id} />
+                    </Box>
+                </Modal>
+            )}
         </TableContainer>
     )
 }
