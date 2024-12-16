@@ -2,6 +2,11 @@ import ky from 'ky'
 import { Result } from '../interfaces/Result'
 import { MovieRequest, MovieResponse } from '../interfaces/Movie'
 
+export type FilterMovie = {
+    title: string
+    orderBy: string
+}
+
 export class MovieService {
     private url: string
 
@@ -23,6 +28,13 @@ export class MovieService {
 
     public async Delete(id: number): Promise<Result<MovieResponse>> {
         const response = await ky.delete(`${this.url}/${id}`)
+        return await response.json()
+    }
+
+    public async Filter(filter: FilterMovie): Promise<Result<MovieResponse[]>> {
+        const response = await ky.post(`${this.url}/filter`, {
+            json: filter,
+        })
         return await response.json()
     }
 }

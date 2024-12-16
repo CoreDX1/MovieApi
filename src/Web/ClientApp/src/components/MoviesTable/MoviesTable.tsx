@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {
     Table,
     TableBody,
@@ -15,14 +15,16 @@ import { MovieResponse } from '../../interfaces/Movie'
 import { Link } from 'wouter'
 import { HiChevronUpDown } from 'react-icons/hi2'
 import { CiTrash } from 'react-icons/ci'
+import { FilterMovie } from '../../services/MovieServices'
 
 interface MoviesTableProps {
     movies: MovieResponse[]
     onEdit: (movieCode: string) => void
     onDelete: (id: number) => Promise<void>
+    onFilter: (filter: FilterMovie) => Promise<void>
 }
 
-export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) => {
+export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, onFilter }) => {
     const headers = [
         { label: 'Id', sortable: true },
         { label: 'Title', sortable: true },
@@ -31,6 +33,24 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
         { label: 'Genre', sortable: true },
         { label: 'Action', sortable: true },
     ]
+
+    const [currentFilter, setCurrentFilter] = useState<FilterMovie>({
+        orderBy: 'asc',
+        title: '',
+    })
+
+    const [progress, setProgress] = useState(false)
+
+    const handleSort = (column: string) => {
+        setProgress(true)
+        const newOrderBy = currentFilter.orderBy === 'asc' ? 'desc' : 'asc'
+        const newFilter: FilterMovie = { orderBy: newOrderBy, title: column }
+
+        setCurrentFilter(newFilter) // Actualiza el estado interno del filtro
+        onFilter(newFilter) // Llama a la función del padre con el filtro actualizado
+    }
+
+
 
     return (
         <TableContainer component={Paper}>
@@ -48,7 +68,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                                             justifyContent: 'space-between',
                                             backgroundColor: 'rgba(0, 0, 0, 0.04)',
                                         }}
-                                        onClick={() => console.log('sort')}
+                                        onClick={() => handleSort(label.toLowerCase())}
                                     >
                                         {label} <HiChevronUpDown />
                                     </Button>
@@ -63,9 +83,6 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete }) 
                     {movies.map((movie) => (
                         <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
                             <TableCell>{movie.id}</TableCell>
-                            {/* <TableCell>
-                            <img src={movie.image} alt="Movie Image" className="w-auto h-20" />
-                        </TableCell> */}
                             <TableCell>
                                 <Link href="#" className="text-violet-600 underline flex items-center gap-1">
                                     {movie.title}

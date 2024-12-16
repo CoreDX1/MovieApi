@@ -7,6 +7,7 @@ import { Result } from '../interfaces/Result'
 import { MovieResponse } from '../interfaces/Movie'
 import { MoviesTable } from '../components/MoviesTable/MoviesTable'
 import { TfiTrash } from 'react-icons/tfi'
+import { FilterMovie } from '../services/MovieServices'
 
 export const Movie = () => {
     const [movies, setMovies] = useState<Result<MovieResponse[]>>({
@@ -17,6 +18,7 @@ export const Movie = () => {
         data: [],
         location: '',
     })
+
 
     const getMovies = async () => {
         const response = await service.Movie.ListAsnync()
@@ -29,6 +31,11 @@ export const Movie = () => {
 
     const handleDeleteProduct = async (id: number) => {
         await service.Movie.Delete(id)
+    }
+
+    const handleFilter = async (filter: FilterMovie) => {
+        const response = await service.Movie.Filter(filter)
+        setMovies(response)
     }
 
     useEffect(() => {
@@ -95,6 +102,7 @@ export const Movie = () => {
                     movies={movies.data}
                     onEdit={(id) => console.log('Edit movie', id)}
                     onDelete={handleDeleteProduct}
+                    onFilter={handleFilter}
                 />
             </Box>
         </Box>
