@@ -45,14 +45,12 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
 
     public async Task<IEnumerable<Movie>> GetFilteredAsync(FilterMovie filter)
     {
-        var sortOptions = new Dictionary<string, Func<Movie, object>>(
-            StringComparer.OrdinalIgnoreCase
-        )
+        var sortOptions = new Dictionary<string, Func<Movie, object>>
         {
-            { "id", movie => movie.Id },
-            { "title", movie => movie.Title },
-            { "year", movie => movie.Year },
-            { "duration", movie => movie.Duration },
+            ["id"] = movie => movie.Id,
+            ["title"] = movie => movie.Title,
+            ["year"] = movie => movie.Year,
+            ["duration"] = movie => movie.Duration,
         };
 
         var movies = await DbContext.Movies.AsNoTracking().ToListAsync();
@@ -71,10 +69,5 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         }
 
         return movies;
-    }
-
-    public Task<IEnumerable<Movie>> GetFilteredAsync(string filter)
-    {
-        throw new NotImplementedException();
     }
 }
