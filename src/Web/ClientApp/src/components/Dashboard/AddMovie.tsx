@@ -1,9 +1,13 @@
 import { Box, Button, Container, MenuItem, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
-import { MovieRequest } from '../../interfaces/Movie'
+import { FC, useState } from 'react'
+import { MovieRequest, MovieResponse } from '../../interfaces/Movie'
 import { service } from '../../services/Service'
 
-export const AddMovie = () => {
+interface AddMovieProps {
+    movies: MovieResponse[]
+}
+
+export const AddMovie: FC<AddMovieProps> = ({ movies }) => {
     const [form, setForm] = useState<MovieRequest>({
         title: '',
         synopsis: '',
@@ -21,9 +25,8 @@ export const AddMovie = () => {
     }
 
     const handleSubmit = async () => {
-        console.log(form)
         const response = await service.Movie.AddMovie(form)
-        console.log(response)
+        movies.push(response.data)
     }
 
     return (

@@ -19,6 +19,11 @@ export const Movie = () => {
         location: '',
     })
 
+    const handleDeleteProduct = async (id: number) => {
+        await service.Movie.Delete(id)
+        console.log('Deleted product', id)
+        setMovies({ ...movies, data: movies.data.filter((movie) => movie.id !== id) })
+    }
 
     const getMovies = async () => {
         const response = await service.Movie.ListAsnync()
@@ -28,10 +33,6 @@ export const Movie = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-
-    const handleDeleteProduct = async (id: number) => {
-        await service.Movie.Delete(id)
-    }
 
     const handleFilter = async (filter: FilterMovie) => {
         const response = await service.Movie.Filter(filter)
@@ -76,7 +77,7 @@ export const Movie = () => {
                     {open && (
                         <Modal open={open} onClose={handleClose}>
                             <Box id="modal-container">
-                                <AddMovie />
+                                <AddMovie movies={movies.data} />
                             </Box>
                         </Modal>
                     )}

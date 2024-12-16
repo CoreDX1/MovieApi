@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
     Table,
     TableBody,
@@ -9,6 +9,7 @@ import {
     Paper,
     IconButton,
     Button,
+    CircularProgress,
 } from '@mui/material'
 import { FiArrowUpRight, FiEdit2 } from 'react-icons/fi'
 import { MovieResponse } from '../../interfaces/Movie'
@@ -41,6 +42,15 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
 
     const [progress, setProgress] = useState(false)
 
+    useEffect(() => {
+        if (progress) {
+            // Simulate API call delay, remove this if you have actual API response handling
+            setTimeout(() => {
+                setProgress(false)
+            }, 500) // Adjust delay as needed based on your API response time
+        }
+    }, [progress])
+
     const handleSort = (column: string) => {
         setProgress(true)
         const newOrderBy = currentFilter.orderBy === 'asc' ? 'desc' : 'asc'
@@ -49,7 +59,6 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
         setCurrentFilter(newFilter) // Actualiza el estado interno del filtro
         onFilter(newFilter) // Llama a la función del padre con el filtro actualizado
     }
-
 
 
     return (
@@ -80,40 +89,48 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {movies.map((movie) => (
-                        <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
-                            <TableCell>{movie.id}</TableCell>
-                            <TableCell>
-                                <Link href="#" className="text-violet-600 underline flex items-center gap-1">
-                                    {movie.title}
-                                    <FiArrowUpRight />
-                                </Link>
-                            </TableCell>
-                            <TableCell>{movie.year}</TableCell>
-                            <TableCell>{movie.duration}</TableCell>
-                            <TableCell>{movie.genre}</TableCell>
-                            <TableCell>
-                                <div className="flex gap-2 justify-center">
-                                    <IconButton
-                                        color="primary"
-                                        className="hover:text-blue-500"
-                                        sx={{ fontSize: 20 }}
-                                        onClick={() => onEdit(movie.movieCode)}
-                                    >
-                                        <FiEdit2 />
-                                    </IconButton>
-                                    <IconButton
-                                        color="secondary"
-                                        className="hover:text-red-500"
-                                        onClick={() => onDelete(movie.id)}
-                                        sx={{ fontSize: 20 }}
-                                    >
-                                        <CiTrash />
-                                    </IconButton>
-                                </div>
+                    {progress ? (
+                        <TableRow>
+                            <TableCell colSpan={headers.length} align="center">
+                                <CircularProgress />
                             </TableCell>
                         </TableRow>
-                    ))}
+                    ) : (
+                        movies.map((movie) => (
+                            <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
+                                <TableCell>{movie.id}</TableCell>
+                                <TableCell>
+                                    <Link href="#" className="text-violet-600 underline flex items-center gap-1">
+                                        {movie.title}
+                                        <FiArrowUpRight />
+                                    </Link>
+                                </TableCell>
+                                <TableCell>{movie.year}</TableCell>
+                                <TableCell>{movie.duration}</TableCell>
+                                <TableCell>{movie.genre}</TableCell>
+                                <TableCell>
+                                    <div className="flex gap-2 justify-center">
+                                        <IconButton
+                                            color="primary"
+                                            className="hover:text-blue-500"
+                                            sx={{ fontSize: 20 }}
+                                            onClick={() => onEdit(movie.movieCode)}
+                                        >
+                                            <FiEdit2 />
+                                        </IconButton>
+                                        <IconButton
+                                            color="secondary"
+                                            className="hover:text-red-500"
+                                            onClick={() => onDelete(movie.id)}
+                                            sx={{ fontSize: 20 }}
+                                        >
+                                            <CiTrash />
+                                        </IconButton>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    )}
                 </TableBody>
             </Table>
         </TableContainer>
