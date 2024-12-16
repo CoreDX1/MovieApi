@@ -19,6 +19,11 @@ export class MovieService {
         return await response.json()
     }
 
+    public async GetById(id: number): Promise<Result<MovieResponse>> {
+        const response = await ky.get(`${this.url}/${id}`)
+        return await response.json()
+    }
+
     public async AddMovie(movie: MovieRequest): Promise<Result<MovieResponse>> {
         const response = await ky.post(`${this.url}`, {
             json: movie,
