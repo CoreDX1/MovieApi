@@ -123,4 +123,13 @@ public class MovieService : IMovieService
 
         return Result<IList<UsuarioWithCommentsDto>>.Success(commentsDto);
     }
+
+    public async Task<Result<IList<GetMovieListDto>>> GetFilteredAsync(FilterMovie filter)
+    {
+        var movies = await UnitOfWork.Movie.GetFilteredAsync(filter);
+
+        var moviesDto = Mapper.Map<List<GetMovieListDto>>(movies);
+
+        return Result<IList<GetMovieListDto>>.Success(moviesDto);
+    }
 }

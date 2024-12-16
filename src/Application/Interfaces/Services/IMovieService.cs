@@ -18,4 +18,5 @@ public interface IMovieService
     Task<Result<GetMovieDto>> DeleteAsync(int id);
 
     Task<Movie> UpdateAsync(Movie movie);
+    Task<Result<IList<GetMovieListDto>>> GetFilteredAsync(FilterMovie filter);
 }

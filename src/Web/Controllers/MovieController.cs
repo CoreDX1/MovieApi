@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Application.DTOs;
 using Application.Interfaces.Services;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -40,7 +41,7 @@ public class MovieController : ControllerBase
     [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetMovieListDto>> Add(CreateMovieDto movieDto)
+    public async Task<ActionResult<GetMovieListDto>> Add([FromBody] CreateMovieDto movieDto)
     {
         var response = await _moviesServices.AddAsync(movieDto);
         return Ok(response);
@@ -84,6 +85,17 @@ public class MovieController : ControllerBase
     public async Task<ActionResult<GetMovieListDto>> GetByTitle([FromRoute] string movieCode)
     {
         var response = await _moviesServices.GetByTitleAsync(movieCode);
+        return Ok(response);
+    }
+
+    [HttpPost("filter")] // POST /api/movies/filter/
+    [ProducesResponseType(typeof(IEnumerable<GetMovieListDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<GetMovieListDto>>> GetFiltered(
+        [FromBody] FilterMovie filter
+    )
+    {
+        var response = await _moviesServices.GetFilteredAsync(filter);
         return Ok(response);
     }
 }
