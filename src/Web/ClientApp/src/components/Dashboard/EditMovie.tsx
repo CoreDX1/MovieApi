@@ -10,16 +10,8 @@ type EditMovieProps = {
 export const EditMovie: FC<EditMovieProps> = ({ id }) => {
     const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance'] // Ejemplo de géneros
 
-    const [movie, setMovie] = useState<MovieResponse>({
-        id: 0,
-        title: '',
-        synopsis: '',
-        year: 0,
-        duration: 0,
-        genre: '',
-        image: '',
-        movieCode: '',
-    })
+
+    const [movie, setMovie] = useState<MovieResponse>({} as MovieResponse)
 
     const handleEdit = async (id: number) => {
         const response = await service.Movie.GetById(id)
@@ -49,7 +41,15 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                     Edit Movie {id}
                 </Typography>
                 <Box component="form" noValidate autoComplete="off">
-                    <TextField label="Title" name="title" variant="outlined" value={movie.title} fullWidth margin="normal" required />
+                    <TextField
+                        label="Title"
+                        name="title"
+                        variant="outlined"
+                        value={movie.title}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
                     <TextField
                         label="Synopsis"
                         name="synopsis"
@@ -80,7 +80,15 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                         margin="normal"
                         required
                     />
-                    <TextField select label="Género" name="genre" variant="outlined" fullWidth margin="normal" value={movie.genre}>
+                    <TextField
+                        select
+                        label="Género"
+                        name="genre"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={movie.genre}
+                    >
                         {genres.map((genre, index) => (
                             <MenuItem key={index} value={genre}>
                                 {genre}

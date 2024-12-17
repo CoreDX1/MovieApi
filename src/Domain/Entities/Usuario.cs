@@ -7,6 +7,6 @@ public class Usuario
     public string Email { get; set; }
     public virtual Usuario IdNavigation { get; set; }
     public virtual Usuario InverseIdNavigation { get; set; }
-    public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+    public virtual ICollection<Rating> Ratings { get; set; } = [];
     public virtual UsuarioCredenciale UsuarioCredenciale { get; set; }
 }

@@ -108,7 +108,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                             </TableCell>
                         </TableRow>
                     ) : (
-                        movies.map((movie) => (
+                        movies?.map((movie) => (
                             <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
                                 <TableCell>{movie.id}</TableCell>
                                 <TableCell>

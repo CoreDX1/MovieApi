@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Application.Interfaces.Repositories;
 using Domain.DTOs;
 using Domain.Entities;
@@ -45,7 +46,11 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
 
     public async Task<IEnumerable<Movie>> GetFilteredAsync(FilterMovie filter)
     {
-        var sortOptions = new Dictionary<string, Func<Movie, object>>
+        // Inicia la consulta como IQueryable
+        IQueryable<Movie> query = DbContext.Movies;
+
+        // Diccionario de opciones de ordenación
+        var sortOptions = new Dictionary<string, Expression<Func<Movie, object>>>
         {
             ["id"] = movie => movie.Id,
             ["title"] = movie => movie.Title,
@@ -53,9 +58,8 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
             ["duration"] = movie => movie.Duration,
         };
 
-        var movies = await DbContext.Movies.AsNoTracking().ToListAsync();
-
-        if (sortOptions.TryGetValue(filter.Title, out var sortKeySelector))
+        // Aplica la ordenación si el filtro es válido
+        if (sortOptions.TryGetValue(filter.Name, out var sortKeySelector))
         {
             bool isDescending = string.Equals(
                 filter.OrderBy,
@@ -63,17 +67,24 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
                 StringComparison.OrdinalIgnoreCase
             );
 
-            movies = isDescending
-                ? movies.OrderByDescending(sortKeySelector).ToList()
-                : movies.OrderBy(sortKeySelector).ToList();
+            query = isDescending
+                ? query.OrderByDescending(sortKeySelector)
+                : query.OrderBy(sortKeySelector);
         }
 
-        return movies;
+        // Ejecuta la consulta y obtiene la lista de películas
+        return await query.ToListAsync();
     }
 
     public async Task<Movie> EditAsync(Movie movie)
     {
+        // Obtiene el objeto Movie de la base de datos
         var movieEntity = await DbContext.Movies.FindAsync(movie.Id);
+
+        if (movieEntity == null)
+        {
+            return null;
+        }
 
         movieEntity.Title = movie.Title;
         movieEntity.Year = movie.Year;

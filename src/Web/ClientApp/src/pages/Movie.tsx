@@ -11,19 +11,14 @@ import { FilterMovie } from '../services/MovieServices'
 import { BiSolidMovie } from 'react-icons/bi'
 
 export const Movie = () => {
-    const [movies, setMovies] = useState<Result<MovieResponse[]>>({
-        status: 0,
-        message: '',
-        errors: [],
-        validationErrors: [],
-        data: [],
-        location: '',
-    })
+    const [movies, setMovies] = useState({} as Result<MovieResponse[]>)
 
     const handleDeleteProduct = async (id: number) => {
         await service.Movie.Delete(id)
-        console.log('Deleted product', id)
         setMovies({ ...movies, data: movies.data.filter((movie) => movie.id !== id) })
+    }
+
+    const handleEditMovie = async (id: number) => {
     }
 
     const getMovies = async () => {
@@ -34,7 +29,6 @@ export const Movie = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
-
 
     const handleFilter = async (filter: FilterMovie) => {
         const response = await service.Movie.Filter(filter)
@@ -48,8 +42,12 @@ export const Movie = () => {
     return (
         <Box sx={{ display: 'flex' }} className="col-span-12 p-4 rounded border border-stone-300">
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
-                <Typography variant="h5" gutterBottom className="col-span-12 p-4 rounded border border-stone-300 flex items-center gap-3">
-                    <BiSolidMovie/> Movie List
+                <Typography
+                    variant="h5"
+                    gutterBottom
+                    className="col-span-12 p-4 rounded border border-stone-300 flex items-center gap-3"
+                >
+                    <BiSolidMovie /> Movie List
                 </Typography>
                 <Box
                     sx={{
