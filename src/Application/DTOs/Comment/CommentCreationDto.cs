@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Application.DTOs;
+namespace Application.DTOs.Comment;
 
-public record CreateCommentDto
+public record CommentCreationDto
 {
     public int MovieId { get; set; }
     public string Text { get; set; } = string.Empty;

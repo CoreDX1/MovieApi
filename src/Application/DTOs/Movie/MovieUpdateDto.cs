@@ -1,6 +1,6 @@
-namespace Application.DTOs;
+namespace Application.DTOs.Movie;
 
-public class EditMovieRequestDto
+public class MovieUpdateDto
 {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;

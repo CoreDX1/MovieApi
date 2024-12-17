@@ -1,6 +1,6 @@
-namespace Application.DTOs;
+namespace Application.DTOs.Movie;
 
-public class CreateMovieDto
+public class MovieCreationDto
 {
     public string Title { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;

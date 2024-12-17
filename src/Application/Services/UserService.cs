@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.User;
 using Application.Interfaces;
 using Application.Interfaces.Services;
 using Domain.Common.ApiResult;
@@ -10,26 +11,30 @@ public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    private readonly IValidator<CreateUserDto> _validator;
+    private readonly IValidator<UserCreationDto> _validator;
 
-    public UserService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<CreateUserDto> validator)
+    public UserService(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IValidator<UserCreationDto> validator
+    )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _validator = validator;
     }
 
-    public async Task<Result<GetUserDto>> AddAsync(CreateUserDto userCreate)
+    public async Task<Result<UserDto>> AddAsync(UserCreationDto userCreate)
     {
         var validationResult = await _validator.ValidateAsync(userCreate);
 
         if (!validationResult.IsValid)
-            return Result<GetUserDto>.Invalid(validationResult.AsErrors());
+            return Result<UserDto>.Invalid(validationResult.AsErrors());
 
         Usuario emailExist = await _unitOfWork.User.EmailExistAsync(userCreate.Email);
 
         if (emailExist != null)
-            return Result<GetUserDto>.Conflict();
+            return Result<UserDto>.Conflict();
 
         var newUser = new Usuario() { Name = userCreate.Name, Email = userCreate.Email };
 
@@ -43,21 +48,21 @@ public class UserService : IUserService
 
         await _unitOfWork.Credential.Write.AddAsync(credential);
 
-        var userDto = _mapper.Map<GetUserDto>(userEntity);
+        var userDto = _mapper.Map<UserDto>(userEntity);
 
-        return Result<GetUserDto>.Created(userDto);
+        return Result<UserDto>.Created(userDto);
     }
 
-    public async Task<Result<List<GetUserDto>>> GetAllAsync()
+    public async Task<Result<List<UserDto>>> GetAllAsync()
     {
         var users = await _unitOfWork.User.Read.ListAsync();
 
         if (users == null)
-            return Result<List<GetUserDto>>.NotFound();
+            return Result<List<UserDto>>.NotFound();
 
-        var usersDto = _mapper.Map<List<GetUserDto>>(users);
+        var usersDto = _mapper.Map<List<UserDto>>(users);
 
-        return Result<List<GetUserDto>>.Success(usersDto);
+        return Result<List<UserDto>>.Success(usersDto);
     }
 
     public Task<Usuario> GetByNameAsync(string name)
@@ -65,7 +70,7 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public async Task<Result<bool>> LoginAsync(LoginUserDto loginUser)
+    public async Task<Result<bool>> LoginAsync(UserLoginDto loginUser)
     {
         var existingUser = await _unitOfWork.User.EmailExistAsync(loginUser.Email);
 

@@ -1,4 +1,4 @@
-using Application.DTOs;
+using Application.DTOs.Movie;
 using Domain.Common.ApiResult;
 using Domain.DTOs;
 
@@ -6,17 +6,17 @@ namespace Application.Interfaces.Services;
 
 public interface IMovieService
 {
-    Task<Result<IList<GetMovieListDto>>> GetAllAsync();
-    Task<Result<GetMovieDto>> GetByTitleAsync(string movieCode);
-    Task<Result<GetMovieDto>> GetByIdAsync(int id);
+    Task<Result<IList<MovieListDto>>> GetAllAsync();
+    Task<Result<MovieDto>> GetByTitleAsync(string movieCode);
+    Task<Result<MovieDto>> GetByIdAsync(int id);
     Task<Result<IList<UsuarioWithCommentsDto>>> GetCommentByTitleAsync(string movieCode);
 
-    Task<Result<GetMovieDto>> AddAsync(CreateMovieDto movie);
-    Task<Result<IEnumerable<GetMovieDto>>> AddRangeAsync(IEnumerable<CreateMovieDto> movies);
+    Task<Result<MovieDto>> AddAsync(MovieCreationDto movie);
+    Task<Result<IEnumerable<MovieDto>>> AddRangeAsync(IEnumerable<MovieCreationDto> movies);
 
-    Task<Result<GetMovieDto>> DeleteAsync(int id);
+    Task<Result<MovieDto>> DeleteAsync(int id);
 
-    Task<Result<IList<GetMovieListDto>>> GetFilteredAsync(FilterMovie filter);
+    Task<Result<IList<MovieListDto>>> GetFilteredAsync(FilterMovie filter);
 
-    Task<Result<GetMovieDto>> UpdateAsync(EditMovieRequestDto movie);
+    Task<Result<MovieDto>> UpdateAsync(MovieUpdateDto movie);
 }

@@ -1,10 +1,10 @@
-using Application.DTOs;
+using Application.DTOs.User;
 
 namespace Application.Validation;
 
-public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
+public class UserCreationValidator : AbstractValidator<UserCreationDto>
 {
-    public CreateUserDtoValidator()
+    public UserCreationValidator()
     {
         RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
         RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required");

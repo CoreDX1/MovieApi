@@ -1,4 +1,6 @@
-using Application.DTOs;
+using Application.DTOs.Comment;
+using Application.DTOs.Movie;
+using Application.DTOs.User;
 using Domain.DTOs;
 using Domain.Entities;
 
@@ -9,19 +11,19 @@ public class Mapping : Profile
     public Mapping()
     {
         // Response
-        CreateMap<Movie, GetMovieListDto>();
-        CreateMap<Movie, GetMovieDto>();
-        CreateMap<Comment, GetCommentDto>();
-        CreateMap<Comment, GetCommentListDto>();
+        CreateMap<Movie, MovieListDto>();
+        CreateMap<Movie, MovieDto>();
+        CreateMap<Comment, CommentDto>();
+        CreateMap<Comment, CommentListDto>();
         CreateMap<Usuario, UsuarioWithCommentsDto>();
-        CreateMap<Usuario, GetUserDto>();
+        CreateMap<Usuario, UserDto>();
         CreateMap<Usuario, UsuarioCredenciale>();
 
         // Request
-        CreateMap<CreateCommentDto, Comment>();
-        CreateMap<CreateMovieDto, Movie>();
-        CreateMap<CreateUserDto, Usuario>();
-        CreateMap<LoginUserDto, Usuario>();
-        CreateMap<EditMovieRequestDto, Movie>();
+        CreateMap<CommentCreationDto, Comment>();
+        CreateMap<MovieCreationDto, Movie>();
+        CreateMap<UserCreationDto, Usuario>();
+        CreateMap<UserLoginDto, Usuario>();
+        CreateMap<MovieUpdateDto, Movie>();
     }
 }

@@ -1,6 +1,6 @@
-namespace Application.DTOs;
+namespace Application.DTOs.Movie;
 
-public record GetMovieDto(
+public record MovieDto(
     int Id,
     string Title,
     string Synopsis,
