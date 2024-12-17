@@ -1,4 +1,5 @@
-using Application.DTOs;
+using Application.DTOs.Credential;
+using Application.DTOs.User;
 using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet] // GET /api/users
-    [ProducesResponseType(typeof(List<GetUserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<UserDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     public async Task<ActionResult> GetAll()
@@ -26,10 +27,10 @@ public class UserController : ControllerBase
     }
 
     [HttpPost] // POST /api/users
-    [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> Add(CreateUserDto userDto)
+    public async Task<ActionResult> Add(UserCreationDto userDto)
     {
         var response = await _userService.AddAsync(userDto);
         return Ok(response);
@@ -39,7 +40,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> Login(LoginUserDto loginUserDto)
+    public async Task<ActionResult> Login(UserLoginDto loginUserDto)
     {
         var response = await _userService.LoginAsync(loginUserDto);
         return Ok(response);
@@ -49,7 +50,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<bool>> ChangePassword(UpdateCredentialDto updateCredentialDto)
+    public async Task<ActionResult<bool>> ChangePassword(CredentialUpdateDto updateCredentialDto)
     {
         var response = await _userService.ChangePasswordAsync(updateCredentialDto);
         return Ok(response);

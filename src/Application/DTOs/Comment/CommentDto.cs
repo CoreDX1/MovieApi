@@ -1,3 +1,3 @@
 namespace Application.DTOs.Comment;
 
-public record GetCommentDto(int Id, int MovieId, string Text, DateOnly Date);
+public record CommentDto(int Id, int MovieId, string Text, DateOnly Date);

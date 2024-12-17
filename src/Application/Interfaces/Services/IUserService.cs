@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.Credential;
 using Application.DTOs.User;
 using Domain.Common.ApiResult;
 using Domain.Entities;
@@ -14,5 +15,5 @@ public interface IUserService
 
     public Task<Result<bool>> LoginAsync(UserLoginDto loginUser);
 
-    public Task<Result<bool>> ChangePasswordAsync(UpdateCredentialDto changePassword);
+    public Task<Result<bool>> ChangePasswordAsync(CredentialUpdateDto changePassword);
 }

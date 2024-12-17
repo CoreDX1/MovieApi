@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.Comment;
 using Application.Interfaces;
 using Application.Interfaces.Services;
 using Domain.Common.ApiResult;
@@ -17,38 +18,38 @@ public class CommentService : ICommentService
         _mapper = mapper;
     }
 
-    public async Task<Result<GetCommentDto>> AddAsync(CreateCommentDto comment)
+    public async Task<Result<CommentDto>> AddAsync(CommentCreationDto comment)
     {
         var movie = await _unitOfWork.Comment.Read.FindAsync(comment.MovieId);
 
         if (movie is null)
-            return Result<GetCommentDto>.NotFound();
+            return Result<CommentDto>.NotFound();
 
         var movieDto = _mapper.Map<Comment>(comment);
         await _unitOfWork.Comment.Write.AddAsync(movieDto);
 
-        var commentDto = _mapper.Map<GetCommentDto>(movieDto);
+        var commentDto = _mapper.Map<CommentDto>(movieDto);
 
-        return Result<GetCommentDto>.Created(commentDto);
+        return Result<CommentDto>.Created(commentDto);
     }
 
-    public Task<Result<GetCommentDto>> DeleteAsync(int id)
+    public Task<Result<CommentDto>> DeleteAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Result<List<GetCommentListDto>>> GetAllAsync()
+    public async Task<Result<List<CommentListDto>>> GetAllAsync()
     {
         var comments = await _unitOfWork.Comment.Read.ListAsync();
         if (comments is null)
-            return Result<List<GetCommentListDto>>.NotFound();
+            return Result<List<CommentListDto>>.NotFound();
 
-        var commentsDto = _mapper.Map<List<GetCommentListDto>>(comments);
+        var commentsDto = _mapper.Map<List<CommentListDto>>(comments);
 
-        return Result<List<GetCommentListDto>>.Success(commentsDto);
+        return Result<List<CommentListDto>>.Success(commentsDto);
     }
 
-    public Task<Result<GetCommentDto>> GetByIdAsync(int id)
+    public Task<Result<CommentDto>> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }

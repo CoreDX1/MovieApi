@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.Comment;
 using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,20 +17,20 @@ public class CommentController : Controller
     }
 
     [HttpGet] // GET /api/comment
-    [ProducesResponseType(typeof(IReadOnlyList<GetCommentListDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<CommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetCommentListDto>> GetAll()
+    public async Task<ActionResult<CommentListDto>> GetAll()
     {
         var comments = await _commentService.GetAllAsync();
         return Ok(comments);
     }
 
     [HttpPost] // POST /api/comment
-    [ProducesResponseType(typeof(GetCommentListDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(CommentListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetCommentListDto>> Add(CreateCommentDto comment)
+    public async Task<ActionResult<CommentListDto>> Add(CommentCreationDto comment)
     {
         var commentDto = await _commentService.AddAsync(comment);
         return Ok(commentDto);

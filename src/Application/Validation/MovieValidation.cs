@@ -1,8 +1,9 @@
 using Application.DTOs;
+using Application.DTOs.Movie;
 
 namespace Application.Validation;
 
-public class MovieValidation : AbstractValidator<CreateMovieDto>
+public class MovieValidation : AbstractValidator<MovieCreationDto>
 {
     public MovieValidation()
     {

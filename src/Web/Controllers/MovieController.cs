@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using Application.DTOs;
+using Application.DTOs.Comment;
+using Application.DTOs.Movie;
 using Application.Interfaces.Services;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -18,41 +18,41 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet] // GET /api/movies
-    [ProducesResponseType(typeof(IReadOnlyList<GetMovieListDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<MovieListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetMovieListDto>> GetAll()
+    public async Task<ActionResult<MovieListDto>> GetAll()
     {
         var response = await _moviesServices.GetAllAsync();
         return Ok(response);
     }
 
     [HttpGet("{id}")] // GET /api/movies/1
-    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetMovieListDto>> GetById(int id)
+    public async Task<ActionResult<MovieListDto>> GetById(int id)
     {
         var response = await _moviesServices.GetByIdAsync(id);
         return Ok(response);
     }
 
     [HttpPost] // POST /api/movies
-    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(MovieListDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetMovieListDto>> Add([FromBody] CreateMovieDto movieDto)
+    public async Task<ActionResult<MovieListDto>> Add([FromBody] MovieCreationDto movieDto)
     {
         var response = await _moviesServices.AddAsync(movieDto);
         return Ok(response);
     }
 
     [HttpPost("range")] // POST /api/movies/range
-    [ProducesResponseType(typeof(IEnumerable<GetMovieListDto>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(IEnumerable<MovieListDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<IEnumerable<GetMovieListDto>>> AddRange(
-        IEnumerable<CreateMovieDto> movie
+    public async Task<ActionResult<IEnumerable<MovieListDto>>> AddRange(
+        IEnumerable<MovieCreationDto> movie
     )
     {
         var response = await _moviesServices.AddRangeAsync(movie);
@@ -62,16 +62,16 @@ public class MovieController : ControllerBase
     [HttpDelete("{id}")] // DELETE /api/movies/1
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetMovieListDto>> Delete(int id)
+    public async Task<ActionResult<MovieListDto>> Delete(int id)
     {
         var response = await _moviesServices.DeleteAsync(id);
         return Ok(response);
     }
 
     [HttpGet("comment/{movieCode}")] // GET /api/movies/comment/1
-    [ProducesResponseType(typeof(List<GetCommentListDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<CommentListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<List<GetCommentListDto>>> GetCommentByTitle(
+    public async Task<ActionResult<List<CommentListDto>>> GetCommentByTitle(
         [FromRoute] string movieCode
     )
     {
@@ -80,18 +80,18 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("title/{movieCode}")] // GET /api/movies/title/1
-    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetMovieListDto>> GetByTitle([FromRoute] string movieCode)
+    public async Task<ActionResult<MovieListDto>> GetByTitle([FromRoute] string movieCode)
     {
         var response = await _moviesServices.GetByTitleAsync(movieCode);
         return Ok(response);
     }
 
     [HttpPost("filter")] // POST /api/movies/filter/
-    [ProducesResponseType(typeof(IEnumerable<GetMovieListDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<MovieListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<GetMovieListDto>>> GetFiltered(
+    public async Task<ActionResult<IEnumerable<MovieListDto>>> GetFiltered(
         [FromBody] FilterMovie filter
     )
     {
@@ -100,10 +100,10 @@ public class MovieController : ControllerBase
     }
 
     [HttpPut]
-    [ProducesResponseType(typeof(GetMovieListDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<GetMovieListDto>> Update([FromBody] EditMovieRequestDto movie)
+    public async Task<ActionResult<MovieListDto>> Update([FromBody] MovieUpdateDto movie)
     {
         var response = await _moviesServices.UpdateAsync(movie);
         return Ok(response);

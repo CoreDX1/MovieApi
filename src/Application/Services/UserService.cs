@@ -1,4 +1,5 @@
 using Application.DTOs;
+using Application.DTOs.Credential;
 using Application.DTOs.User;
 using Application.Interfaces;
 using Application.Interfaces.Services;
@@ -100,7 +101,7 @@ public class UserService : IUserService
         return BCrypt.Net.BCrypt.Verify(password, passwordHash);
     }
 
-    public async Task<Result<bool>> ChangePasswordAsync(UpdateCredentialDto changePassword)
+    public async Task<Result<bool>> ChangePasswordAsync(CredentialUpdateDto changePassword)
     {
         var existingUser = await _unitOfWork.User.EmailExistAsync(changePassword.Email);
 

@@ -1,13 +1,13 @@
-using Application.DTOs;
+using Application.DTOs.Comment;
 using Domain.Common.ApiResult;
 
 namespace Application.Interfaces.Services;
 
 public interface ICommentService
 {
-    Task<Result<List<GetCommentListDto>>> GetAllAsync();
-    Task<Result<GetCommentDto>> GetByIdAsync(int id);
+    Task<Result<List<CommentListDto>>> GetAllAsync();
+    Task<Result<CommentDto>> GetByIdAsync(int id);
 
-    Task<Result<GetCommentDto>> AddAsync(CreateCommentDto comment);
-    Task<Result<GetCommentDto>> DeleteAsync(int id);
+    Task<Result<CommentDto>> AddAsync(CommentCreationDto comment);
+    Task<Result<CommentDto>> DeleteAsync(int id);
 }

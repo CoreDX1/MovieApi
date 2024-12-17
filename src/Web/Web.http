@@ -24,3 +24,12 @@ Content-Type: application/json
   "genre": "Aventura, fantasía",
   "image": "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNTIzMi00MjM2LWEwMjktYzI1MjgzNmI4ZjM0XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg"
 }
+
+###
+POST {{Web_HostAddress}}/api/movie/filter/
+Content-Type: application/json
+
+{
+  "title": "id",
+  "orderby": "desc"
+}
