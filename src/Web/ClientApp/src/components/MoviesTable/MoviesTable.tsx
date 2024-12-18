@@ -21,19 +21,17 @@ import { CiTrash } from 'react-icons/ci'
 import { FilterMovie } from '../../services/MovieServices'
 import { EditMovie } from '../Dashboard/EditMovie'
 
-interface state {
-    movies: MovieResponse[]
-}
 
-interface MoviesTableProps {
-    movies: state
-    data: MovieResponse[]
+type ListOfMovies = MovieResponse[]
+
+interface Props {
+    movies: ListOfMovies
     onEdit: (id: number) => Promise<void>
     onDelete: (id: number) => Promise<void>
     onFilter: (filter: FilterMovie) => Promise<void>
 }
 
-export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, onFilter, data}) => {
+export const MoviesTable: FC<Props> = ({ movies, onEdit, onDelete, onFilter}) => {
     const headers = [
         { label: 'Id', sortable: true },
         { label: 'Title', sortable: true },
@@ -115,7 +113,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                             </TableCell>
                         </TableRow>
                     ) : (
-                        movies.movies.map((movie) => (
+                        movies.map((movie) => (
                             <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
                                 <TableCell>{movie.id}</TableCell>
                                 <TableCell>

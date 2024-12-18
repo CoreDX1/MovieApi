@@ -13,6 +13,7 @@ interface State {
     movies: MovieResponse[]
 }
 
+
 const initialState: State = {
     movies: [],
 }
@@ -23,6 +24,7 @@ type ActionType =
     | { type: 'EDIT'; id: number; movie: MovieResponse }
     | { type: 'GET'; movies: MovieResponse[] }
     | { type: 'FILTER'; movies: MovieResponse[] }
+
 
 interface State {
     movies: MovieResponse[]
@@ -143,8 +145,7 @@ export const Movie = () => {
                 </Box>
 
                 <MoviesTable
-                    data={state.movies}
-                    movies={state}
+                    movies={state.movies}
                     onEdit={handleEditMovie}
                     onDelete={handleDeleteMovie}
                     onFilter={handleFilter}
