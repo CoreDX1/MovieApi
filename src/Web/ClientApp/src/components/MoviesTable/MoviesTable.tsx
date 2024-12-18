@@ -21,14 +21,19 @@ import { CiTrash } from 'react-icons/ci'
 import { FilterMovie } from '../../services/MovieServices'
 import { EditMovie } from '../Dashboard/EditMovie'
 
-interface MoviesTableProps {
+interface state {
     movies: MovieResponse[]
-    onEdit: (movieCode: string) => void
+}
+
+interface MoviesTableProps {
+    movies: state
+    data: MovieResponse[]
+    onEdit: (id: number) => Promise<void>
     onDelete: (id: number) => Promise<void>
     onFilter: (filter: FilterMovie) => Promise<void>
 }
 
-export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, onFilter }) => {
+export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, onFilter, data}) => {
     const headers = [
         { label: 'Id', sortable: true },
         { label: 'Title', sortable: true },
@@ -40,17 +45,18 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
 
     const [currentFilter, setCurrentFilter] = useState<FilterMovie>({
         orderBy: 'asc',
-        title: '',
+        name: '',
     })
 
-    const [id, setId] = useState(0)
+    const [Id, setId] = useState(0)
 
     const [progress, setProgress] = useState(false)
-
     const [openEdit, setOpenEdit] = useState(false)
+
     const handleOpenEdit = (id: number) => {
         setOpenEdit(true)
         setId(id)
+        onEdit(id)
     }
 
     const handleCloseEdit = () => setOpenEdit(false)
@@ -65,9 +71,10 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
     }, [progress])
 
     const handleSort = (column: string) => {
-        setProgress(true)
+        // setProgress(true)
+        console.log('Movie Table', currentFilter)
         const newOrderBy = currentFilter.orderBy === 'asc' ? 'desc' : 'asc'
-        const newFilter: FilterMovie = { orderBy: newOrderBy, title: column }
+        const newFilter: FilterMovie = { orderBy: newOrderBy, name: column }
 
         setCurrentFilter(newFilter) // Actualiza el estado interno del filtro
         onFilter(newFilter) // Llama a la función del padre con el filtro actualizado
@@ -108,7 +115,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
                             </TableCell>
                         </TableRow>
                     ) : (
-                        movies?.map((movie) => (
+                        movies.movies.map((movie) => (
                             <TableRow key={movie.id} sx={{ ':hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' } }}>
                                 <TableCell>{movie.id}</TableCell>
                                 <TableCell>
@@ -149,7 +156,7 @@ export const MoviesTable: FC<MoviesTableProps> = ({ movies, onEdit, onDelete, on
             {openEdit && (
                 <Modal open={openEdit} onClose={handleCloseEdit}>
                     <Box id="modal-container">
-                        <EditMovie id={id} />
+                        <EditMovie id={Id} onEdit={onEdit} />
                     </Box>
                 </Modal>
             )}

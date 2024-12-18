@@ -1,21 +1,20 @@
-import { Box, Button, Container, MenuItem, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, TextField, Typography } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
 import { MovieResponse } from '../../interfaces/Movie'
 import { service } from '../../services/Service'
 
 type EditMovieProps = {
     id: number
+    onEdit: (id: number) => Promise<void>
 }
 
-export const EditMovie: FC<EditMovieProps> = ({ id }) => {
-    const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance'] // Ejemplo de géneros
-
-
+export const EditMovie: FC<EditMovieProps> = ({ onEdit, id }) => {
     const [movie, setMovie] = useState<MovieResponse>({} as MovieResponse)
 
     const handleEdit = async (id: number) => {
-        const response = await service.Movie.GetById(id)
-        setMovie(response.data)
+        const { data } = await service.Movie.GetById(id)
+        setMovie(data)
+        onEdit(data.id)
     }
 
     useEffect(() => {
@@ -38,13 +37,13 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                 }}
             >
                 <Typography variant="h6" gutterBottom>
-                    Edit Movie {id}
+                    Edit Movie
                 </Typography>
                 <Box component="form" noValidate autoComplete="off">
                     <TextField
                         label="Title"
                         name="title"
-                        variant="outlined"
+                        variant="standard"
                         value={movie.title}
                         fullWidth
                         margin="normal"
@@ -53,7 +52,7 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                     <TextField
                         label="Synopsis"
                         name="synopsis"
-                        variant="outlined"
+                        variant="standard"
                         value={movie.synopsis}
                         fullWidth
                         margin="normal"
@@ -61,10 +60,10 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                         rows={3}
                     />
                     <TextField
-                        label="Year"
+                        hiddenLabel
                         name="year"
                         type="number"
-                        variant="outlined"
+                        variant="standard"
                         value={movie.year}
                         fullWidth
                         margin="normal"
@@ -75,27 +74,14 @@ export const EditMovie: FC<EditMovieProps> = ({ id }) => {
                         name="duration"
                         type="number"
                         value={movie.duration}
-                        variant="outlined"
+                        variant="standard"
                         fullWidth
                         margin="normal"
                         required
                     />
-                    <TextField
-                        select
-                        label="Género"
-                        name="genre"
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                        value={movie.genre}
-                    >
-                        {genres.map((genre, index) => (
-                            <MenuItem key={index} value={genre}>
-                                {genre}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField label="Image URL" name="image" variant="outlined" fullWidth margin="normal" />
+                    <TextField label="Género" name="genre" variant="standard" fullWidth margin="normal" />
+
+                    <TextField label="Image URL" name="image" variant="standard" fullWidth margin="normal" />
                     <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
                         Add Movie
                     </Button>

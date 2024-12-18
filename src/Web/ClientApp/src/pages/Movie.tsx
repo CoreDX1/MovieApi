@@ -1,29 +1,72 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import { service } from '../services/Service'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import { Add } from '@mui/icons-material'
-import { AddMovie } from '../components/Dashboard/AddMovie'
-import { Result } from '../interfaces/Result'
 import { MovieResponse } from '../interfaces/Movie'
 import { MoviesTable } from '../components/MoviesTable/MoviesTable'
 import { TfiTrash } from 'react-icons/tfi'
 import { FilterMovie } from '../services/MovieServices'
 import { BiSolidMovie } from 'react-icons/bi'
+import { AddMovie } from '../components/Dashboard/AddMovie'
+
+interface State {
+    movies: MovieResponse[]
+}
+
+const initialState: State = {
+    movies: [],
+}
+
+type ActionType =
+    | { type: 'DELETE'; id: number }
+    | { type: 'ADD'; movie: MovieResponse }
+    | { type: 'EDIT'; id: number; movie: MovieResponse }
+    | { type: 'GET'; movies: MovieResponse[] }
+    | { type: 'FILTER'; movies: MovieResponse[] }
+
+interface State {
+    movies: MovieResponse[]
+}
+
+const reducer = (state: State, action: ActionType) => {
+    switch (action.type) {
+        case 'GET':
+            return { ...state, movies: action.movies }
+        case 'DELETE':
+            return { ...state, movies: state.movies.filter((movie) => movie.id !== action.id) }
+        case 'EDIT':
+            return {
+                ...state,
+                movies: state.movies.map((movie) =>
+                    movie.id === action.id ? { ...action.movie, isEdit: true } : movie
+                ),
+            }
+        case 'ADD':
+            return { ...state, movies: [...state.movies, action.movie] }
+        case 'FILTER':
+            return { ...state, movies: action.movies }
+    }
+}
 
 export const Movie = () => {
-    const [movies, setMovies] = useState({} as Result<MovieResponse[]>)
+    const [state, dispatch] = useReducer(reducer, initialState)
 
-    const handleDeleteProduct = async (id: number) => {
-        await service.Movie.Delete(id)
-        setMovies({ ...movies, data: movies.data.filter((movie) => movie.id !== id) })
+    const handleDeleteMovie = async (id: number) => {
+        dispatch({ type: 'DELETE', id: id })
     }
 
     const handleEditMovie = async (id: number) => {
+        const { data } = await service.Movie.GetById(id)
+        dispatch({ type: 'EDIT', id: id, movie: data })
+    }
+
+    const handleAddMovie = async (movie: MovieResponse) => {
+        dispatch({ type: 'ADD', movie: movie })
     }
 
     const getMovies = async () => {
-        const response = await service.Movie.ListAsnync()
-        setMovies(response)
+        const { data } = await service.Movie.ListAsnync()
+        dispatch({ type: 'GET', movies: data })
     }
 
     const [open, setOpen] = useState(false)
@@ -31,8 +74,8 @@ export const Movie = () => {
     const handleClose = () => setOpen(false)
 
     const handleFilter = async (filter: FilterMovie) => {
-        const response = await service.Movie.Filter(filter)
-        setMovies(response)
+        const { data } = await service.Movie.Filter(filter)
+        dispatch({ type: 'FILTER', movies: data })
     }
 
     useEffect(() => {
@@ -77,7 +120,7 @@ export const Movie = () => {
                     {open && (
                         <Modal open={open} onClose={handleClose}>
                             <Box id="modal-container">
-                                <AddMovie movies={movies.data} />
+                                <AddMovie onAdd={handleAddMovie} />
                             </Box>
                         </Modal>
                     )}
@@ -100,9 +143,10 @@ export const Movie = () => {
                 </Box>
 
                 <MoviesTable
-                    movies={movies.data}
-                    onEdit={(id) => console.log('Edit movie', id)}
-                    onDelete={handleDeleteProduct}
+                    data={state.movies}
+                    movies={state}
+                    onEdit={handleEditMovie}
+                    onDelete={handleDeleteMovie}
                     onFilter={handleFilter}
                 />
             </Box>

@@ -4,18 +4,11 @@ import { MovieRequest, MovieResponse } from '../../interfaces/Movie'
 import { service } from '../../services/Service'
 
 interface AddMovieProps {
-    movies: MovieResponse[]
+    onAdd: (movie: MovieResponse) => void
 }
 
-export const AddMovie: FC<AddMovieProps> = ({ movies }) => {
-    const [form, setForm] = useState<MovieRequest>({
-        title: '',
-        synopsis: '',
-        year: 1,
-        duration: 1,
-        genre: '',
-        image: '',
-    })
+export const AddMovie: FC<AddMovieProps> = ({ onAdd }) => {
+    const [form, setForm] = useState({} as MovieRequest)
 
     const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi', 'Romance'] // Ejemplo de géneros
 
@@ -25,8 +18,8 @@ export const AddMovie: FC<AddMovieProps> = ({ movies }) => {
     }
 
     const handleSubmit = async () => {
-        const response = await service.Movie.AddMovie(form)
-        movies.push(response.data)
+        const { data } = await service.Movie.AddMovie(form)
+        onAdd(data)
     }
 
     return (

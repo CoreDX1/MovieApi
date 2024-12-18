@@ -3,7 +3,7 @@ import { Result } from '../interfaces/Result'
 import { MovieRequest, MovieResponse } from '../interfaces/Movie'
 
 export type FilterMovie = {
-    title: string
+    name: string
     orderBy: string
 }
 
