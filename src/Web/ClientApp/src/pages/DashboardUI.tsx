@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Dashboard } from '../components/Dashboard/Dashboard'
 import { Sidebar } from '../components/Sidebar/Sidebar'
-import { Movie } from './Movie'
-import { Settings } from './Settings'
 import { User } from '../components/User/User'
+import Movie from './Movie'
+import Settings from './Settings'
 
 export const DashboardUI = () => {
     const [currentView, setCurrentView] = useState<string>('dashboard')

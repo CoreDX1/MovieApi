@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 export const User = () => {
     const [users, setUsers] = useState<Result<UserResponse[]>>({
-        status: 0,
+        status: 200,
         message: '',
         errors: [],
         validationErrors: [],

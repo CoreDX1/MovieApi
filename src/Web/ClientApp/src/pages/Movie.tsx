@@ -49,7 +49,7 @@ const reducer = (state: State, action: ActionType) => {
     }
 }
 
-export const Movie = () => {
+const Movie = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const handleDeleteMovie = async (id: number) => {
@@ -153,3 +153,5 @@ export const Movie = () => {
         </Box>
     )
 }
+
+export default Movie

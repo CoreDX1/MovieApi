@@ -14,7 +14,7 @@ export class User {
         return await response.json()
     }
 
-    public async UserLogin(user: UserRequest): Promise<UserResponse> {
+    public async UserLogin(user: UserRequest): Promise<Result<UserResponse>> {
         const response = await ky.post(`${this.url}/login`, {
             json: user,
         })

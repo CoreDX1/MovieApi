@@ -5,7 +5,7 @@ import { UserRequest } from '../interfaces/User'
 import { service } from '../services/Service'
 import { useLocation } from 'wouter'
 
-export const SingIn = () => {
+const SingIn = () => {
     const [credentials, setCredentials] = useState<UserRequest>({
         email: '',
         password: '',
@@ -20,8 +20,6 @@ export const SingIn = () => {
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const response = await service.User.UserLogin(credentials)
-
-        console.log(response.errors.length > 0)
 
         if (response.errors.length > 0) {
             setError(true)
@@ -93,3 +91,6 @@ export const SingIn = () => {
         </Container>
     )
 }
+
+
+export default SingIn
