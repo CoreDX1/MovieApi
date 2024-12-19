@@ -1,6 +1,6 @@
 import ky from 'ky'
 import { Result } from '../interfaces/Result'
-import { MovieRequest, MovieResponse } from '../interfaces/Movie'
+import { MovieEditDto, MovieRequest, MovieResponse } from '../interfaces/Movie'
 
 export type FilterMovie = {
     name: string
@@ -39,6 +39,13 @@ export class MovieService {
     public async Filter(filter: FilterMovie): Promise<Result<MovieResponse[]>> {
         const response = await ky.post(`${this.url}/filter`, {
             json: filter,
+        })
+        return await response.json()
+    }
+
+    public async Edit(id: number, movie: MovieEditDto): Promise<Result<MovieResponse>> {
+        const response = await ky.put(`${this.url}/${id}`, {
+            json: movie,
         })
         return await response.json()
     }

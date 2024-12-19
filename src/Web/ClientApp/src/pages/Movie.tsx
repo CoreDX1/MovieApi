@@ -25,7 +25,6 @@ type ActionType =
     | { type: 'GET'; movies: MovieResponse[] }
     | { type: 'FILTER'; movies: MovieResponse[] }
 
-
 interface State {
     movies: MovieResponse[]
 }

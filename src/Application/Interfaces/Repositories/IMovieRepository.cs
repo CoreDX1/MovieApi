@@ -9,5 +9,5 @@ public interface IMovieRepository : IRepository<Movie>
 
     public Task<IEnumerable<Movie>> GetFilteredAsync(FilterMovie filter);
     public Task<IEnumerable<UsuarioWithCommentsDto>> GetAllCommentsByTitleAsync(string movieCode);
-    public Task<Movie> EditAsync(Movie movie);
+    public Task<Movie> EditAsync(int id, Movie movie);
 }

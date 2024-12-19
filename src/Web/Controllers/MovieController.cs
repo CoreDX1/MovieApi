@@ -99,13 +99,16 @@ public class MovieController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPut]
+    [HttpPut("{id}")] // PUT /api/movies/1
     [ProducesResponseType(typeof(MovieListDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<MovieListDto>> Update([FromBody] MovieUpdateDto movie)
+    public async Task<ActionResult<MovieListDto>> Update(
+        [FromRoute] int id,
+        [FromBody] MovieUpdateDto movie
+    )
     {
-        var response = await _moviesServices.UpdateAsync(movie);
+        var response = await _moviesServices.UpdateAsync(id, movie);
         return Ok(response);
     }
 }

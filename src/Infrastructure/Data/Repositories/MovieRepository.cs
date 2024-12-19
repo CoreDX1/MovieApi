@@ -76,10 +76,10 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
         return await query.ToListAsync();
     }
 
-    public async Task<Movie> EditAsync(Movie movie)
+    public async Task<Movie> EditAsync(int id, Movie movie)
     {
         // Obtiene el objeto Movie de la base de datos
-        var movieEntity = await DbContext.Movies.FindAsync(movie.Id);
+        var movieEntity = await DbContext.Movies.FindAsync(id);
 
         if (movieEntity == null)
         {

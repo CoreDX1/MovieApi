@@ -1,4 +1,3 @@
-
 export type MovieRequest = {
     title: string
     synopsis: string
@@ -6,6 +5,13 @@ export type MovieRequest = {
     duration: number
     genre: string
     image: string
+}
+
+export type MovieEditDto = {
+    title: string
+    synopsis: string
+    year: number
+    duration: number
 }
 
 export interface MovieResponse {

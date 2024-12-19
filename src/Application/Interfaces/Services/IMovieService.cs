@@ -18,5 +18,5 @@ public interface IMovieService
 
     Task<Result<IList<MovieListDto>>> GetFilteredAsync(FilterMovie filter);
 
-    Task<Result<MovieDto>> UpdateAsync(MovieUpdateDto movie);
+    Task<Result<MovieDto>> UpdateAsync(int id, MovieUpdateDto movie);
 }

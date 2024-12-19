@@ -128,10 +128,10 @@ public class MovieService : IMovieService
         return Result<MovieDto>.Success();
     }
 
-    public async Task<Result<MovieDto>> UpdateAsync(MovieUpdateDto movie)
+    public async Task<Result<MovieDto>> UpdateAsync(int id, MovieUpdateDto movie)
     {
         var movieEntity = Mapper.Map<Movie>(movie);
-        var moviesId = await UnitOfWork.Movie.EditAsync(movieEntity);
+        var moviesId = await UnitOfWork.Movie.EditAsync(id, movieEntity);
         if (moviesId == null)
             return Result<MovieDto>.NotFound();
 

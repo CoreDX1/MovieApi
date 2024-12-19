@@ -3,7 +3,6 @@ using Domain.Common.Constants;
 
 namespace Domain.Common.ApiResult;
 
-
 public class Result<T> : IResult
 {
     protected Result() { }
@@ -30,7 +29,7 @@ public class Result<T> : IResult
             ValidationErrors = result.ValidationErrors,
         };
 
-    public ResultStatus Status { get; protected set; } = ResultStatus.Ok;
+    public ResultStatus Status { get; protected set; } = ResultStatus.OK;
 
     [JsonInclude]
     public string Message { get; protected set; } = string.Empty;
@@ -59,7 +58,7 @@ public class Result<T> : IResult
     /// </summary>
     /// <returns>Result<T></returns>
     public static Result<T> Success() =>
-        new(ResultStatus.Ok) { Message = ReplyMessage.Success.Query };
+        new(ResultStatus.OK) { Message = ReplyMessage.Success.Query };
 
     // <summary>
     // Representa una operación exitosa con un valor de retorno
@@ -67,13 +66,13 @@ public class Result<T> : IResult
     /// <param name="value">Valor de retorno</param>
     /// <returns>Result<T></returns>
     public static Result<T> Success(T value) =>
-        new(ResultStatus.Ok) { Data = value, Message = ReplyMessage.Success.Query };
+        new(ResultStatus.OK) { Data = value, Message = ReplyMessage.Success.Query };
 
     public static Result<T> Created(T value) =>
-        new(ResultStatus.Created) { Data = value, Message = ReplyMessage.Success.Save };
+        new(ResultStatus.CREATED) { Data = value, Message = ReplyMessage.Success.Save };
 
     public static Result<T> Created(T value, string location) =>
-        new(ResultStatus.Created) { Data = value, Location = location };
+        new(ResultStatus.CREATED) { Data = value, Location = location };
 
     // <summary>
     // Representa un error que ocurre durante la ejecución de una servicio
@@ -81,33 +80,34 @@ public class Result<T> : IResult
     /// <param name="errorMessage">Mensaje de error</param>
     /// <returns>Result<T></returns>
     public static Result<T> Error(string errorMessage) =>
-        new(ResultStatus.Error) { Message = errorMessage };
+        new(ResultStatus.BAD_REQUEST) { Message = errorMessage };
 
     public static Result<T> Error(List<string> errors) =>
-        new(ResultStatus.Error) { Errors = errors, Message = ReplyMessage.Validate.ValidateError };
-
-    public static Result<T> Exist() =>
-        new(ResultStatus.Exists) { Message = ReplyMessage.Error.Exists };
-
-    public static Result<T> NotFound() =>
-        new(ResultStatus.NotFound) { Message = ReplyMessage.Error.NotFound };
-
-    public static Result<T> NotFound(params string[] errorMessages) =>
-        new(ResultStatus.NotFound) { Errors = errorMessages };
-
-    public static Result<T> Invalid(params ValidationError[] validationErrors) =>
-        new(ResultStatus.Invalid)
+        new(ResultStatus.BAD_REQUEST)
         {
-            ValidationErrors = new List<ValidationError>(validationErrors),
+            Errors = errors,
+            Message = ReplyMessage.Validate.ValidateError,
         };
 
+    public static Result<T> Exist() =>
+        new(ResultStatus.CONFLICT) { Message = ReplyMessage.Error.Exists };
+
+    public static Result<T> NotFound() =>
+        new(ResultStatus.NOT_FOUND) { Message = ReplyMessage.Error.NotFound };
+
+    public static Result<T> NotFound(params string[] errorMessages) =>
+        new(ResultStatus.NOT_FOUND) { Errors = errorMessages };
+
+    public static Result<T> Invalid(params ValidationError[] validationErrors) =>
+        new(ResultStatus.UNPROCESSABLE_ENTITY) { ValidationErrors = [.. validationErrors] };
+
     public static Result<T> Invalid(IEnumerable<ValidationError> validationErrors) =>
-        new(ResultStatus.Invalid)
+        new(ResultStatus.UNPROCESSABLE_ENTITY)
         {
             ValidationErrors = new List<ValidationError>(validationErrors),
             Message = ReplyMessage.Validate.ValidateError,
         };
 
-    public static Result<T> Conflict() => new(ResultStatus.Conflict) { Message = ReplyMessage.Error.Exists };
-
+    public static Result<T> Conflict() =>
+        new(ResultStatus.CONFLICT) { Message = ReplyMessage.Error.Exists };
 }
