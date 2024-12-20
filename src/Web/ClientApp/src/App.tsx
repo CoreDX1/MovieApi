@@ -1,11 +1,11 @@
 import { Route } from 'wouter'
-import { SingIn } from './pages/SingIn'
 import { DashboardUI } from './pages/DashboardUI'
+import { SignIn } from './pages/SingIn'
 
 function App() {
     return (
         <>
-            <Route path="/login" component={SingIn} />
+            <Route path="/login" component={SignIn} />
             <Route path="/dashboard" component={DashboardUI} />
         </>
     )

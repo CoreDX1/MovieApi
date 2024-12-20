@@ -21,6 +21,7 @@ export const EditMovie: FC<Props> = ({ onEdit, id }) => {
         genre: '',
         image: '',
     })
+
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     // Función para cargar los datos de la película
@@ -61,7 +62,7 @@ export const EditMovie: FC<Props> = ({ onEdit, id }) => {
     // Manejar cambios en los campos del formulario
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setFormData((prev) => ({
+        setFormData((prev: Form) => ({
             ...prev,
             [name]: name === 'year' || name === 'duration' ? +value : value, // Convertir números si es necesario
         }))
