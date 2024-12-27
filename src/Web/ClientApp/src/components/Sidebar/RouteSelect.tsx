@@ -2,9 +2,10 @@ import { MouseEventHandler } from 'react'
 import { IconType } from 'react-icons'
 import { FiHome } from 'react-icons/fi'
 import { MdMovie, MdSettings } from 'react-icons/md'
+import { View } from '../../pages/DashboardUI'
 
 interface SidebarProps {
-    changeView: (view: string) => void
+    changeView: (view: View) => void
 }
 
 const routes = [
@@ -43,7 +44,7 @@ export const RouteSelect = ({ changeView }: SidebarProps) => {
                         key={index}
                         Icon={route.Icon}
                         selected={route.Selected}
-                        action={() => changeView(route.View)}
+                        action={() => changeView(route.View as View)}
                         title={route.Title}
                     ></Route>
                 )

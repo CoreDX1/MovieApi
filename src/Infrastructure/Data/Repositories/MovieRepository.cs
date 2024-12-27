@@ -44,7 +44,7 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
             .FirstOrDefaultAsync(m => m.MovieCode == movieCode);
     }
 
-    public async Task<IEnumerable<Movie>> GetFilteredAsync(FilterMovie filter)
+    public async Task<PaginatedList<Movie>> GetFilteredAsync(MovieFilterDto filter)
     {
         // Inicia la consulta como IQueryable
         IQueryable<Movie> query = DbContext.Movies;
@@ -72,8 +72,21 @@ public class MovieRepository : Repository<Movie>, IMovieRepository
                 : query.OrderBy(sortKeySelector);
         }
 
+        var totalCount = query.Count();
+        var totalPages = (int)Math.Ceiling((double)totalCount / filter.PageSize);
+        query = query.Skip((filter.Page - 1) * filter.PageSize).Take(filter.PageSize);
+
         // Ejecuta la consulta y obtiene la lista de películas
-        return await query.ToListAsync();
+
+        var result = new PaginatedList<Movie>
+        {
+            Item = await query.ToListAsync(),
+            Page = filter.Page,
+            PageSize = filter.PageSize,
+            TotalPages = totalPages,
+        };
+
+        return result;
     }
 
     public async Task<Movie> EditAsync(int id, Movie movie)

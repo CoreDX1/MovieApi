@@ -2,6 +2,7 @@ using Application.DTOs.Comment;
 using Application.DTOs.Movie;
 using Application.Interfaces.Services;
 using Domain.DTOs;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -92,7 +93,7 @@ public class MovieController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<MovieListDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<MovieListDto>>> GetFiltered(
-        [FromBody] FilterMovie filter
+        [FromBody] MovieFilterDto filter
     )
     {
         var response = await _moviesServices.GetFilteredAsync(filter);

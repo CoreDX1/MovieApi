@@ -18,6 +18,7 @@ public class Mapping : Profile
         CreateMap<Usuario, UsuarioWithCommentsDto>();
         CreateMap<Usuario, UserDto>();
         CreateMap<Usuario, UsuarioCredenciale>();
+        CreateMap(typeof(PaginatedList<>), typeof(PaginatedList<>));
 
         // Request
         CreateMap<CommentCreationDto, Comment>();
@@ -25,5 +26,6 @@ public class Mapping : Profile
         CreateMap<UserCreationDto, Usuario>();
         CreateMap<UserLoginDto, Usuario>();
         CreateMap<MovieUpdateDto, Movie>();
+        CreateMap<MovieFilterDto, Movie>();
     }
 }

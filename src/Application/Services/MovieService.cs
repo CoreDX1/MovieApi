@@ -75,13 +75,12 @@ public class MovieService : IMovieService
         return Result<IList<UsuarioWithCommentsDto>>.Success(commentsDto);
     }
 
-    public async Task<Result<IList<MovieListDto>>> GetFilteredAsync(FilterMovie filter)
+    public async Task<Result<PaginatedList<MovieListDto>>> GetFilteredAsync(MovieFilterDto filter)
     {
         var movies = await UnitOfWork.Movie.GetFilteredAsync(filter);
 
-        var moviesDto = Mapper.Map<List<MovieListDto>>(movies);
-
-        return Result<IList<MovieListDto>>.Success(moviesDto);
+        var moviesDto = Mapper.Map<PaginatedList<MovieListDto>>(movies);
+        return Result<PaginatedList<MovieListDto>>.Success(moviesDto);
     }
 
     public async Task<Result<MovieDto>> AddAsync(MovieCreationDto movie)

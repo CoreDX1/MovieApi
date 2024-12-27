@@ -5,15 +5,17 @@ import { User } from '../components/User/User'
 import Movie from './Movie'
 import Settings from './Settings'
 
+export type View = 'dashboard' | 'movie' | 'user' | 'settings'
+
 export const DashboardUI = () => {
-    const [currentView, setCurrentView] = useState<string>('dashboard')
+    const [currentView, setCurrentView] = useState<View>('dashboard')
     // Función para cambiar la vista
-    const changeView = (view: string) => {
+    const changeView = (view: View) => {
         setCurrentView(view)
     }
 
     // Mapear las vistas al componente correspondiente
-    const views: Record<string, JSX.Element> = {
+    const views: Record<View, JSX.Element> = {
         dashboard: <Dashboard />,
         movie: <Movie />,
         user: <User />,

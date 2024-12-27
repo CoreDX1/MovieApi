@@ -2,9 +2,10 @@ import { AccountToggle } from './AccountToggle'
 import { Search } from './Search'
 import { RouteSelect } from './RouteSelect'
 import { Plan } from './Plan'
+import { View } from '../../pages/DashboardUI'
 
 interface SidebarProps {
-    changeView: (view: string) => void
+    changeView: (view: View) => void
 }
 
 export const Sidebar = ({ changeView }: SidebarProps) => {

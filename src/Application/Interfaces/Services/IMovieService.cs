@@ -1,6 +1,7 @@
 using Application.DTOs.Movie;
 using Domain.Common.ApiResult;
 using Domain.DTOs;
+using Domain.Entities;
 
 namespace Application.Interfaces.Services;
 
@@ -16,7 +17,7 @@ public interface IMovieService
 
     Task<Result<MovieDto>> DeleteAsync(int id);
 
-    Task<Result<IList<MovieListDto>>> GetFilteredAsync(FilterMovie filter);
+    Task<Result<PaginatedList<MovieListDto>>> GetFilteredAsync(MovieFilterDto filter);
 
     Task<Result<MovieDto>> UpdateAsync(int id, MovieUpdateDto movie);
 }
